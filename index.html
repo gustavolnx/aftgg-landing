@@ -30,6 +30,8 @@
 .hero h1 .l span{transform:none !important}
 .doors,.kick-hint,.matchclock,.clockbar{display:none !important}
 .kick{height:auto !important}.kick-stage{position:relative !important}
+.fnd-cta,.fnd-modal{display:none !important}
+.fcard{cursor:default}
 </style></noscript>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"AFT — Auto Farm Tools",
@@ -511,6 +513,131 @@ a{color:inherit;text-decoration:none}
 }
 
 /* confete canvas */
+/* ============================================================
+   FUNDADOR — o drop do beta. Cartas holográficas (ref.: técnica
+   poke-holo de simeydotme: tilt 3D no ponteiro + glare radial +
+   foil com color-dodge; idle shine quando ninguém interage).
+   FUNDADOR = gold rare · VITALÍCIO = icon preta com foil prisma.
+   ============================================================ */
+.beta-ribbon{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:0 0 26px;padding:12px 18px;border:1px solid rgba(0,229,200,.35);border-radius:12px;background:rgba(0,229,200,.06);font-size:14.5px;color:var(--tx-lo)}
+.beta-ribbon b{color:var(--tx)}
+.beta-ribbon .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:fslive 1.6s ease-in-out infinite}
+.btn.gold{background:linear-gradient(100deg,#F7DF8B,#E3B54C 60%,#D9A93C);color:#231803;font-weight:700;border:none}
+.btn.gold:hover{filter:brightness(1.07)}
+
+.fnd-grid{display:flex;gap:38px;justify-content:center;align-items:flex-start;flex-wrap:wrap;margin-top:46px;perspective:1500px}
+.fkit{width:min(330px,90vw);display:flex;flex-direction:column;align-items:center;text-align:center}
+.fkit>h3{margin-top:22px;font-size:21px}
+.fkit .ftag{color:var(--tx-lo);font-size:14.5px;margin-top:4px}
+.fkit ul{list-style:none;margin:14px 0 18px;padding:0;font-size:14.5px;color:var(--tx-lo);width:100%}
+.fkit ul li{padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
+.fkit ul li b{color:var(--tx)}
+.fkit .btn{width:100%;justify-content:center}
+.fkit .ffine{font-size:12px;color:var(--tx-dim);margin-top:10px}
+
+.fcard{position:relative;width:100%;aspect-ratio:1/1.42;border-radius:26px 26px 18px 18px;transform-style:preserve-3d;transition:transform .45s var(--ease);isolation:isolate;overflow:hidden;cursor:pointer;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.fcard .lyr{position:absolute;inset:0;pointer-events:none;border-radius:inherit}
+.fcard .foil{mix-blend-mode:color-dodge;opacity:.34;transition:opacity .4s;
+  background-size:240% 240%,160% 160%;
+  background-position:var(--px,55%) var(--py,45%),center;
+  background-blend-mode:overlay;
+  filter:brightness(.72) contrast(1.55) saturate(1.15)}
+.fcard:hover .foil{opacity:.6}
+.fcard .glare{background:radial-gradient(farthest-corner at var(--mx,50%) var(--my,42%),rgba(255,255,255,.5) 4%,rgba(255,255,255,.1) 32%,transparent 64%);mix-blend-mode:overlay;opacity:0;transition:opacity .35s}
+.fcard:hover .glare{opacity:1}
+@keyframes fndidle{0%{background-position:30% 20%,center}100%{background-position:75% 80%,center}}
+.fcard .foil{animation:fndidle 8s ease-in-out infinite alternate}
+.fcard:hover .foil{animation:none}
+
+.fcard.t-fnd{background:
+  radial-gradient(120% 90% at 50% 0%,rgba(255,248,220,.5),transparent 55%),
+  linear-gradient(168deg,#F7DF8B 0%,#E0B24A 34%,#8F6212 76%,#C9982F 100%)}
+.fcard.t-fnd .foil{background-image:
+  repeating-linear-gradient(115deg,rgba(255,214,120,.55) 0%,rgba(255,248,214,.7) 7%,rgba(196,138,40,.55) 14%,rgba(255,236,170,.7) 21%,rgba(255,214,120,.55) 28%),
+  radial-gradient(farthest-corner at var(--mx,50%) var(--my,42%),rgba(255,255,255,.75) 6%,transparent 60%)}
+.fcard.t-fnd .fc-in{color:#3A2A05}
+.fcard.t-fnd .fc-rule{background:linear-gradient(90deg,transparent,rgba(58,42,5,.55),transparent)}
+
+.fcard.t-vit{background:
+  radial-gradient(130% 90% at 50% 0%,rgba(120,148,255,.14),transparent 55%),
+  linear-gradient(168deg,#272B31 0%,#0B0D10 58%,#161A1F 100%);
+  border:1px solid rgba(255,255,255,.14)}
+.fcard.t-vit .foil{opacity:.2;background-image:
+  repeating-linear-gradient(115deg,rgba(255,119,115,.5) 0%,rgba(255,237,95,.55) 7%,rgba(168,255,95,.55) 14%,rgba(131,255,247,.55) 21%,rgba(120,148,255,.5) 28%,rgba(216,117,255,.55) 35%,rgba(255,119,115,.5) 42%),
+  radial-gradient(farthest-corner at var(--mx,50%) var(--my,42%),rgba(255,255,255,.7) 6%,transparent 60%)}
+.fcard.t-vit .fc-in{color:#EDF3EF}
+.fcard.t-vit .fc-rule{background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent)}
+.fcard.t-fnd:hover .foil{opacity:.55}
+.fcard.t-vit:hover .foil{opacity:.55}
+
+.fc-in{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:24px 20px 18px}
+.fc-ovr{position:absolute;left:20px;top:20px;text-align:center;line-height:1}
+.fc-ovr .c{display:block;font-family:var(--f-num);font-size:40px}
+.fc-ovr .p{display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;margin-top:4px;opacity:.8}
+.fc-ed{position:absolute;right:18px;top:24px;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;writing-mode:vertical-rl;opacity:.75}
+.fc-band{margin-top:52px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.22em;opacity:.85}
+.fc-name{font-family:var(--f-num);font-size:31px;letter-spacing:.02em;margin-top:6px}
+.fc-rule{width:70%;height:1px;margin:14px 0}
+.fc-price{font-family:var(--f-num);font-size:46px;line-height:1}
+.fc-price small{font-size:16px;vertical-align:super}
+.fc-once{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;margin-top:6px;opacity:.85}
+.fc-anchor{font-size:13px;margin-top:12px;opacity:.72}
+.fc-anchor s{opacity:.9}
+.fc-crest{margin:auto 0;font-family:var(--f-num);font-size:64px;letter-spacing:.04em;opacity:.10;transform:skewX(-4deg);user-select:none}
+.fc-stats{display:flex;gap:0;width:100%;justify-content:space-around;font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;opacity:.85;padding-top:12px;border-top:1px solid rgba(0,0,0,.14)}
+.fcard.t-vit .fc-stats{border-top-color:rgba(255,255,255,.14)}
+
+.fnd-score{display:flex;align-items:center;justify-content:center;gap:0;margin:30px auto 0;max-width:660px;border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;font-family:var(--f-mono);font-size:13px;background:rgba(10,14,12,.6)}
+.fnd-score .fs-live{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(255,90,72,.12);color:var(--tx-lo);white-space:nowrap}
+.fnd-score .fs-live i{width:8px;height:8px;border-radius:50%;background:var(--tx-dim);flex:none}
+.fnd-score.live .fs-live{color:#FFD9D4}
+.fnd-score.live .fs-live i{background:var(--red);box-shadow:0 0 10px var(--red);animation:fslive 1.4s ease-in-out infinite}
+@keyframes fslive{50%{opacity:.35}}
+.fnd-score .fs-cell{flex:1;display:flex;align-items:baseline;justify-content:center;gap:8px;padding:12px 10px;border-left:1px solid rgba(255,255,255,.08);color:var(--tx-lo);white-space:nowrap}
+.fnd-score .fs-cell b{font-size:19px;color:var(--gold);font-family:var(--f-num)}
+.fnd-legal{max-width:760px;margin:26px auto 0;font-size:12.5px;color:var(--tx-dim);text-align:center;line-height:1.7}
+.fnd-legal a{text-decoration:underline;text-underline-offset:3px}
+
+.fnd-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+.fnd-modal.open{display:flex}
+.fm-back{position:absolute;inset:0;background:rgba(5,8,7,.8);backdrop-filter:blur(6px)}
+.fm-card{position:relative;width:min(450px,94vw);max-height:92vh;overflow:auto;background:var(--panel);border:1px solid rgba(255,255,255,.13);border-radius:18px;padding:26px 26px 22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.fm-x{position:absolute;right:14px;top:12px;background:none;border:none;color:var(--tx-dim);font-size:22px;cursor:pointer;line-height:1}
+.fm-x:hover{color:var(--tx)}
+.fm-k{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;color:var(--gold)}
+.fm-card h3{font-family:var(--f-num);font-size:22px;margin:8px 0 18px}
+.fm-tiers{display:flex;gap:10px;margin-bottom:18px}
+.fm-tier{flex:1;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:none;color:var(--tx);padding:12px 10px;cursor:pointer;text-align:left;font-family:var(--f-body)}
+.fm-tier b{display:block;font-size:15px}
+.fm-tier span{display:block;font-size:12.5px;color:var(--tx-lo);margin-top:3px}
+.fm-tier em{display:block;font-style:normal;font-family:var(--f-num);font-size:19px;margin-top:7px}
+.fm-tier.sel{border-color:var(--gold);background:rgba(255,197,61,.08)}
+.fm-tier.sel em{color:var(--gold)}
+.fm-lab{display:block;font-size:13.5px;color:var(--tx-lo);margin-bottom:7px}
+.fm-input{width:100%;background:rgba(10,14,12,.7);border:1px solid rgba(255,255,255,.16);border-radius:10px;color:var(--tx);font-size:15.5px;padding:12px 14px;font-family:var(--f-body)}
+.fm-input:focus{outline:none;border-color:var(--teal)}
+.fm-hint{font-size:12.5px;color:var(--tx-dim);margin:8px 0 16px;line-height:1.6}
+.fm-hint a{color:var(--teal);text-decoration:underline;text-underline-offset:2px}
+.fm-err{display:none;font-size:13.5px;color:#FFB4AB;background:rgba(255,90,72,.1);border:1px solid rgba(255,90,72,.35);border-radius:10px;padding:10px 12px;margin-bottom:14px;line-height:1.55}
+.fm-err.on{display:block}
+.fm-go{width:100%;justify-content:center}
+.fm-go[disabled]{opacity:.6;cursor:wait}
+.fm-fine{font-size:11.5px;color:var(--tx-dim);text-align:center;margin-top:12px;line-height:1.6}
+
+.fnd-toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-140%);z-index:210;background:linear-gradient(100deg,#F7DF8B,#E3B54C);color:#231803;font-weight:700;font-size:14.5px;padding:14px 22px;border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.5);max-width:min(560px,92vw);text-align:center;transition:transform .6s var(--spring)}
+.fnd-toast.on{transform:translateX(-50%) translateY(0)}
+
+@media (prefers-reduced-motion: reduce){
+  .fcard .foil{animation:none}
+  .fnd-score.live .fs-live i,.beta-ribbon .dot{animation:none}
+  .fnd-toast{transition:none}
+}
+@media (max-width:720px){
+  .fnd-grid{gap:30px}
+  .fnd-score{flex-direction:column;align-items:stretch}
+  .fnd-score .fs-cell{border-left:none;border-top:1px solid rgba(255,255,255,.08)}
+}
+
 #confetti{position:fixed;inset:0;z-index:150;pointer-events:none;display:none}
 
 footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52px 0 38px;position:relative;z-index:2}
@@ -840,6 +967,7 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
   <p class="sec-k rv">Planos</p>
   <h2 class="rv">Comece grátis. <span class="g">Assine só quando precisar de mais.</span></h2>
   <p class="lead rv">Sem cartão pra começar, sem fidelidade. E passe o mouse nas camisas — cada plano tem o seu nome nas costas.</p>
+  <div class="beta-ribbon rv"><span class="dot" aria-hidden="true"></span><span><b>Durante o beta, tudo isso está destravado e grátis para todo mundo.</b> Estes são os preços de tabela pós-lançamento — dá pra congelar por muito menos logo abaixo. ⤵</span></div>
   <div class="kits">
     <div class="kit rv">
       <div class="kitshirt t-free" data-n="12" data-t="Prata">
@@ -890,7 +1018,7 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         <li>"Dá N×" + "Vale a pena?"</li>
         <li>Conceito, reciclar e limpeza</li>
       </ul>
-      <a class="btn go" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Assinar o Pro</a>
+      <a class="btn go" href="#fundador">No beta: grátis · Congelar preço ↓</a>
     </div>
     <div class="kit rv">
       <div class="kitshirt t-prem" data-n="10" data-t="Ouro">
@@ -915,10 +1043,87 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         <li>Análise do clube + Melhor XI</li>
         <li>Evoluções do clube + Comprar &amp; Evoluir</li>
       </ul>
-      <a class="btn line" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Assinar o Premium</a>
+      <a class="btn line" href="#fundador">No beta: grátis · Congelar preço ↓</a>
     </div>
   </div>
   <p class="kits-note rv">R$13,90/mês é menos do que você economiza em <b>um único dia</b> de DMEs · desinstalou, acabou — <b>nada fica no seu PC.</b></p>
+</section>
+
+<!-- FUNDADOR: o drop do beta -->
+<section class="sec" id="fundador">
+  <span class="secnum" aria-hidden="true">1</span>
+  <p class="sec-k rv">O drop do beta · edição numerada</p>
+  <h2 class="rv">Vista a braçadeira. <span class="g">Time Fundador.</span></h2>
+  <p class="lead rv">Em setembro o Web App do FC 27 abre — e quem assina no beta entra nele com <b>tudo destravado, por um pagamento único</b>. Você recebe o Premium completo <b>hoje, funcionando</b>; o ciclo FC 27 inteiro vai de bônus. Sem mensalidade, sem renovação.</p>
+
+  <div class="fnd-score rv" id="fndScore" aria-live="polite">
+    <span class="fs-live"><i aria-hidden="true"></i>VAGAS·AO·VIVO</span>
+    <span class="fs-cell">FUNDADOR <b id="fsF">200</b><span>/200</span></span>
+    <span class="fs-cell">VITALÍCIO <b id="fsL">50</b><span>/50</span></span>
+  </div>
+
+  <div class="fnd-grid">
+    <div class="fkit rv">
+      <div class="fcard t-fnd" data-fnd="founder" role="button" tabindex="0" aria-label="Garantir o Passe Fundador por 97 reais">
+        <div class="fc-in">
+          <span class="fc-ovr"><span class="c">C</span><span class="p">CAP</span></span>
+          <span class="fc-ed">EDIÇÃO · 200 UNIDADES</span>
+          <span class="fc-band">PASSE DO PRIMEIRO DIA</span>
+          <span class="fc-name">FUNDADOR</span>
+          <span class="fc-rule" aria-hidden="true"></span>
+          <span class="fc-price"><small>R$</small>97</span>
+          <span class="fc-once">PAGAMENTO ÚNICO</span>
+          <span class="fc-anchor">depois do lançamento: <s>R$199/ano</s></span>
+          <span class="fc-crest" aria-hidden="true">AFT</span>
+          <span class="fc-stats"><span>PREMIUM HOJE</span><span>+ CICLO FC 27</span><span>7D CDC</span></span>
+        </div>
+        <span class="lyr foil" aria-hidden="true"></span>
+        <span class="lyr glare" aria-hidden="true"></span>
+      </div>
+      <h3>Passe Fundador</h3>
+      <p class="ftag">Premium inteiro agora — e o ano do FC 27 já pago.</p>
+      <ul>
+        <li><b>Premium completo hoje</b>, na hora da confirmação</li>
+        <li><b>Todo o ciclo FC 27</b> incluído — nada a pagar no lançamento</li>
+        <li>Lote, rotinas, packs, análise, evoluções: <b>tudo</b></li>
+        <li>Pix ou cartão, direto no caixa da Asaas</li>
+      </ul>
+      <button class="btn gold fnd-cta" data-fnd="founder">Garantir minha vaga — R$97</button>
+      <noscript><p class="ffine">Para contratar sem JavaScript: gustavolnx.dev@gmail.com</p></noscript>
+      <p class="ffine">1 de 200 · o contador acima é real, não marketing</p>
+    </div>
+    <div class="fkit rv">
+      <div class="fcard t-vit" data-fnd="lifetime" role="button" tabindex="0" aria-label="Garantir o Passe Vitalício por 297 reais">
+        <div class="fc-in">
+          <span class="fc-ovr"><span class="c">∞</span><span class="p">CAP</span></span>
+          <span class="fc-ed">EDIÇÃO · 50 UNIDADES</span>
+          <span class="fc-band">UMA VEZ NA VIDA</span>
+          <span class="fc-name">VITALÍCIO</span>
+          <span class="fc-rule" aria-hidden="true"></span>
+          <span class="fc-price"><small>R$</small>297</span>
+          <span class="fc-once">PAGAMENTO ÚNICO</span>
+          <span class="fc-anchor">equivale a <s>1 ano e meio</s> do Premium — pra sempre</span>
+          <span class="fc-crest" aria-hidden="true">AFT</span>
+          <span class="fc-stats"><span>PREMIUM HOJE</span><span>PARA SEMPRE</span><span>7D CDC</span></span>
+        </div>
+        <span class="lyr foil" aria-hidden="true"></span>
+        <span class="lyr glare" aria-hidden="true"></span>
+      </div>
+      <h3>Passe Vitalício</h3>
+      <p class="ftag">Nunca mais pense em plano. FC 27, 28, 29…</p>
+      <ul>
+        <li><b>Premium completo hoje</b>, na hora da confirmação</li>
+        <li><b>Para sempre</b> — todos os ciclos futuros do AFT</li>
+        <li>Todas as features novas, sem custo extra, <b>sempre</b></li>
+        <li>Só 50 passes existem. Acabou, acabou</li>
+      </ul>
+      <button class="btn line fnd-cta" data-fnd="lifetime">Quero o vitalício — R$297</button>
+      <noscript><p class="ffine">Para contratar sem JavaScript: gustavolnx.dev@gmail.com</p></noscript>
+      <p class="ffine">1 de 50 · existe para quem não quer olhar preço nunca mais</p>
+    </div>
+  </div>
+
+  <p class="fnd-legal rv">Você recebe o Premium <b>funcionando hoje</b> — a extensão ao ciclo FC 27 é bônus sobre o produto já entregue, não uma pré-venda. 7 dias de arrependimento com devolução integral (art. 49 do CDC). O AFT depende do Web App da EA — leia os <a href="termos/">Termos de Uso</a> antes de comprar.</p>
 </section>
 
 <!-- FAQ -->
@@ -931,6 +1136,8 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
     <div class="fq"><button>Funciona no meu navegador?</button><div class="a"><p>Chrome, Edge e Firefox (Manifest V3). Se o FUT Web App abre, o AFT abre junto.</p></div></div>
     <div class="fq"><button>O plano grátis serve mesmo?</button><div class="a"><p>Serve: solver até 30 DMEs/dia, preenchimento por template ilimitado e o explorador de evoluções completo. Sem cartão, não expira — você só assina quando os 30/dia ficarem pequenos.</p></div></div>
     <div class="fq"><button>E quando a EA muda o Web App?</button><div class="a"><p>A gente acompanha e atualiza — as atualizações chegam sozinhas, sem reinstalar nada.</p></div></div>
+    <div class="fq"><button>O que o Passe Fundador me dá, exatamente?</button><div class="a"><p>O Premium completo, ativo na hora em que o pagamento confirma — não é pré-venda, é o produto funcionando hoje. O bônus: quando o ciclo do FC 27 começar e os planos mensais entrarem em vigor, você não paga nada até o fim daquele ciclo (Vitalício: nunca mais). E vale o CDC: 7 dias de arrependimento com devolução integral.</p></div></div>
+    <div class="fq"><button>Paguei o passe. Como ativo?</button><div class="a"><p>Não precisa ativar nada. O passe é vinculado ao e-mail da sua conta AFT no momento da compra — assim que o pagamento confirma (Pix: na hora; cartão: minutos), o Premium acende sozinho na extensão. Se algo não acender, fala com a gente: gustavolnx.dev@gmail.com.</p></div></div>
   </div>
 </section>
 
@@ -955,6 +1162,27 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
     <p class="fine">Grátis para começar · sem cartão · roda no seu PC · cancele quando quiser</p>
   </div>
 </section>
+
+<!-- FUNDADOR: ficha de inscrição (modal) + toast de retorno do caixa -->
+<div class="fnd-modal" id="fndModal" role="dialog" aria-modal="true" aria-labelledby="fmTitle" hidden>
+  <div class="fm-back" data-fm-close></div>
+  <div class="fm-card">
+    <button class="fm-x" type="button" data-fm-close aria-label="Fechar">×</button>
+    <p class="fm-k">FICHA DE INSCRIÇÃO · TEMPORADA BETA</p>
+    <h3 id="fmTitle">Entrar para o Time Fundador</h3>
+    <div class="fm-tiers">
+      <button class="fm-tier" type="button" data-fm-tier="founder"><b>Fundador</b><span>Premium + ciclo FC 27</span><em>R$97</em></button>
+      <button class="fm-tier" type="button" data-fm-tier="lifetime"><b>Vitalício</b><span>Premium para sempre</span><em>R$297</em></button>
+    </div>
+    <label class="fm-lab" for="fmEmail">E-mail da sua conta AFT</label>
+    <input class="fm-input" id="fmEmail" type="email" autocomplete="email" placeholder="voce@exemplo.com" />
+    <p class="fm-hint">É o mesmo e-mail com que você entra na extensão — o passe acende nele sozinho. Ainda não tem conta? <a href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Instale pelo beta</a> e crie grátis primeiro (leva 2 minutos).</p>
+    <div class="fm-err" id="fmErr" role="alert"></div>
+    <button class="btn gold fm-go" id="fmGo" type="button">Ir para o pagamento seguro →</button>
+    <p class="fm-fine">Caixa hospedado da <b>Asaas</b> · Pix ou cartão · seus dados de pagamento nunca passam por nós · 7 dias de arrependimento (CDC)</p>
+  </div>
+</div>
+<div class="fnd-toast" id="fndToast" role="status"></div>
 
 <canvas id="confetti" aria-hidden="true"></canvas>
 
@@ -1218,6 +1446,158 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
       }
       requestAnimationFrame(frame);
     });
+  })();
+
+  /* ---------- fundador: cartas holo + vagas ao vivo + contratação ---------- */
+  (function(){
+    var API='https://alaabdtwlmsxrbmwswim.supabase.co/functions/v1/checkout-founder';
+
+    /* tilt 3D + foil/glare no ponteiro (ref. poke-holo) */
+    if(FINE){
+      document.addEventListener('pointermove',function(e){
+        var c=e.target.closest?e.target.closest('.fcard'):null;
+        if(!c)return;
+        var r=c.getBoundingClientRect();
+        var px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+        c.style.setProperty('--mx',(px*100).toFixed(1)+'%');
+        c.style.setProperty('--my',(py*100).toFixed(1)+'%');
+        c.style.setProperty('--px',(50+(px-0.5)*-46).toFixed(1)+'%');
+        c.style.setProperty('--py',(50+(py-0.5)*-46).toFixed(1)+'%');
+        if(!RM)c.style.transform='rotateY('+((px-0.5)*14).toFixed(2)+'deg) rotateX('+((0.5-py)*10).toFixed(2)+'deg)';
+      },{passive:true});
+      document.addEventListener('pointerout',function(e){
+        var c=e.target.closest?e.target.closest('.fcard'):null;
+        if(c)c.style.transform='';
+      },{passive:true});
+    }
+
+    /* vagas ao vivo — o placar só ganha o "AO VIVO" se o backend responder */
+    var fsF=document.getElementById('fsF'),fsL=document.getElementById('fsL'),
+        score=document.getElementById('fndScore');
+    if(score){
+      try{
+        fetch(API,{method:'GET'}).then(function(r){return r.ok?r.json():null})
+          .then(function(d){
+            if(!d||!d.founder)return;
+            fsF.textContent=d.founder.left;
+            fsL.textContent=d.lifetime.left;
+            score.classList.add('live');
+            var f=document.querySelector('.fcard.t-fnd .fc-ed');
+            if(f&&d.founder.left<d.founder.total)f.textContent='RESTAM '+d.founder.left+' DE 200';
+            var v=document.querySelector('.fcard.t-vit .fc-ed');
+            if(v&&d.lifetime.left<d.lifetime.total)v.textContent='RESTAM '+d.lifetime.left+' DE 50';
+          }).catch(function(){});
+      }catch(e){}
+    }
+
+    /* modal de inscrição */
+    var modal=document.getElementById('fndModal');
+    if(!modal)return;
+    var tier='founder',busy=false;
+    var email=document.getElementById('fmEmail'),err=document.getElementById('fmErr'),
+        go=document.getElementById('fmGo');
+    var tiers=modal.querySelectorAll('.fm-tier');
+    function pick(t){
+      tier=t;
+      tiers.forEach(function(b){b.classList.toggle('sel',b.getAttribute('data-fm-tier')===t)});
+      go.textContent=t==='lifetime'?'Ir para o pagamento seguro → R$297':'Ir para o pagamento seguro → R$97';
+    }
+    tiers.forEach(function(b){b.addEventListener('click',function(){pick(b.getAttribute('data-fm-tier'))})});
+    function open(t){
+      pick(t||'founder');
+      err.classList.remove('on');
+      modal.hidden=false;modal.classList.add('open');
+      document.body.style.overflow='hidden';
+      setTimeout(function(){email.focus()},60);
+    }
+    function close(){
+      modal.classList.remove('open');modal.hidden=true;
+      document.body.style.overflow='';
+    }
+    document.addEventListener('click',function(e){
+      var t=e.target.closest?e.target.closest('[data-fnd]'):null;
+      if(t){open(t.getAttribute('data-fnd'));return}
+      if(e.target.closest&&e.target.closest('[data-fm-close]'))close();
+    });
+    document.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&modal.classList.contains('open'))close();
+      if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('fcard')){
+        e.preventDefault();open(e.target.getAttribute('data-fnd'));
+      }
+    });
+    var MSG={
+      account_not_found:'Não achamos uma conta AFT com esse e-mail. O passe precisa de uma conta pra acender — instale a extensão pelo beta (link acima), crie a conta grátis e volte aqui. Leva 2 minutos.',
+      sold_out:'Esgotou. 😔 As vagas dessa edição acabaram — entre no Discord pra saber se abre outra janela.',
+      already_owned:'Esse passe já está ativo nessa conta. 🎉 Nada a pagar — bom jogo!',
+      invalid_email:'Confere esse e-mail? Ele não parece válido.',
+      generic:'Deu ruim aqui do nosso lado. Tenta de novo em instantes — se persistir: gustavolnx.dev@gmail.com'
+    };
+    function fail(code){
+      err.textContent=MSG[code]||MSG.generic;
+      err.classList.add('on');
+    }
+    go.addEventListener('click',function(){
+      if(busy)return;
+      var v=(email.value||'').trim();
+      err.classList.remove('on');
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){fail('invalid_email');email.focus();return}
+      busy=true;go.disabled=true;
+      var label=go.textContent;go.textContent='Abrindo o caixa… ⏱';
+      fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({tier:tier,email:v})})
+        .then(function(r){return r.json().then(function(d){return{s:r.status,d:d}})})
+        .then(function(x){
+          if(x.s===200&&x.d&&x.d.init_point){location.href=x.d.init_point;return}
+          fail(x.d&&x.d.error?x.d.error:'generic');
+          busy=false;go.disabled=false;go.textContent=label;
+        })
+        .catch(function(){
+          fail('generic');
+          busy=false;go.disabled=false;go.textContent=label;
+        });
+    });
+    email.addEventListener('keydown',function(e){if(e.key==='Enter')go.click()});
+
+    /* retorno do caixa: ?fundador=confirmado */
+    if(location.search.indexOf('fundador=confirmado')>=0){
+      var toast=document.getElementById('fndToast');
+      if(toast){
+        toast.innerHTML='✓ BEM-VINDO AO TIME FUNDADOR — assim que o pagamento compensar (Pix: na hora · cartão: minutos), o Premium acende sozinho na sua conta.';
+        setTimeout(function(){toast.classList.add('on')},400);
+        setTimeout(function(){toast.classList.remove('on')},12000);
+      }
+      try{history.replaceState(null,'',location.pathname+'#fundador')}catch(e){}
+      if(!RM){
+        var cv=document.getElementById('confetti');
+        if(cv){
+          var ctx=cv.getContext('2d');
+          cv.width=innerWidth;cv.height=innerHeight;cv.style.display='block';
+          var COLORS=['#F7DF8B','#E3B54C','#FFC53D','#FFFFFF','#C9982F'];
+          var P=[];
+          for(var i=0;i<160;i++){
+            var a=(-Math.PI/2)+(Math.random()-0.5)*2.2,v0=6+Math.random()*10;
+            P.push({x:innerWidth/2,y:innerHeight*0.22,vx:Math.cos(a)*v0,vy:Math.sin(a)*v0,
+              s:4+Math.random()*5,c:COLORS[(Math.random()*COLORS.length)|0],
+              rot:Math.random()*Math.PI,vr:(Math.random()-0.5)*0.3,life:1});
+          }
+          (function frame(){
+            var done=true;
+            ctx.clearRect(0,0,cv.width,cv.height);
+            P.forEach(function(p){
+              p.vy+=0.3;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;p.life-=0.01;
+              if(p.life<=0)return;
+              done=false;
+              ctx.save();ctx.globalAlpha=Math.max(0,p.life);
+              ctx.translate(p.x,p.y);ctx.rotate(p.rot);
+              ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.62);
+              ctx.restore();
+            });
+            if(!done)requestAnimationFrame(frame);
+            else cv.style.display='none';
+          })();
+        }
+      }
+    }
   })();
 
   /* ---------- reveals ---------- */
