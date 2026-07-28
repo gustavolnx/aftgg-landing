@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AFT — Auto Farm Tools | Resolva qualquer DME do FC 26 em segundos</title>
+<meta name="description" content="O AFT lê o seu clube, calcula o elenco mais barato que cumpre qualquer DME do EA FC 26 e preenche as 11 posições em ~2 segundos. Preço real em cada carta, evoluções testadas no jogo e automação com kill-switch. Grátis para começar, sem cartão." />
+<link rel="canonical" href="https://aftgg.com/" />
+<meta property="og:site_name" content="AFT — Auto Farm Tools" />
+<meta property="og:title" content="AFT — Resolva qualquer DME do FC 26 em ~2 segundos, pelas cartas mais baratas" />
+<meta property="og:description" content="A ferramenta que lê o seu clube, calcula o elenco mais barato que cumpre o DME e preenche as 11 posições sozinha. 100% no seu PC — sua conta EA nunca sai da sua máquina. Grátis para começar." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://aftgg.com/" />
+<meta property="og:image" content="https://aftgg.com/assets/screenshots/02-dme-resolvido-depois.jpeg" />
+<meta property="og:image:alt" content="Solver do AFT com um DME do FC 26 resolvido: 11 posições preenchidas e requisitos atendidos" />
+<meta property="og:locale" content="pt_BR" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AFT — Resolva qualquer DME do FC 26 em ~2 segundos" />
+<meta name="twitter:description" content="O solver que acha o elenco mais barato, mostra o preço real de cada carta e automatiza seus DMEs — 100% no seu PC. Grátis para começar." />
+<meta name="twitter:image" content="https://aftgg.com/assets/screenshots/02-dme-resolvido-depois.jpeg" />
+<meta name="theme-color" content="#0E1211" />
+<link rel="icon" type="image/png" href="assets/favicon-48.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Chivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Chivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" /></noscript>
+<link rel="preload" as="image" href="assets/kick/player.svg" />
+<noscript><style>
+.rv,.starter,.hero-sub,.hero-ctas,.hero-fine,.kchip,.payoff,.ka-enter,.ka-ball,.ka-chip{opacity:1 !important;transform:none !important}
+.hero h1 .l span{transform:none !important}
+.doors,.kick-hint,.matchclock,.clockbar{display:none !important}
+.kick{height:auto !important}.kick-stage{position:relative !important}
+</style></noscript>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"AFT — Auto Farm Tools",
+"applicationCategory":"BrowserApplication","operatingSystem":"Chrome, Edge, Firefox",
+"description":"Extensão de navegador que resolve DMEs (SBCs) do EA FC 26 no FUT Web App: calcula o elenco mais barato que cumpre os requisitos e preenche as 11 posições em segundos.",
+"offers":{"@type":"Offer","price":"0","priceCurrency":"BRL","description":"Plano grátis: solver até 30 DMEs/dia"},
+"url":"https://aftgg.com/","inLanguage":"pt-BR"}
+</script>
+<style>
+/* ============================================================
+   AFT · CONCEITO 04 — "A ESCALAÇÃO" (v2 — game changer)
+   Universo: vestiário + súmula + túnel. Portas que se abrem,
+   cronômetro de partida no scroll, camisas 3D com flip,
+   campo tático 3D sticky sincronizado com a súmula,
+   telões com tilt, túnel em perspectiva real, confete.
+   ============================================================ */
+:root{
+  --room:#0E1211; --room2:#131816; --panel:#1A211E; --panel2:#202824;
+  --wood:#2E2620; --hanger:#8C8C94;
+  --tx:#EDF3EF; --tx-lo:#A2B2A8; --tx-dim:#657268;
+  --teal:#00E5C8; --green:#36E25A; --gold:#FFC53D; --red:#FF5A48;
+  --grad:linear-gradient(100deg,#00E5C8,#36E25A);
+  --f-num:'Archivo Black',sans-serif;
+  --f-body:'Chivo',sans-serif;
+  --f-mono:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --spring:cubic-bezier(.2,1.6,.35,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--room);color:var(--tx);font-family:var(--f-body);font-size:16.5px;line-height:1.65;overflow-x:hidden}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:rgba(54,226,90,.35)}
+
+/* cursor: bola de futebol (desktop) */
+@media (pointer:fine){
+  body{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 22 22'%3E%3Ccircle cx='11' cy='11' r='9.5' fill='%23EDF3EF' stroke='%230E1211' stroke-width='1.6'/%3E%3Cpath d='M11 6.5 l3.2 2.3-1.2 3.8H9l-1.2-3.8z' fill='%230E1211'/%3E%3Cpath d='M11 1.5v5M4 4.8l3.8 4M18 4.8l-3.8 4M2.6 14l4.4-1.4M19.4 14 15 12.6M7.6 20.2 9 16.6M14.4 20.2 13 16.6' stroke='%230E1211' stroke-width='1.1' fill='none'/%3E%3C/svg%3E") 11 11, auto}
+  a,button,.fq button{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%2336E25A' stroke='%2304240F' stroke-width='1.8'/%3E%3Cpath d='M12 7 l3.4 2.5-1.3 4H9.9l-1.3-4z' fill='%2304240F'/%3E%3C/svg%3E") 12 12, pointer}
+}
+
+/* ============ PRELOADER: portas do vestiário ============ */
+.doors{position:fixed;inset:0;z-index:200;display:flex;pointer-events:none}
+.door{flex:1;position:relative;background:linear-gradient(180deg,#151A18,#0C100F);border-right:1px solid rgba(255,255,255,.06);
+  transition:transform 1s var(--ease)}
+.door.r{border-right:none;border-left:1px solid rgba(255,255,255,.06)}
+.door::before{content:'';position:absolute;inset:0;opacity:.5;
+  background:repeating-linear-gradient(90deg,transparent 0 90px,rgba(255,255,255,.03) 90px 92px)}
+.door::after{content:'';position:absolute;top:50%;width:9px;height:110px;border-radius:99px;background:#3A443F;transform:translateY(-50%);
+  box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.door.l::after{right:26px}
+.door.r::after{left:26px}
+.doors.open .door.l{transform:translateX(-101%)}
+.doors.open .door.r{transform:translateX(101%)}
+.doors-sign{position:absolute;z-index:2;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;transition:opacity .4s}
+.doors.open .doors-sign{opacity:0}
+.doors-sign .plate{font-family:var(--f-mono);font-size:11px;letter-spacing:.5em;color:var(--tx-dim);text-transform:uppercase}
+.doors-sign .big{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(30px,5.6vw,64px);letter-spacing:.02em;margin-top:12px}
+.doors-sign .big .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.doors-sign .stamp{display:inline-block;margin-top:20px;font-family:var(--f-num);font-size:14px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--green);border:3px solid var(--green);border-radius:10px;padding:8px 20px;transform:rotate(-6deg) scale(0);
+  animation:stampIn .5s .45s var(--spring) forwards}
+@keyframes stampIn{to{transform:rotate(-6deg) scale(1)}}
+
+/* ============ CRONÔMETRO DE PARTIDA (scroll) ============ */
+.matchclock{position:fixed;right:18px;bottom:18px;z-index:90;display:flex;align-items:center;gap:10px;
+  background:rgba(14,18,17,.9);border:1px solid rgba(54,226,90,.35);border-radius:12px;padding:10px 16px;
+  backdrop-filter:blur(8px);box-shadow:0 14px 40px rgba(0,0,0,.5);pointer-events:none}
+.matchclock .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:mblink 1.6s infinite}
+@keyframes mblink{50%{opacity:.25}}
+.matchclock .t{font-family:var(--f-mono);font-weight:700;font-size:16px;color:var(--green);min-width:44px;text-align:right}
+.matchclock .l{font-family:var(--f-mono);font-size:9px;letter-spacing:.2em;color:var(--tx-dim);text-transform:uppercase}
+.clockbar{position:fixed;top:0;left:0;right:0;height:3px;z-index:95;background:rgba(255,255,255,.06)}
+.clockbar i{display:block;height:100%;width:0;background:var(--grad);box-shadow:0 0 12px rgba(54,226,90,.6)}
+
+/* ============ ambiente do vestiário ============ */
+.tiles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.35;
+  background:linear-gradient(rgba(255,255,255,.028) 1.5px,transparent 1.5px),linear-gradient(90deg,rgba(255,255,255,.028) 1.5px,transparent 1.5px);
+  background-size:110px 110px;
+  mask-image:linear-gradient(180deg,#000 40%,transparent 95%)}
+.roomlight{position:fixed;left:50%;top:-10%;transform:translateX(-50%);width:130%;height:60%;z-index:0;pointer-events:none;opacity:.6;
+  background:radial-gradient(46% 60% at 50% 0%,rgba(214,255,228,.10),transparent 70%)}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,44px);position:relative;z-index:2}
+
+/* ---- nav ---- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:80;transition:.4s}
+.nav.sc{background:rgba(14,18,17,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.1)}
+.nav-inner{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(20px,4vw,44px)}
+.brand{display:flex;align-items:center;gap:11px}
+.brand img{width:32px;height:32px;border-radius:8px}
+.brand .t{font-family:var(--f-num);font-size:17px;letter-spacing:.04em}
+.brand .s{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.28em;color:var(--tx-dim);display:block;text-transform:uppercase;margin-top:-2px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--f-num);letter-spacing:.05em;
+  text-transform:uppercase;font-size:14px;padding:14px 28px;border-radius:10px;transition:.3s var(--ease);cursor:pointer;position:relative;overflow:hidden}
+.btn.go{background:var(--grad);color:#04240F}
+.btn.go::after{content:'';position:absolute;inset:0;transform:translateX(-160%) skewX(-18deg);
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%)}
+.btn.go:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(54,226,90,.35)}
+.btn.go:hover::after{transition:transform .7s ease;transform:translateX(160%) skewX(-18deg)}
+.btn.line{border:1.5px solid rgba(237,243,239,.3);color:var(--tx)}
+.btn.line:hover{border-color:var(--green);color:var(--green)}
+.btn.sm{font-size:12px;padding:10px 18px}
+
+/* ============ HERO: o vestiário 3D ============ */
+.hero{position:relative;min-height:100vh;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,64px);
+  align-items:center;padding:130px 0 60px}
+/* poeira de luz */
+.dust{position:absolute;inset:0;pointer-events:none;z-index:0}
+.dust i{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(214,255,228,.5);opacity:0;
+  left:var(--x);top:var(--y);animation:dfloat var(--t,10s) ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes dfloat{0%,100%{transform:translateY(0);opacity:0}20%,80%{opacity:.5}50%{transform:translateY(-46px)}}
+.tag-pre{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--gold);border:1px solid rgba(255,197,61,.35);border-radius:6px;padding:8px 16px;background:rgba(255,197,61,.05)}
+.hero h1{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(28px,3.5vw,52px);line-height:1.06;margin-top:24px;letter-spacing:.01em}
+.hero h1 .l{display:block;overflow:hidden;padding-top:.1em;margin-top:-.1em;white-space:nowrap}
+.hero h1 .l span{display:inline-block;transform:translateY(112%);animation:lineUp .9s var(--ease) forwards;animation-delay:var(--ld,1.1s)}
+@keyframes lineUp{to{transform:none}}
+.hero h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{margin-top:18px;color:var(--tx-lo);max-width:520px;font-size:17px;opacity:0;animation:fadeUp .8s 1.5s var(--ease) forwards}
+.hero-sub b{color:var(--tx)}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px;opacity:0;animation:fadeUp .8s 1.65s var(--ease) forwards}
+.hero-fine{margin-top:14px;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.12em;color:var(--tx-dim);text-transform:uppercase;
+  opacity:0;animation:fadeUp .8s 1.8s var(--ease) forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* keyart estilo capa de jogo (referência: covers EA FC / heros esportivos) */
+.hero h1{transform:skewX(-4deg)}
+.keyart{position:relative;perspective:1000px}
+.ka-inner{position:relative;aspect-ratio:1/.92;transform-style:preserve-3d;transition:transform .25s ease-out}
+.ka-ghost{position:absolute;left:50%;top:-4%;transform:translateX(-50%) skewX(-6deg);z-index:0;
+  font-family:var(--f-num);font-size:clamp(130px,17vw,240px);line-height:1;letter-spacing:-.02em;
+  color:transparent;-webkit-text-stroke:2px rgba(233,243,236,.09);user-select:none}
+.ka-ring{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);width:92%;aspect-ratio:1;border-radius:50%;z-index:1;
+  background:conic-gradient(from 200deg,transparent 30deg,rgba(0,229,200,.75) 130deg,rgba(54,226,90,.75) 210deg,transparent 300deg);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 2.5px));
+  mask:radial-gradient(farthest-side,transparent calc(100% - 3.5px),#000 calc(100% - 2.5px));
+  animation:kaspin 16s linear infinite;opacity:.85}
+@keyframes kaspin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.ka-glow,.ka-player{position:absolute;inset:10% 0 4% 0;z-index:2;
+  -webkit-mask:url("assets/kick/player.svg") center/contain no-repeat;
+  mask:url("assets/kick/player.svg") center/contain no-repeat}
+.ka-player{background:linear-gradient(115deg,#00E5C8 0%,#25E393 42%,#36E25A 68%,#C9F7D6 100%)}
+.ka-glow{background:#2FE07A;filter:blur(44px);opacity:.38;transform:scale(1.04)}
+.ka-enter{animation:kaIn 1s .35s var(--ease) both}
+@keyframes kaIn{from{opacity:0;transform:translateX(-46px) scale(.96)}to{opacity:1;transform:none}}
+.ka-ball{position:absolute;right:-3%;top:20%;width:clamp(64px,7.2vw,100px);z-index:3;
+  filter:drop-shadow(0 0 34px rgba(54,226,90,.55));animation:kaIn 1s .8s var(--ease) both,kaball 4.5s 1.4s ease-in-out infinite}
+.ka-ball img{width:100%;display:block}
+@keyframes kaball{0%,100%{translate:0 0}50%{translate:0 -14px}}
+.ka-chip{position:absolute;z-index:4;display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:11.5px;
+  color:var(--tx-lo);background:rgba(14,18,17,.92);border:1px solid rgba(54,226,90,.35);border-radius:10px;padding:9px 14px;
+  box-shadow:0 16px 40px rgba(0,0,0,.5);backdrop-filter:blur(6px);white-space:nowrap;
+  animation:kaIn .8s var(--ease) both,bob 6s ease-in-out infinite}
+.ka-chip b{color:var(--green)}
+.ka-chip.k1{left:-3%;top:16%;animation-delay:1s,1.8s}
+.ka-chip.k2{left:-6%;bottom:18%;animation-delay:1.15s,2.4s;animation-duration:.8s,7s}
+.ka-chip.k3{right:-4%;bottom:6%;animation-delay:1.3s,3s;animation-duration:.8s,6.5s}
+@keyframes bob{0%,100%{translate:0 0}50%{translate:0 -9px}}
+.ka-note{margin-top:18px;text-align:center;font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;color:var(--tx-dim);text-transform:uppercase}
+.ka-note b{color:var(--green)}
+
+/* ============ A CENA DO CHUTE (scroll-driven) ============ */
+.kick{position:relative;height:280vh;background:linear-gradient(180deg,var(--room) 0%,#070A09 14%,#070A09 100%)}
+.kick-stage{position:sticky;top:0;height:100vh;overflow:hidden}
+/* estádio de fundo */
+.kick-sky{position:absolute;inset:0;
+  background:radial-gradient(56% 40% at 50% 14%,rgba(214,255,228,.10),transparent 70%),
+             linear-gradient(180deg,#04080B 0%,#071009 52%,#0A1D11 100%)}
+.kick-cone{position:absolute;top:-6%;width:48%;height:74%;opacity:.55;mix-blend-mode:screen;pointer-events:none}
+.kick-cone.l{left:-9%;background:conic-gradient(from 127deg at 10% 0%,transparent 0deg,rgba(214,255,228,.14) 10deg,transparent 25deg)}
+.kick-cone.r{right:-9%;background:conic-gradient(from 215deg at 90% 0%,transparent 0deg,rgba(214,255,228,.14) 10deg,transparent 25deg)}
+.kick-crowd{position:absolute;left:0;right:0;top:5%;height:22%;opacity:.45;
+  background-image:radial-gradient(rgba(255,255,255,.15) 1px,transparent 2px),radial-gradient(rgba(0,229,200,.12) 1px,transparent 2.4px),radial-gradient(rgba(255,197,61,.10) 1px,transparent 2.2px);
+  background-size:24px 13px,44px 21px,58px 26px;
+  mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent)}
+.kick-haze{position:absolute;left:0;right:0;top:32%;height:20%;pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(163,196,177,.06) 55%,transparent);filter:blur(10px)}
+.kick-grass{position:absolute;left:-14%;right:-14%;bottom:0;height:47%;
+  background:
+    radial-gradient(58% 52% at 50% 16%,rgba(190,255,214,.11),transparent 70%),
+    repeating-linear-gradient(90deg,rgba(255,255,255,.05) 0 96px,rgba(0,0,0,.07) 96px 192px),
+    linear-gradient(180deg,#0C2517 0%,#175230 100%);
+  clip-path:polygon(26% 0,74% 0,108% 100%,-8% 100%)}
+/* linhas da grande área em perspectiva */
+.kick-lines{position:absolute;left:0;right:0;bottom:0;height:44%;perspective:620px;pointer-events:none;opacity:.55}
+.kick-lines .plane{position:absolute;left:4%;right:4%;top:-2%;bottom:0;transform:rotateX(55deg);transform-origin:bottom}
+.kick-lines .plane i{position:absolute;border:2.5px solid rgba(234,245,236,.4)}
+.kick-lines .goalline{left:0;right:0;top:0;height:0;border-width:2.5px 0 0}
+.kick-lines .box{left:25%;right:25%;top:0;height:64%;border-top:none}
+.kick-lines .small{left:37.5%;right:37.5%;top:0;height:27%;border-top:none}
+.kick-lines .arc{left:44.5%;top:64%;width:11%;aspect-ratio:2.1/1;border-radius:0 0 999px 999px;border-top:none}
+.kick-lines .spot{left:49.6%;top:46%;width:7px;height:7px;border-radius:50%;background:rgba(234,245,236,.5);border:none}
+/* o gol — SVG com profundidade */
+.goalpost{position:absolute;left:50%;top:17%;transform:translateX(-50%);width:min(600px,74vw)}
+.goalpost svg{width:100%;height:auto;display:block;overflow:visible;filter:drop-shadow(0 34px 44px rgba(0,0,0,.5))}
+.netface{transform-box:fill-box;transform-origin:center top}
+.kick-stage.goal .netface{animation:netHit .6s ease}
+@keyframes netHit{0%{transform:scale(1,1)}30%{transform:scale(1.015,1.07)}60%{transform:scale(.995,.975)}100%{transform:scale(1,1)}}
+/* o jogador — asset real (voleio) */
+.kicker-sil{position:absolute;left:6%;bottom:11%;width:clamp(210px,27vw,360px);pointer-events:none}
+.kicker-sil img{width:100%;display:block;filter:drop-shadow(0 26px 36px rgba(0,0,0,.6));
+  transform:rotate(var(--kr,-10deg)) translateY(var(--ky,8px));transform-origin:38% 78%;
+  transition:transform .16s ease-out;will-change:transform}
+.kicker-shadow{position:absolute;left:4%;right:16%;bottom:-9%;height:14%;border-radius:50%;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.55),transparent 70%)}
+/* a bola — asset real */
+.ball{position:absolute;left:0;top:0;width:clamp(54px,6.6vw,84px);aspect-ratio:1;will-change:transform;z-index:4}
+.ball .spin{display:block;width:100%;height:100%}
+.ball img{width:100%;height:100%;display:block;filter:drop-shadow(0 12px 20px rgba(0,0,0,.5))}
+.kick-stage.goal .ball .spin{animation:ballSettle .5s ease}
+@keyframes ballSettle{0%{translate:0 0}35%{translate:0 -7px}70%{translate:0 3px}100%{translate:0 0}}
+.ballshadow{position:absolute;width:74px;height:17px;border-radius:50%;z-index:3;pointer-events:none;
+  background:radial-gradient(50% 50% at 50% 50%,rgba(0,0,0,.55),transparent 72%);will-change:transform,opacity}
+/* checkpoints de produto */
+.kchip{position:absolute;left:clamp(14px,5vw,7%);display:flex;align-items:center;gap:12px;max-width:min(360px,72vw);
+  background:rgba(14,18,17,.88);border:1px solid rgba(54,226,90,.3);border-radius:14px;padding:13px 18px;
+  backdrop-filter:blur(8px);box-shadow:0 18px 44px rgba(0,0,0,.5);
+  opacity:0;transform:translateY(18px);transition:opacity .45s var(--ease),transform .45s var(--ease)}
+.kchip.on{opacity:1;transform:none}
+.kchip .kn{flex:none;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  font-family:var(--f-num);font-size:13px;background:rgba(54,226,90,.14);border:1px solid rgba(54,226,90,.4);color:var(--green)}
+.kchip p{font-size:14px;color:var(--tx-lo);line-height:1.4}
+.kchip p b{color:var(--tx)}
+.kchip.c1{top:22%}.kchip.c2{top:36%}.kchip.c3{top:50%}
+/* payoff do gol */
+.goalflash{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(46% 40% at 50% 34%,rgba(123,245,168,.35),transparent 70%)}
+.kick-stage.goal .goalflash{animation:gflash .8s ease}
+@keyframes gflash{0%{opacity:0}22%{opacity:1}100%{opacity:0}}
+.payoff{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%) scale(.9);text-align:center;z-index:5;
+  opacity:0;transition:opacity .5s var(--ease),transform .5s var(--spring);pointer-events:none;width:min(700px,92vw)}
+.kick-stage.goal .payoff{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.payoff .big{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(34px,6vw,74px);line-height:1;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 10px 40px rgba(54,226,90,.35))}
+.payoff .mid{margin-top:14px;font-family:var(--f-mono);font-weight:700;font-size:clamp(13px,1.6vw,18px);color:var(--tx);letter-spacing:.08em}
+.payoff .mid b{color:var(--green)}
+.payoff .small{margin-top:10px;font-size:14.5px;color:var(--tx-lo)}
+.kick-hint{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);font-family:var(--f-mono);font-size:11px;
+  letter-spacing:.24em;color:var(--tx-dim);text-transform:uppercase;transition:opacity .4s;white-space:nowrap}
+.kick-hint::after{content:'▼';display:block;text-align:center;margin-top:6px;animation:mblink 1.6s infinite}
+.kick-stage.moving .kick-hint{opacity:0}
+@media (max-width:760px){
+  .kicker-sil{left:2%;bottom:12%}
+  .kchip{left:12px}
+  .kchip.c1{top:16%}.kchip.c2{top:30%}.kchip.c3{top:44%}
+  .goalpost{top:20%}
+}
+@media (prefers-reduced-motion: reduce){
+  .kick{height:auto}
+  .kick-stage{position:relative}
+  .kick-hint{display:none}
+}
+
+/* ============ scaffolding ============ */
+.sec{padding:clamp(84px,12vh,150px) 0;position:relative;z-index:2}
+.secnum{position:absolute;right:-2%;top:6%;z-index:0;font-family:var(--f-num);font-size:clamp(180px,26vw,360px);line-height:1;
+  color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.045);pointer-events:none;user-select:none}
+.sec-k{display:flex;align-items:center;gap:14px;font-family:var(--f-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);position:relative;z-index:2}
+.sec-k::before{content:'';width:20px;height:13px;background:var(--grad);transform:skewX(-20deg);flex:none}
+.sec-k::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.16),transparent)}
+.sec h2{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(28px,4vw,52px);line-height:1.06;margin-top:16px;max-width:940px;position:relative;z-index:2}
+.sec h2 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sec .lead{color:var(--tx-lo);margin-top:16px;max-width:640px;position:relative;z-index:2}
+.sec .lead b{color:var(--tx)}
+
+/* ============ SÚMULA + CAMPO 3D STICKY ============ */
+.match{display:grid;grid-template-columns:minmax(300px,430px) 1fr;gap:clamp(26px,4vw,60px);margin-top:48px;align-items:start}
+.pitchwrap{position:sticky;top:90px;perspective:1000px;z-index:2}
+.pitch3d{position:relative;aspect-ratio:3/3.9;border-radius:16px;transform:rotateX(26deg) rotateZ(-1deg);transform-style:preserve-3d;
+  background:linear-gradient(180deg,#123420,#0C2415 70%,#0A1F12);
+  border:2px solid rgba(237,243,239,.2);
+  box-shadow:0 60px 100px rgba(0,0,0,.55),0 0 0 1px rgba(0,0,0,.4);
+  transition:transform .5s var(--ease)}
+.pitchwrap:hover .pitch3d{transform:rotateX(16deg) rotateZ(0deg)}
+.pitch3d .grassrows{position:absolute;inset:0;border-radius:14px;overflow:hidden;
+  background:repeating-linear-gradient(180deg,rgba(255,255,255,.035) 0 9.5%,transparent 9.5% 19%)}
+.pitch3d .lines i{position:absolute;border:1.5px solid rgba(237,243,239,.3)}
+.pitch3d .lines .out{inset:5%}
+.pitch3d .lines .mid{left:5%;right:5%;top:50%;height:0;border-width:1.2px 0 0}
+.pitch3d .lines .circ{left:50%;top:50%;width:30%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%)}
+.pitch3d .lines .boxt{left:28%;right:28%;top:5%;height:14%;border-top:none}
+.pitch3d .lines .boxb{left:28%;right:28%;bottom:5%;height:14%;border-bottom:none}
+/* dots dos titulares */
+.pdot{position:absolute;transform:translate(-50%,-50%);z-index:3;display:grid;place-items:center;
+  width:clamp(30px,3.3vw,42px);aspect-ratio:1;border-radius:50%;
+  font-family:var(--f-num);font-size:clamp(11px,1.2vw,15px);color:var(--tx-lo);
+  background:radial-gradient(circle at 32% 28%,#2A3530,#1A211E 66%);
+  border:1.5px solid rgba(237,243,239,.25);box-shadow:0 8px 18px rgba(0,0,0,.5);
+  transition:.35s var(--ease)}
+.pdot::after{content:'';position:absolute;inset:-7px;border-radius:50%;border:2px solid rgba(54,226,90,.6);opacity:0;transform:scale(.6)}
+.pdot.on{color:#04240F;background:radial-gradient(circle at 32% 28%,#7BF5A8,#36E25A 60%,#1E9E56);
+  border-color:rgba(4,36,15,.5);transform:translate(-50%,-50%) translateZ(26px) scale(1.18);
+  box-shadow:0 18px 34px rgba(0,0,0,.55),0 0 26px rgba(54,226,90,.5)}
+.pdot.on::after{animation:ring 1.6s ease-out infinite}
+@keyframes ring{from{opacity:1;transform:scale(.7)}to{opacity:0;transform:scale(1.7)}}
+/* lower-third do jogador ativo no campo */
+.pdot::before{content:attr(data-name);position:absolute;top:112%;left:50%;transform:translateX(-50%) skewX(-6deg) scale(.8);
+  font-family:var(--f-mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;
+  color:#04240F;background:var(--grad);padding:3px 9px;border-radius:3px;opacity:0;transition:.3s var(--ease);pointer-events:none}
+.pdot.on::before{opacity:1;transform:translateX(-50%) skewX(-6deg) scale(1)}
+.pitch-cap{margin-top:18px;text-align:center;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;color:var(--tx-dim);text-transform:uppercase}
+.pitch-cap b{color:var(--green)}
+
+/* a lista da súmula */
+.sheet{background:var(--panel);border:1px solid rgba(255,255,255,.1);border-radius:18px;overflow:hidden;
+  box-shadow:0 34px 90px rgba(0,0,0,.45)}
+/* faixa de abertura estilo broadcast */
+.sheet-head{position:relative;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:20px 26px 20px 40px;
+  border-bottom:2px solid rgba(255,255,255,.12);overflow:hidden;
+  background:linear-gradient(100deg,rgba(0,229,200,.14),rgba(54,226,90,.08) 40%,rgba(255,255,255,.03) 70%)}
+.sheet-head::before{content:'';position:absolute;left:0;top:0;bottom:0;width:14px;background:var(--grad);transform:skewX(-14deg) translateX(-4px)}
+.sheet-head .t{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(13px,1.5vw,18px);letter-spacing:.05em;transform:skewX(-4deg)}
+.sheet-head .d{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;color:var(--tx-dim);text-transform:uppercase}
+.starter{display:grid;grid-template-columns:76px 1fr auto;gap:18px;align-items:center;padding:19px 26px;
+  border-bottom:1px solid rgba(255,255,255,.07);position:relative;transition:.3s var(--ease);
+  opacity:0;transform:translateX(34px)}
+.starter.in{opacity:1;transform:none}
+.starter:last-child{border-bottom:none}
+.starter.hot{background:linear-gradient(90deg,rgba(54,226,90,.08),transparent 70%)}
+/* placa de número estilo lower-third */
+.starter .snum{font-family:var(--f-num);font-size:26px;line-height:1;color:var(--tx-lo);text-align:center;
+  padding:14px 0;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  clip-path:polygon(14% 0,100% 0,86% 100%,0 100%);transition:.3s var(--spring);position:relative}
+.starter.hot .snum{color:#04240F;background:var(--grad);border-color:transparent;
+  transform:scale(1.1) skewX(-4deg);box-shadow:0 0 30px rgba(54,226,90,.35)}
+.starter .info h3{font-family:var(--f-num);text-transform:uppercase;font-size:16.5px;letter-spacing:.03em}
+.starter .info h3 small{font-family:var(--f-mono);font-weight:400;font-size:10px;letter-spacing:.2em;color:var(--teal);margin-left:10px;text-transform:uppercase}
+.starter .info p{color:var(--tx-lo);font-size:14px;margin-top:4px;max-width:640px}
+.starter .info p b{color:var(--tx)}
+.starter .pl{font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;padding:5px 12px;border-radius:6px;white-space:nowrap}
+.pl.free{color:#7EF5A5;border:1px solid rgba(54,226,90,.45)}
+.pl.pro{color:var(--teal);border:1px solid rgba(0,229,200,.45)}
+.pl.prem{color:var(--gold);border:1px solid rgba(255,197,61,.5)}
+.starter .cap-band{position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--grad)}
+.sheet-foot{padding:16px 26px;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;color:var(--tx-dim);
+  text-transform:uppercase;border-top:2px dashed rgba(255,255,255,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.sheet-foot b{color:var(--green)}
+
+/* ============ SALA DE VÍDEO: telões 3D ============ */
+.lockers{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:56px;position:relative;z-index:2}
+.locker{perspective:1000px}
+.locker.wide{grid-column:1/-1}
+.tvframe{position:relative;background:#000;border:1px solid rgba(255,255,255,.14);border-radius:14px;overflow:hidden;
+  box-shadow:0 34px 90px rgba(0,0,0,.55);transform:rotateY(var(--ty,0deg)) rotateX(var(--tx2,0deg));
+  transition:transform .2s ease-out,box-shadow .3s}
+.locker:hover .tvframe{box-shadow:0 44px 110px rgba(0,0,0,.65),0 0 50px rgba(54,226,90,.08)}
+.tvframe .glare{position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(320px circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.13),transparent 60%)}
+.locker:hover .glare{opacity:1}
+.tvframe .lb{display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:var(--panel);
+  border-bottom:1px solid rgba(255,255,255,.1);font-family:var(--f-mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--tx-dim)}
+.tvframe .lb b{color:var(--green)}
+.tvframe .lb .rec{color:var(--red);animation:mblink 1.4s infinite}
+/* pacote de replay: marca d'água + barra de reprodução */
+.tvframe::before{content:'AFT ◉ TV';position:absolute;z-index:4;top:48px;right:14px;pointer-events:none;
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.2em;color:rgba(237,243,239,.55);text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.tvframe::after{content:'';position:absolute;z-index:4;left:0;bottom:0;height:3px;width:100%;pointer-events:none;
+  background:var(--grad);transform-origin:left;animation:rpprog 9s linear infinite;opacity:.8}
+@keyframes rpprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.tvframe video{width:100%}
+.tvframe .cap{padding:12px 16px;background:var(--panel);border-top:1px solid rgba(255,255,255,.08);font-size:14px;color:var(--tx-lo)}
+.tvframe .cap b{color:var(--tx)}
+
+/* ============ preleção ============ */
+.talk{margin-top:50px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;position:relative;z-index:2}
+.tk{display:flex;gap:16px;background:var(--panel);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px 24px;
+  transition:.3s var(--ease);position:relative;overflow:hidden}
+.tk::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;pointer-events:none;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(54,226,90,.1),transparent 60%)}
+.tk:hover::before{opacity:1}
+.tk:hover{transform:translateY(-4px);border-color:rgba(54,226,90,.35)}
+.tk .n{flex:none;width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-family:var(--f-num);font-size:18px;
+  background:rgba(54,226,90,.12);border:1px solid rgba(54,226,90,.35);color:var(--green)}
+.tk h3{font-family:var(--f-num);text-transform:uppercase;font-size:15px;letter-spacing:.04em}
+.tk p{color:var(--tx-lo);font-size:14px;margin-top:6px}
+.talk-note{grid-column:1/-1;text-align:center;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;color:var(--tx-dim);
+  text-transform:uppercase;padding-top:8px}
+.talk-note b{color:var(--tx-lo)}
+
+/* ============ LOJA: camisas flip 3D ============ */
+.kits{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:56px;position:relative;z-index:2}
+.kit{position:relative;background:var(--panel);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:30px 28px;
+  display:flex;flex-direction:column;align-items:center;text-align:center;transition:.35s var(--ease)}
+.kit:hover{transform:translateY(-10px);border-color:rgba(54,226,90,.45);box-shadow:0 30px 80px rgba(0,0,0,.45)}
+/* moldura de carta FUT (hood no topo, base afunilada) */
+.kitshirt{position:relative;width:172px;perspective:700px;padding:34px 24px 26px;
+  clip-path:polygon(50% 0,82% 4%,100% 14%,100% 87%,50% 100%,0 87%,0 14%,18% 4%)}
+.kitshirt::before{content:attr(data-n);position:absolute;left:18px;top:26px;z-index:2;
+  font-family:var(--f-num);font-size:26px;line-height:1;color:rgba(237,243,239,.9)}
+.kitshirt::after{content:attr(data-t);position:absolute;left:18px;top:56px;z-index:2;
+  font-family:var(--f-mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(237,243,239,.6)}
+.kitshirt.t-free{background:linear-gradient(170deg,#454E49,#202623 55%,#313834)}
+.kitshirt.t-pro{background:linear-gradient(170deg,#0F5A42,#0A2C20 55%,#124833)}
+.kitshirt.t-pro::before,.kitshirt.t-pro::after{color:#B9F5CE}
+.kitshirt.t-prem{background:linear-gradient(170deg,#7A5C18,#38290A 55%,#5C470F)}
+.kitshirt.t-prem::before,.kitshirt.t-prem::after{color:#FFE79A}
+.kitshirt .kflip{position:relative;transform-style:preserve-3d;transition:transform .8s var(--ease)}
+.kit:hover .kflip{transform:rotateY(180deg)}
+.kitshirt svg{width:100%;filter:drop-shadow(0 14px 28px rgba(0,0,0,.45))}
+.kitshirt .kface{backface-visibility:hidden;-webkit-backface-visibility:hidden;position:relative}
+.kitshirt .kface.back{position:absolute;inset:0;transform:rotateY(180deg)}
+.kitshirt .knum{position:absolute;top:52%;left:50%;transform:translate(-50%,-50%);font-family:var(--f-num);font-size:38px;color:#fff;
+  text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.kitshirt .knm{position:absolute;top:27%;left:50%;transform:translateX(-50%);font-family:var(--f-mono);font-weight:700;font-size:9.5px;
+  letter-spacing:.2em;color:rgba(255,255,255,.9);text-transform:uppercase;white-space:nowrap}
+.kit.mid .kface.front .knum{color:#04240F;text-shadow:0 2px 0 rgba(255,255,255,.25)}
+.kit.mid .kface.front .knm{color:rgba(4,36,15,.85)}
+.kit h3{font-family:var(--f-num);text-transform:uppercase;font-size:20px;margin-top:16px}
+.kit .price{font-family:var(--f-mono);font-weight:700;font-size:28px;margin-top:12px}
+.kit .price small{font-size:12px;color:var(--tx-dim);font-weight:400}
+.kit .tag{font-size:13.5px;color:var(--tx-lo);margin-top:4px}
+.kit ul{list-style:none;margin:18px 0 22px;display:grid;gap:8px;text-align:left}
+.kit li{display:flex;gap:9px;font-size:13.5px;color:var(--tx-lo)}
+.kit li::before{content:'✓';color:var(--green);font-weight:700}
+.kit li.hd{color:var(--tx-dim);font-size:11px;text-transform:uppercase;letter-spacing:.14em;font-family:var(--f-mono)}
+.kit li.hd::before{content:''}
+.kit .armband{position:absolute;top:18px;right:18px;font-family:var(--f-mono);font-size:9px;letter-spacing:.2em;color:#04240F;
+  background:linear-gradient(115deg,#E8B93B,#FFE79A);padding:5px 11px;border-radius:6px;text-transform:uppercase;transform:rotate(4deg);
+  box-shadow:0 8px 22px rgba(255,197,61,.35)}
+.kit.mid{border-color:rgba(54,226,90,.55);background:linear-gradient(180deg,rgba(54,226,90,.07),var(--panel) 42%)}
+.kits-note{text-align:center;margin-top:30px;color:var(--tx-lo);font-size:15px;position:relative;z-index:2}
+.kits-note b{color:var(--tx)}
+
+/* ============ FAQ ============ */
+.faq{max-width:800px;margin:50px auto 0;position:relative;z-index:2}
+.fq{border:1px solid rgba(255,255,255,.1);border-radius:14px;margin-bottom:12px;background:var(--panel)}
+.fq button{width:100%;background:none;border:none;color:var(--tx);text-align:left;padding:19px 52px 19px 22px;position:relative;
+  font-family:var(--f-body);font-weight:600;font-size:16px}
+.fq button::after{content:'+';position:absolute;right:20px;top:50%;transform:translateY(-50%);font-family:var(--f-num);font-size:20px;color:var(--green);transition:.3s}
+.fq.open button::after{transform:translateY(-50%) rotate(45deg)}
+.fq .a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+.fq .a p{padding:0 22px 19px;color:var(--tx-lo);font-size:14.5px}
+
+/* ============ O TÚNEL 3D (CTA final) ============ */
+.tunnel{position:relative;min-height:96vh;display:flex;align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;background:#070A09}
+.t3d{position:absolute;inset:0;z-index:0;pointer-events:none}
+/* linhas convergentes rumo ao ponto de fuga */
+.t3d .rays{position:absolute;inset:0;
+  background:repeating-conic-gradient(from 0deg at 50% 44%,rgba(214,255,228,.08) 0deg 1.2deg,transparent 1.2deg 12deg);
+  mask-image:radial-gradient(82% 76% at 50% 44%,transparent 15%,#000 38%,#000 76%,transparent 100%)}
+/* paredes laterais em trapézio */
+.t3d .wl,.t3d .wr{position:absolute;top:0;bottom:0;width:35%;
+  background:repeating-linear-gradient(0deg,transparent 0 60px,rgba(214,255,228,.05) 60px 62px),
+             linear-gradient(90deg,#1C2420 0%,#10141288 60%,#0B0E0D00 100%)}
+.t3d .wl{left:0;clip-path:polygon(0 0,100% 24%,100% 76%,0 100%)}
+.t3d .wr{right:0;background:repeating-linear-gradient(0deg,transparent 0 60px,rgba(214,255,228,.05) 60px 62px),
+             linear-gradient(270deg,#1C2420 0%,#10141288 60%,#0B0E0D00 100%);
+  clip-path:polygon(100% 0,0 24%,0 76%,100% 100%)}
+/* teto em trapézio */
+.t3d .ceil{position:absolute;left:0;right:0;top:0;height:30%;
+  background:linear-gradient(180deg,#12171577,#0B0E0D00),
+             repeating-linear-gradient(90deg,transparent 0 84px,rgba(255,255,255,.028) 84px 86px);
+  clip-path:polygon(0 0,100% 0,66% 100%,34% 100%)}
+/* piso: o gramado surgindo na boca do túnel */
+.t3d .floor{position:absolute;left:0;right:0;bottom:0;height:42%;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 90px,rgba(0,0,0,.06) 90px 180px),
+             linear-gradient(180deg,#123420 0%,#16472A 100%);
+  clip-path:polygon(36% 0,64% 0,103% 100%,-3% 100%)}
+/* a luz no fim do túnel */
+.tlight{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:min(520px,66vw);height:46vh;
+  background:radial-gradient(50% 50% at 50% 52%,rgba(214,255,228,.32),rgba(54,226,90,.14) 48%,transparent 74%);
+  filter:blur(6px);animation:breathe 5s ease-in-out infinite}
+.tframe{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);width:min(500px,64vw);aspect-ratio:16/10;
+  border:2px solid rgba(214,255,228,.13);border-radius:14px;box-shadow:inset 0 0 90px rgba(54,226,90,.13)}
+@keyframes breathe{0%,100%{opacity:.85}50%{opacity:1.0}}
+.tunnel-inner{position:relative;z-index:5;padding:80px 24px}
+.tunnel .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.4em;color:var(--gold);text-transform:uppercase}
+.tunnel h2{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(34px,5.6vw,76px);line-height:1.02;margin-top:18px}
+.tunnel h2 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.tunnel p{color:var(--tx-lo);max-width:520px;margin:20px auto 0}
+.tunnel .btn{margin-top:32px}
+.tunnel .fine{margin-top:16px;font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;color:var(--tx-dim);text-transform:uppercase}
+@supports (animation-timeline: view()){
+  .tunnel-inner{animation:walkin linear both;animation-timeline:view();animation-range:entry 0% cover 55%}
+  @keyframes walkin{from{transform:scale(.82);opacity:.4}to{transform:scale(1);opacity:1}}
+}
+
+/* confete canvas */
+#confetti{position:fixed;inset:0;z-index:150;pointer-events:none;display:none}
+
+footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52px 0 38px;position:relative;z-index:2}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:34px}
+.fgrid h4{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--tx-dim);margin-bottom:14px}
+.fgrid a{display:block;color:var(--tx-lo);font-size:14px;padding:4px 0;transition:.2s}
+.fgrid a:hover{color:var(--green)}
+.fbrand{display:flex;align-items:center;gap:11px;margin-bottom:12px}
+.fbrand img{width:32px;height:32px;border-radius:8px}
+.fbrand b{font-family:var(--f-num);font-size:16px;letter-spacing:.03em}
+.fgrid p{color:var(--tx-dim);font-size:13.5px;max-width:330px}
+.legal{margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.06);color:var(--tx-dim);font-size:12px;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.legal b{color:var(--tx-lo)}
+
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:1020px){
+  .hero{grid-template-columns:1fr}
+  .keyart{max-width:560px;margin:10px auto 0}
+  .match{grid-template-columns:1fr}
+  .pitchwrap{position:relative;top:0;max-width:420px;margin:0 auto}
+  .starter{grid-template-columns:56px 1fr}
+  .starter .pl{grid-column:2;justify-self:start}
+  .lockers{grid-template-columns:1fr}
+  .talk{grid-template-columns:1fr}
+  .kits{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .secnum{display:none}
+  .matchclock{right:12px;bottom:12px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001s !important;animation-delay:0s !important;transition-duration:.001s !important}
+  .doors{display:none}
+  .ka-ring,.ka-ball,.ka-chip{animation:none}
+  .ka-enter{animation:none;opacity:1}
+  .hero h1 .l span{transform:none}
+  .hero-sub,.hero-ctas,.hero-fine{opacity:1}
+  .starter{opacity:1;transform:none}
+  .pitch3d{transform:rotateX(26deg)}
+  .rv{opacity:1;transform:none}
+  .dust,.matchclock .dot{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- PORTAS DO VESTIÁRIO -->
+<div class="doors" id="doors" aria-hidden="true">
+  <div class="door l"></div>
+  <div class="door r"></div>
+  <div class="doors-sign">
+    <p class="plate">Vestiário · acesso restrito</p>
+    <p class="big">A <span class="g">ESCALAÇÃO</span></p>
+    <span class="stamp">✓ Confirmada</span>
+  </div>
+</div>
+
+<!-- CRONÔMETRO DA PARTIDA -->
+<div class="clockbar" aria-hidden="true"><i id="clockfill"></i></div>
+<div class="matchclock" aria-hidden="true">
+  <span class="dot"></span>
+  <div><div class="t" id="clockmin">0'</div><div class="l">Tempo de jogo</div></div>
+</div>
+
+<div class="tiles" aria-hidden="true"></div>
+<div class="roomlight" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <img src="assets/logo-128.png" alt="AFT" />
+      <span><span class="t">AFT</span><span class="s">A escalação</span></span>
+    </a>
+    <a class="btn go sm" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Entrar no beta</a>
+  </div>
+</header>
+
+<main id="top">
+<div class="wrap">
+
+<!-- HERO: O VESTIÁRIO -->
+<section class="hero">
+  <div class="kick-cone l" aria-hidden="true"></div>
+  <div class="kick-cone r" aria-hidden="true"></div>
+  <div class="kick-crowd" aria-hidden="true" style="top:2%;opacity:.3"></div>
+  <div class="dust" aria-hidden="true">
+    <i style="--x:12%;--y:30%;--t:9s;--d:0s"></i><i style="--x:26%;--y:18%;--t:12s;--d:2s"></i>
+    <i style="--x:44%;--y:36%;--t:10s;--d:4s"></i><i style="--x:60%;--y:14%;--t:11s;--d:1s"></i>
+    <i style="--x:74%;--y:28%;--t:9.5s;--d:3s"></i><i style="--x:88%;--y:20%;--t:12.5s;--d:5s"></i>
+  </div>
+  <div>
+    <span class="tag-pre">⚙ Extensão para o FUT Web App · EA FC 26</span>
+    <h1>
+      <span class="l"><span style="--ld:1.05s">DMEs resolvidos</span></span>
+      <span class="l"><span style="--ld:1.16s">em <span class="g">~2 segundos,</span></span></span>
+      <span class="l"><span style="--ld:1.27s">pelas cartas</span></span>
+      <span class="l"><span style="--ld:1.38s"><span class="g">mais baratas.</span></span></span>
+    </h1>
+    <p class="hero-sub">O AFT trabalha dentro do Web App que você já usa: <b>lê o seu clube, calcula o elenco mais barato</b> que cumpre os requisitos, preenche as 11 posições e envia. Preço real em cada carta, evoluções testadas no próprio jogo, automação com botão de pânico. <b>Você decide; ele executa.</b></p>
+    <div class="hero-ctas">
+      <a class="btn go" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Começar grátis</a>
+      <a class="btn line" href="#sumula">Ver tudo que ele faz</a>
+    </div>
+    <p class="hero-fine">Sem cartão · 100% no seu PC · Chrome / Edge / Firefox</p>
+  </div>
+
+  <div class="keyart" id="keyart">
+    <div class="ka-inner" id="kaInner">
+      <span class="ka-ghost" aria-hidden="true">AFT</span>
+      <span class="ka-ring" aria-hidden="true"></span>
+      <div class="ka-glow ka-enter" aria-hidden="true"></div>
+      <div class="ka-player ka-enter" aria-hidden="true"></div>
+      <span class="ka-ball" aria-hidden="true"><img src="assets/kick/ball.svg" alt="" /></span>
+      <span class="ka-chip k1">⏱ <span>DME resolvido em <b>2.1s</b></span></span>
+      <span class="ka-chip k2">✔ <span><b>11/11</b> posições · requisitos ok</span></span>
+      <span class="ka-chip k3">🪙 <span><b>0</b> moedas além do necessário</span></span>
+    </div>
+    <p class="ka-note">Otimização exata, direto no Web App — <b>role e veja o chute sair.</b></p>
+  </div>
+</section>
+</div>
+
+<!-- A CENA DO CHUTE: role e veja um DME virar gol -->
+<section class="kick" id="kick" aria-label="Animação: a bola é chutada ao gol conforme você rola — como um DME é resolvido">
+  <div class="kick-stage" id="kickStage">
+    <div class="kick-sky" aria-hidden="true"></div>
+    <div class="kick-cone l" aria-hidden="true"></div>
+    <div class="kick-cone r" aria-hidden="true"></div>
+    <div class="kick-crowd" aria-hidden="true"></div>
+    <div class="kick-haze" aria-hidden="true"></div>
+    <div class="kick-grass" aria-hidden="true"></div>
+    <div class="kick-lines" aria-hidden="true">
+      <div class="plane">
+        <i class="goalline"></i><i class="box"></i><i class="small"></i><i class="arc"></i><i class="spot"></i>
+      </div>
+    </div>
+
+    <div class="goalpost" id="goalEl" aria-hidden="true">
+      <svg viewBox="0 0 640 300">
+        <defs>
+          <pattern id="netp" width="13" height="13" patternUnits="userSpaceOnUse">
+            <path d="M0 0H13M0 0V13" stroke="rgba(233,243,236,.32)" stroke-width="1"/>
+          </pattern>
+          <pattern id="netp2" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M0 0H10M0 0V10" stroke="rgba(233,243,236,.20)" stroke-width="1"/>
+          </pattern>
+          <linearGradient id="postg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#C4D0C8"/>
+          </linearGradient>
+        </defs>
+        <g class="netface">
+          <rect x="100" y="16" width="440" height="194" fill="rgba(6,11,8,.55)"/>
+          <rect x="100" y="16" width="440" height="194" fill="url(#netp)"/>
+          <polygon points="30,30 610,30 540,16 100,16" fill="url(#netp2)"/>
+          <polygon points="30,30 100,16 100,210 30,262" fill="url(#netp2)"/>
+          <polygon points="610,30 540,16 540,210 610,262" fill="url(#netp2)"/>
+          <polygon points="30,262 100,210 540,210 610,262" fill="url(#netp2)" opacity=".7"/>
+        </g>
+        <path d="M100 16 V210 M540 16 V210 M100 16 H540 M100 210 H540" stroke="rgba(233,243,236,.35)" stroke-width="3" fill="none"/>
+        <path d="M30 30 L100 16 M610 30 L540 16 M30 262 L100 210 M610 262 L540 210" stroke="rgba(233,243,236,.42)" stroke-width="4" fill="none"/>
+        <path d="M30 262 L30 30 L610 30 L610 262" stroke="url(#postg)" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="kicker-sil" id="kickerSil" aria-hidden="true">
+      <span class="kicker-shadow" aria-hidden="true"></span>
+      <img id="kickerImg" src="assets/kick/player.svg" alt="" />
+    </div>
+
+    <div class="ballshadow" id="ballShadow" aria-hidden="true"></div>
+    <div class="ball" id="ball" aria-hidden="true">
+      <span class="spin" id="ballSpin"><img src="assets/kick/ball.svg" alt="" /></span>
+    </div>
+
+    <div class="kchip c1" id="kc1"><span class="kn">1</span><p><b>Lê o seu clube.</b> Todas as cartas e preços, direto do Web App.</p></div>
+    <div class="kchip c2" id="kc2"><span class="kn">2</span><p><b>Calcula o elenco mais barato</b> que cumpre os requisitos — otimização exata, não chute.</p></div>
+    <div class="kchip c3" id="kc3"><span class="kn">3</span><p><b>Preenche as 11 posições sozinho</b> e deixa pronto pra enviar.</p></div>
+
+    <div class="goalflash" aria-hidden="true"></div>
+    <div class="payoff">
+      <p class="big">DME enviado ✓</p>
+      <p class="mid"><b>2.1s</b> · 11/11 · <b>0</b> moedas além do necessário</p>
+      <p class="small">É isso que a ferramenta faz. O dia inteiro, se você quiser.</p>
+    </div>
+
+    <p class="kick-hint">Role — o chute sai</p>
+  </div>
+</section>
+<div class="wrap">
+
+<!-- A SÚMULA + CAMPO 3D -->
+<section class="sec" id="sumula">
+  <span class="secnum" aria-hidden="true">11</span>
+  <p class="sec-k rv">O que vem dentro</p>
+  <h2 class="rv">Tudo que o AFT faz por você — <span class="g">em 11 ferramentas.</span></h2>
+  <p class="lead rv">Cada uma elimina uma perda real: tempo em menu, moeda queimada, carta desperdiçada. Role a lista — <b>cada ferramenta acende no campo ao lado.</b></p>
+
+  <div class="match">
+    <div class="pitchwrap rv">
+      <div class="pitch3d" id="pitch3d">
+        <div class="grassrows" aria-hidden="true"></div>
+        <div class="lines" aria-hidden="true"><i class="out"></i><i class="mid"></i><i class="circ"></i><i class="boxt"></i><i class="boxb"></i></div>
+        <span class="pdot" data-n="1"  data-name="Kill-switch" style="left:50%;top:88%">1</span>
+        <span class="pdot" data-n="2"  data-name="Ritmo" style="left:81%;top:72%">2</span>
+        <span class="pdot" data-n="3"  data-name="Babysitter" style="left:19%;top:72%">3</span>
+        <span class="pdot" data-n="4"  data-name="Preço" style="left:37%;top:76%">4</span>
+        <span class="pdot" data-n="5"  data-name="Filtros" style="left:63%;top:76%">5</span>
+        <span class="pdot" data-n="6"  data-name="Reciclar" style="left:50%;top:58%">6</span>
+        <span class="pdot" data-n="8"  data-name="Solver" style="left:30%;top:46%">8</span>
+        <span class="pdot" data-n="10" data-name="Análise" style="left:70%;top:46%">10</span>
+        <span class="pdot" data-n="7"  data-name="Packs" style="left:82%;top:24%">7</span>
+        <span class="pdot" data-n="9"  data-name="Lote" style="left:50%;top:18%">9</span>
+        <span class="pdot" data-n="11" data-name="Evoluções" style="left:18%;top:24%">11</span>
+      </div>
+      <p class="pitch-cap">Esquema <b>4-3-3</b> · técnico: <b>AFT</b> · o ponto verde é quem você está lendo</p>
+    </div>
+
+    <div class="sheet rv" id="sheet">
+      <div class="sheet-head">
+        <span class="t">SEU CLUBE &nbsp;×&nbsp; FILA DE DME</span>
+        <span class="d">4-3-3 · Técnico: AFT</span>
+      </div>
+      <div class="lineup">
+        <div class="starter" data-n="8"><span class="cap-band" aria-hidden="true"></span><span class="snum">8</span><div class="info"><h3>O Solver <small>O motor · camisa 8</small></h3><p>O coração da ferramenta: otimização exata que encontra a combinação <b>comprovadamente mais barata</b> que cumpre o DME — em ~2 segundos, com química calculada quando o desafio exige e inegociáveis primeiro (custo 0).</p></div><span class="pl free">Grátis</span></div>
+        <div class="starter" data-n="4"><span class="snum">4</span><div class="info"><h3>Preço em cada carta <small>A defesa · camisa 4</small></h3><p>O valor de mercado ao vivo desenhado em cima de cada carta — no clube, no campo e no mercado. <b>Você sempre sabe o que está gastando</b> antes de enviar.</p></div><span class="pl pro">Pro</span></div>
+        <div class="starter" data-n="10"><span class="snum">10</span><div class="info"><h3>Análise do clube <small>A visão · camisa 10</small></h3><p>Varre o elenco inteiro e mostra <b>onde o seu time melhora</b>: upgrade por posição, o melhor XI possível com o que você já tem e a valorização do clube dia a dia.</p></div><span class="pl prem">Premium</span></div>
+        <div class="starter" data-n="9"><span class="snum">9</span><div class="info"><h3>Lote &amp; Rotinas <small>O automático · camisa 9</small></h3><p>Repete um DME N vezes ou executa uma sequência inteira: resolve, preenche, envia, abre as recompensas e organiza as sobras — <b>sem você tocar em nada.</b></p></div><span class="pl prem">Premium</span></div>
+        <div class="starter" data-n="11"><span class="snum">11</span><div class="info"><h3>Evoluções <small>O planejador · camisa 11</small></h3><p>Testa milhares de caminhos de evolução <b>na sua carta real</b> — perguntando ao próprio jogo — e mostra a corrente completa, com custo e nota meta, antes de você gastar.</p></div><span class="pl free">Grátis</span></div>
+        <div class="starter" data-n="7"><span class="snum">7</span><div class="info"><h3>Packs no automático <small>Camisa 7</small></h3><p>Abre pacotes em lote, registra tudo num histórico e envia cada carta pro destino certo: clube, armazenamento ou venda. <b>Menos micro-gestão, mais jogo.</b></p></div><span class="pl prem">Premium</span></div>
+        <div class="starter" data-n="5"><span class="snum">5</span><div class="info"><h3>Filtros do solver <small>Suas regras · camisa 5</small></h3><p>Teto e piso de overall, só inegociáveis, excluir raridades, puxar do armazenamento. <b>A solução sempre respeita as suas regras</b> — e acha o mais barato dentro delas.</p></div><span class="pl free">Grátis</span></div>
+        <div class="starter" data-n="6"><span class="snum">6</span><div class="info"><h3>Reciclar + limpeza <small>A faxina · camisa 6</small></h3><p>Transforma sobras em pack reciclando dentro de um DME e limpa o armazenamento em massa por regras de OVR e raridade.</p></div><span class="pl pro">Pro</span></div>
+        <div class="starter" data-n="2"><span class="snum">2</span><div class="info"><h3>Ritmo automático <small>Proteção · camisa 2</small></h3><p>Delays variáveis, cooldowns e pausas automáticas em qualquer automação — pra operar sempre num <b>padrão de uso normal</b>, nunca em intervalos cravados.</p></div><span class="pl free">Grátis</span></div>
+        <div class="starter" data-n="3"><span class="snum">3</span><div class="info"><h3>Babysitter + CAPTCHA <small>Proteção · camisa 3</small></h3><p>Saiu da frente do PC? A automação <b>pausa sozinha</b>. Apareceu verificação? Tudo para e espera você resolver.</p></div><span class="pl free">Grátis</span></div>
+        <div class="starter" data-n="1"><span class="cap-band" aria-hidden="true"></span><span class="snum">1</span><div class="info"><h3>Kill-switch <small>Controle total · camisa 1</small></h3><p>Um botão encerra <b>qualquer automação na hora</b>. Você decide o quanto delega — e retoma o controle quando quiser.</p></div><span class="pl free">Grátis</span></div>
+      </div>
+      <div class="sheet-foot">
+        <span>Também no pacote: template ilimitado · modo conceito · badge "dá N×" · comunidade</span>
+        <span>Roda <b>100% no seu navegador — nada sai do seu PC</b></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SALA DE VÍDEO -->
+<section class="sec" style="padding-top:0">
+  <span class="secnum" aria-hidden="true">8</span>
+  <p class="sec-k rv">Prova real</p>
+  <h2 class="rv">Veja a ferramenta trabalhando — <span class="g">gravações reais, sem edição.</span></h2>
+  <div class="lockers">
+    <div class="locker wide rv">
+      <div class="tvframe">
+        <span class="glare" aria-hidden="true"></span>
+        <div class="lb"><span>CAMISA 8 · O SOLVER</span><span><b>11/11 · 2.1s · 0 MOEDAS</b> &nbsp;<span class="rec">● REC</span></span></div>
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/video/hero-solve-v2-poster.jpg" class="lazyvid"
+          aria-label="O solver preenchendo as 11 posições de um DME real">
+          <source src="assets/video/hero-solve-v2.mp4" type="video/mp4" />
+        </video>
+        <p class="cap"><b>Um clique:</b> o AFT lê o clube, resolve e preenche as 11 posições com as cartas mais baratas. Requisitos batidos, pronto pra enviar.</p>
+      </div>
+    </div>
+    <div class="locker rv">
+      <div class="tvframe">
+        <span class="glare" aria-hidden="true"></span>
+        <div class="lb"><span>CAMISA 11 · EVOLUÇÕES</span><span><b>13.937 TESTES</b></span></div>
+        <video muted loop playsinline preload="none" poster="assets/video/evo-explorer-poster.jpg" class="lazyvid"
+          aria-label="Explorador de evoluções ranqueando caminhos por meta">
+          <source src="assets/video/evo-explorer.mp4" type="video/mp4" />
+        </video>
+        <p class="cap">O Explorador monta a corrente completa de evolução, com custo e nota meta de cada passo — <b>antes de você aplicar a primeira.</b></p>
+      </div>
+    </div>
+    <div class="locker rv">
+      <div class="tvframe">
+        <span class="glare" aria-hidden="true"></span>
+        <div class="lb"><span>CAMISA 10 · ANÁLISE</span><span><b>UPGRADE +5.3</b></span></div>
+        <video muted loop playsinline preload="none" poster="assets/video/analise-clube-poster.jpg" class="lazyvid"
+          aria-label="Análise do clube com upgrades por posição">
+          <source src="assets/video/analise-clube.mp4" type="video/mp4" />
+        </video>
+        <p class="cap">A análise varre o clube e aponta o upgrade de cada posição — <b>com o valor da troca na tela.</b></p>
+      </div>
+    </div>
+    <div class="locker rv">
+      <div class="tvframe">
+        <span class="glare" aria-hidden="true"></span>
+        <div class="lb"><span>CAMISA 9 · LOTE</span><span><b>2/2 CONCLUÍDO</b></span></div>
+        <video muted loop playsinline preload="none" poster="assets/video/lote-run-poster.jpg" class="lazyvid"
+          aria-label="Lote repetindo um DME com log ao vivo">
+          <source src="assets/video/lote-run.mp4" type="video/mp4" />
+        </video>
+        <p class="cap">O lote repete o ciclo resolver → preencher → enviar com pausas automáticas — <b>e loga cada carta gasta.</b></p>
+      </div>
+    </div>
+    <div class="locker rv">
+      <div class="tvframe">
+        <span class="glare" aria-hidden="true"></span>
+        <div class="lb"><span>BANCO · ROTINAS</span><span><b>PASSO 1/2 → 2/2</b></span></div>
+        <video muted loop playsinline preload="none" poster="assets/video/rotina-run-poster.jpg" class="lazyvid"
+          aria-label="Rotina executando dois DMEs em sequência">
+          <source src="assets/video/rotina-run.mp4" type="video/mp4" />
+        </video>
+        <p class="cap">Uma rotina executa vários DMEs em sequência, abre as recompensas e organiza as sobras — <b>sem intervenção.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRELEÇÃO DO CAPITÃO -->
+<section class="sec">
+  <span class="secnum" aria-hidden="true">4</span>
+  <p class="sec-k rv">Regras da casa</p>
+  <h2 class="rv">Segurança em primeiro lugar. <span class="g">Controle sempre com você.</span></h2>
+  <div class="talk">
+    <div class="tk rv"><span class="n">1</span><div><h3>Tudo no seu PC</h3><p>Sua conta EA, seu login e seu clube nunca saem da sua máquina. Não existe servidor no meio, nem senha guardada — o AFT trabalha por cima do Web App já aberto na sua tela.</p></div></div>
+    <div class="tk rv"><span class="n">2</span><div><h3>Padrão de uso normal</h3><p>Delays variáveis, cooldowns e pausas automáticas em toda automação — nada de ações em intervalos cravados no relógio.</p></div></div>
+    <div class="tk rv"><span class="n">3</span><div><h3>Nada roda sem você</h3><p>O babysitter pausa a automação na sua ausência; o detector de CAPTCHA congela tudo até você resolver.</p></div></div>
+    <div class="tk rv"><span class="n">4</span><div><h3>Botão de pânico</h3><p>Kill-switch sempre visível: um clique encerra qualquer automação, na hora. Você decide o quanto delega.</p></div></div>
+  </div>
+  <p class="talk-note rv">Comece no perfil <b>Seguro</b> e acelere quando se sentir confortável.</p>
+</section>
+
+<!-- LOJA DE CAMISAS (planos) -->
+<section class="sec" id="planos">
+  <span class="secnum" aria-hidden="true">10</span>
+  <p class="sec-k rv">Planos</p>
+  <h2 class="rv">Comece grátis. <span class="g">Assine só quando precisar de mais.</span></h2>
+  <p class="lead rv">Sem cartão pra começar, sem fidelidade. E passe o mouse nas camisas — cada plano tem o seu nome nas costas.</p>
+  <div class="kits">
+    <div class="kit rv">
+      <div class="kitshirt t-free" data-n="12" data-t="Prata">
+        <div class="kflip">
+          <div class="kface front">
+            <svg viewBox="0 0 120 130" aria-hidden="true"><path d="M38 8 L16 22 L4 48 L22 58 L26 44 L26 122 L94 122 L94 44 L98 58 L116 48 L104 22 L82 8 L74 14 Q60 24 46 14 Z" fill="#232B27" stroke="rgba(255,255,255,.14)" stroke-width="2"/></svg>
+            <span class="knum">12</span>
+          </div>
+          <div class="kface back">
+            <svg viewBox="0 0 120 130" aria-hidden="true"><path d="M38 8 L16 22 L4 48 L22 58 L26 44 L26 122 L94 122 L94 44 L98 58 L116 48 L104 22 L82 8 L74 14 Q60 24 46 14 Z" fill="#232B27" stroke="rgba(255,255,255,.14)" stroke-width="2"/></svg>
+            <span class="knm">Você</span><span class="knum">12</span>
+          </div>
+        </div>
+      </div>
+      <h3>Grátis</h3>
+      <div class="price">R$0 <small>/ para sempre</small></div>
+      <p class="tag">Pra usar de verdade, sem pagar nada.</p>
+      <ul>
+        <li>Solver — até 30 DMEs/dia</li>
+        <li>Preencher com template — ilimitado</li>
+        <li>Explorador de evoluções + catálogo</li>
+        <li>Nota meta em cada carta</li>
+      </ul>
+      <a class="btn line" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Começar grátis</a>
+    </div>
+    <div class="kit mid rv">
+      <span class="armband">⭐ Mais assinado</span>
+      <div class="kitshirt t-pro" data-n="8" data-t="Especial">
+        <div class="kflip">
+          <div class="kface front">
+            <svg viewBox="0 0 120 130" aria-hidden="true"><defs><linearGradient id="kit2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00E5C8"/><stop offset="1" stop-color="#36E25A"/></linearGradient></defs><path d="M38 8 L16 22 L4 48 L22 58 L26 44 L26 122 L94 122 L94 44 L98 58 L116 48 L104 22 L82 8 L74 14 Q60 24 46 14 Z" fill="url(#kit2)" stroke="rgba(4,36,15,.4)" stroke-width="2"/></svg>
+            <span class="knum">8</span>
+          </div>
+          <div class="kface back">
+            <svg viewBox="0 0 120 130" aria-hidden="true"><path d="M38 8 L16 22 L4 48 L22 58 L26 44 L26 122 L94 122 L94 44 L98 58 L116 48 L104 22 L82 8 L74 14 Q60 24 46 14 Z" fill="url(#kit2)" stroke="rgba(4,36,15,.4)" stroke-width="2"/></svg>
+            <span class="knm" style="color:rgba(4,36,15,.85)">Você</span><span class="knum" style="color:#04240F;text-shadow:0 2px 0 rgba(255,255,255,.25)">8</span>
+          </div>
+        </div>
+      </div>
+      <h3>Pro</h3>
+      <div class="price">R$13,90 <small>/ mês</small></div>
+      <p class="tag">R$0,46/dia — solver ilimitado e preços ao vivo.</p>
+      <ul>
+        <li class="hd">Tudo do Grátis, e mais:</li>
+        <li>Solver ILIMITADO</li>
+        <li>Preços ao vivo, sem cap</li>
+        <li>Overlay de preço na carta</li>
+        <li>"Dá N×" + "Vale a pena?"</li>
+        <li>Conceito, reciclar e limpeza</li>
+      </ul>
+      <a class="btn go" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Assinar o Pro</a>
+    </div>
+    <div class="kit rv">
+      <div class="kitshirt t-prem" data-n="10" data-t="Ouro">
+        <div class="kflip">
+          <div class="kface front">
+            <svg viewBox="0 0 120 130" aria-hidden="true"><path d="M38 8 L16 22 L4 48 L22 58 L26 44 L26 122 L94 122 L94 44 L98 58 L116 48 L104 22 L82 8 L74 14 Q60 24 46 14 Z" fill="#232B27" stroke="rgba(255,197,61,.4)" stroke-width="2"/></svg>
+            <span class="knum" style="color:var(--gold)">10</span>
+          </div>
+          <div class="kface back">
+            <svg viewBox="0 0 120 130" aria-hidden="true"><path d="M38 8 L16 22 L4 48 L22 58 L26 44 L26 122 L94 122 L94 44 L98 58 L116 48 L104 22 L82 8 L74 14 Q60 24 46 14 Z" fill="#232B27" stroke="rgba(255,197,61,.4)" stroke-width="2"/></svg>
+            <span class="knm" style="color:var(--gold)">Você</span><span class="knum" style="color:var(--gold)">10</span>
+          </div>
+        </div>
+      </div>
+      <h3>Premium</h3>
+      <div class="price">R$24,90 <small>/ mês</small></div>
+      <p class="tag">Automação completa: lote, rotinas e packs.</p>
+      <ul>
+        <li class="hd">Tudo do Pro, e mais:</li>
+        <li>Lote com solver + Rotinas multi-DME</li>
+        <li>Packs no automático + histórico</li>
+        <li>Análise do clube + Melhor XI</li>
+        <li>Evoluções do clube + Comprar &amp; Evoluir</li>
+      </ul>
+      <a class="btn line" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Assinar o Premium</a>
+    </div>
+  </div>
+  <p class="kits-note rv">R$13,90/mês é menos do que você economiza em <b>um único dia</b> de DMEs · desinstalou, acabou — <b>nada fica no seu PC.</b></p>
+</section>
+
+<!-- FAQ -->
+<section class="sec" style="padding-top:0">
+  <p class="sec-k rv">Dúvidas</p>
+  <h2 class="rv">O que todo mundo pergunta <span class="g">antes de instalar.</span></h2>
+  <div class="faq rv">
+    <div class="fq"><button>É seguro? Minha conta vai pra algum servidor?</button><div class="a"><p>Não. O AFT roda 100% dentro do seu navegador, no seu PC. Sua conta EA, login e clube nunca saem da sua máquina — não existe servidor que toque na sua conta.</p></div></div>
+    <div class="fq"><button>Como vocês evitam o soft-block?</button><div class="a"><p>Ritmo humano (delays gaussianos, cooldowns, pausas), babysitter, detector de CAPTCHA e kill-switch que para tudo na hora. Você começa no modo Seguro e acelera quando quiser.</p></div></div>
+    <div class="fq"><button>Funciona no meu navegador?</button><div class="a"><p>Chrome, Edge e Firefox (Manifest V3). Se o FUT Web App abre, o AFT abre junto.</p></div></div>
+    <div class="fq"><button>O plano grátis serve mesmo?</button><div class="a"><p>Serve: solver até 30 DMEs/dia, preenchimento por template ilimitado e o explorador de evoluções completo. Sem cartão, não expira — você só assina quando os 30/dia ficarem pequenos.</p></div></div>
+    <div class="fq"><button>E quando a EA muda o Web App?</button><div class="a"><p>A gente acompanha e atualiza — as atualizações chegam sozinhas, sem reinstalar nada.</p></div></div>
+  </div>
+</section>
+
+</div>
+
+<!-- O TÚNEL 3D (CTA final) -->
+<section class="tunnel" id="tunnel">
+  <div class="t3d" aria-hidden="true">
+    <div class="rays"></div>
+    <div class="wl"></div>
+    <div class="wr"></div>
+    <div class="ceil"></div>
+    <div class="floor"></div>
+    <div class="tlight"></div>
+    <div class="tframe"></div>
+  </div>
+  <div class="tunnel-inner">
+    <p class="k">Último passo · o túnel está aberto</p>
+    <h2>Pare de perder noites<br />montando DME na mão.<br /><span class="g">Isso agora leva segundos.</span></h2>
+    <p>Entre no beta, instale em 2 minutos e resolva o primeiro DME ainda hoje — grátis, sem cartão.</p>
+    <a class="btn go" id="ctaFinal" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Entrar no beta grátis</a>
+    <p class="fine">Grátis para começar · sem cartão · roda no seu PC · cancele quando quiser</p>
+  </div>
+</section>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div>
+        <div class="fbrand"><img src="assets/logo-128.png" alt="AFT" /><b>AFT — AUTO FARM TOOLS</b></div>
+        <p>Resolve. Preenche. Envia. Em segundos. Feito por quem faz 200+ DMEs por dia.</p>
+      </div>
+      <div><h4>O clube</h4><a href="#sumula">A escalação</a><a href="#planos">Loja de camisas</a></div>
+      <div><h4>Vestiário</h4><a href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Discord</a><a href="mailto:gustavolnx.dev@gmail.com">Contato</a></div>
+      <div><h4>Legal</h4><a href="https://aft-admin.vercel.app/termos" target="_blank" rel="noopener">Termos de Uso</a><a href="https://aft-admin.vercel.app/privacy" target="_blank" rel="noopener">Privacidade</a></div>
+    </div>
+    <div class="legal">
+      <span>AFT é uma ferramenta independente e <b>não é afiliada, endossada ou associada à EA, EA Sports ou EA SPORTS FC</b>. Use por sua conta e risco.</span>
+      <span>© 2026 AFT · versão beta</span>
+      <span style="width:100%;font-size:11px;opacity:.75">Arte da cena do chute: silhueta a partir de <a href="https://commons.wikimedia.org/wiki/File:World%27s_Favorite_Sport.svg" target="_blank" rel="noopener" style="text-decoration:underline">"World's Favorite Sport"</a> (Rama; deriv. Nevit Dilmen — CC BY 2.0) · bola de <a href="https://commons.wikimedia.org/wiki/File:Soccer_ball.svg" target="_blank" rel="noopener" style="text-decoration:underline">Pumbaa80</a> (CC BY-SA 3.0), via Wikimedia Commons.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var RM=false,FINE=false;
+  try{RM=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
+  try{FINE=matchMedia('(pointer: fine)').matches}catch(e){}
+
+  /* ---------- portas do vestiário ---------- */
+  var doors=document.getElementById('doors');
+  if(doors){
+    if(RM){doors.remove()}
+    else{
+      setTimeout(function(){doors.classList.add('open')},1150);
+      setTimeout(function(){doors.remove()},2300);
+    }
+  }
+
+  /* ---------- cronômetro de partida (scroll = 0'→90') ---------- */
+  var cmin=document.getElementById('clockmin'),cfill=document.getElementById('clockfill');
+  function clock(){
+    var h=document.documentElement.scrollHeight-innerHeight;
+    var p=h>0?Math.min(1,scrollY/h):0;
+    if(cfill)cfill.style.width=(p*100).toFixed(1)+'%';
+    if(cmin){
+      var m=Math.round(p*95);
+      cmin.textContent=p>=0.995?'FIM':(m>90?('90+'+(m-90)+"'"):(m+"'"));
+    }
+  }
+  addEventListener('scroll',clock,{passive:true});addEventListener('resize',clock);clock();
+
+  /* ---------- nav ---------- */
+  var nav=document.getElementById('nav');
+  addEventListener('scroll',function(){nav.classList.toggle('sc',scrollY>30)},{passive:true});
+
+  /* ---------- parallax 3D do keyart (ponteiro) ---------- */
+  (function(){
+    if(RM||!FINE)return;
+    var ka=document.getElementById('keyart'),inner=document.getElementById('kaInner');
+    if(!ka||!inner)return;
+    var raf=null,ev=null;
+    ka.addEventListener('pointermove',function(e){
+      ev=e;if(raf)return;
+      raf=requestAnimationFrame(function(){
+        raf=null;if(!ev)return;
+        var r=ka.getBoundingClientRect();
+        var px=(ev.clientX-r.left)/r.width,py=(ev.clientY-r.top)/r.height;
+        inner.style.transform='rotateY('+((px-0.5)*9).toFixed(2)+'deg) rotateX('+((0.5-py)*5).toFixed(2)+'deg)';
+      });
+    },{passive:true});
+    ka.addEventListener('pointerleave',function(){inner.style.transform=''});
+  })();
+
+  /* ---------- a cena do chute (scroll-driven, ancorada nos elementos) ---------- */
+  (function(){
+    var kick=document.getElementById('kick'),stage=document.getElementById('kickStage'),
+        ball=document.getElementById('ball'),spin=document.getElementById('ballSpin'),
+        bshadow=document.getElementById('ballShadow'),
+        kicker=document.getElementById('kickerSil'),kimg=document.getElementById('kickerImg'),
+        goalEl=document.getElementById('goalEl');
+    if(!kick||!stage||!ball||!goalEl)return;
+    var chips=[document.getElementById('kc1'),document.getElementById('kc2'),document.getElementById('kc3')];
+    function bez(a,b,c,t){var u=1-t;return u*u*a + 2*u*t*b + t*t*c}
+
+    /* geometria: pé do voleio → ápice → centro do gol (recalculada no resize) */
+    var G=null;
+    function geometry(){
+      var sr=stage.getBoundingClientRect(),kr=kicker.getBoundingClientRect(),gr=goalEl.getBoundingClientRect();
+      var P0={x:kr.left-sr.left+kr.width*0.97, y:kr.top-sr.top+kr.height*0.34};
+      var P2={x:gr.left-sr.left+gr.width*0.50, y:gr.top-sr.top+gr.height*0.52};
+      var P1={x:P0.x+(P2.x-P0.x)*0.42, y:Math.min(P0.y,P2.y)-sr.height*0.22};
+      G={P0:P0,P1:P1,P2:P2,ground:kr.top-sr.top+kr.height*1.02,w:sr.width,h:sr.height};
+    }
+    geometry();
+    addEventListener('resize',function(){geometry();onScroll()});
+
+    if(RM){
+      stage.classList.add('goal','moving');
+      chips.forEach(function(c){if(c)c.classList.add('on')});
+      ball.style.transform='translate('+(G.P2.x-ball.offsetWidth/2)+'px,'+(G.P2.y-ball.offsetHeight/2)+'px) scale(.38)';
+      if(bshadow)bshadow.style.display='none';
+      kimg.style.setProperty('--kr','2deg');kimg.style.setProperty('--ky','0px');
+      return;
+    }
+
+    var goalOn=false,raf=null;
+    function render(){
+      raf=null;
+      if(!G)geometry();
+      var total=kick.offsetHeight-innerHeight;
+      if(total<=0)return;
+      var p=Math.min(1,Math.max(0,-kick.getBoundingClientRect().top/total));
+      stage.classList.toggle('moving',p>0.02);
+      /* corpo: armado → impacto → follow-through */
+      var kr,ky;
+      if(p<0.05){kr=-10;ky=8}
+      else if(p<0.12){var t=(p-0.05)/0.07;kr=-10+t*14;ky=8-t*8}
+      else{kr=4;ky=0}
+      kimg.style.setProperty('--kr',kr.toFixed(1)+'deg');
+      kimg.style.setProperty('--ky',ky.toFixed(1)+'px');
+      /* bola voa entre 8% e 78% do scroll da cena */
+      var f=Math.min(1,Math.max(0,(p-0.08)/0.70));
+      var e=1-Math.pow(1-f,1.9);
+      var bx=bez(G.P0.x,G.P1.x,G.P2.x,e), by=bez(G.P0.y,G.P1.y,G.P2.y,e);
+      var s=1-0.60*e;
+      ball.style.transform='translate('+(bx-ball.offsetWidth/2).toFixed(1)+'px,'+(by-ball.offsetHeight/2).toFixed(1)+'px) scale('+s.toFixed(3)+')';
+      spin.style.rotate=(e*820).toFixed(0)+'deg';
+      /* sombra no gramado: segue o x, encolhe e some com a altura */
+      if(bshadow){
+        var gy=G.ground+(G.P2.y-G.ground)*e*0.55; /* o "chão" recua junto da perspectiva */
+        var ss=(1-0.62*e), so=Math.max(0,0.75-e*0.65-(1-f)*0);
+        bshadow.style.transform='translate('+(bx-37).toFixed(1)+'px,'+gy.toFixed(1)+'px) scale('+ss.toFixed(3)+')';
+        bshadow.style.opacity=(f<=0?0.75:so).toFixed(2);
+      }
+      /* checkpoints de produto */
+      if(chips[0])chips[0].classList.toggle('on',p>0.16&&p<0.9);
+      if(chips[1])chips[1].classList.toggle('on',p>0.34&&p<0.9);
+      if(chips[2])chips[2].classList.toggle('on',p>0.52&&p<0.9);
+      /* GOL */
+      if(p>=0.78&&!goalOn){goalOn=true;stage.classList.add('goal')}
+      else if(p<0.72&&goalOn){goalOn=false;stage.classList.remove('goal')}
+    }
+    function onScroll(){if(!raf)raf=requestAnimationFrame(render)}
+    addEventListener('scroll',onScroll,{passive:true});
+    /* espera o SVG do jogador carregar pra ancorar a geometria certa */
+    if(kimg&&!kimg.complete)kimg.addEventListener('load',function(){geometry();onScroll()});
+    render();
+  })();
+
+  /* ---------- súmula ⇄ campo 3D ---------- */
+  var dots={};
+  document.querySelectorAll('.pdot').forEach(function(d){dots[d.getAttribute('data-n')]=d});
+  var starters=[].slice.call(document.querySelectorAll('.starter'));
+  function light(n){
+    Object.keys(dots).forEach(function(k){dots[k].classList.toggle('on',k===n)});
+    starters.forEach(function(s){s.classList.toggle('hot',s.getAttribute('data-n')===n)});
+  }
+  /* entrada staggered tipo anúncio de escalação */
+  try{
+    var seen=false;
+    var sio=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting||seen)return;
+        seen=true;sio.disconnect();
+        starters.forEach(function(s,i){
+          setTimeout(function(){
+            s.classList.add('in');
+            if(!RM)light(s.getAttribute('data-n'));
+          },RM?0:i*130);
+        });
+        setTimeout(function(){light('8')},RM?0:starters.length*130+300);
+      });
+    },{threshold:.15});
+    var sheet=document.getElementById('sheet');
+    if(sheet)sio.observe(sheet);
+  }catch(e){starters.forEach(function(s){s.classList.add('in')})}
+  /* hover/scroll sincronizam */
+  starters.forEach(function(s){
+    s.addEventListener('pointerenter',function(){light(s.getAttribute('data-n'))});
+  });
+  try{
+    var mid=new IntersectionObserver(function(es){
+      es.forEach(function(e){if(e.isIntersecting)light(e.target.getAttribute('data-n'))});
+    },{rootMargin:'-46% 0px -46% 0px',threshold:0});
+    starters.forEach(function(s){mid.observe(s)});
+  }catch(e){}
+  Object.keys(dots).forEach(function(k){
+    dots[k].addEventListener('pointerenter',function(){light(k)});
+  });
+
+  /* ---------- telões: tilt + glare ---------- */
+  (function(){
+    if(!FINE)return;
+    document.addEventListener('pointermove',function(e){
+      var lk=e.target.closest?e.target.closest('.locker'):null;
+      if(!lk)return;
+      var fr=lk.querySelector('.tvframe');if(!fr)return;
+      var r=lk.getBoundingClientRect();
+      var px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
+      fr.style.setProperty('--gx',(px*100).toFixed(1)+'%');
+      fr.style.setProperty('--gy',(py*100).toFixed(1)+'%');
+      if(!RM){
+        fr.style.transform='rotateY('+((px-0.5)*6).toFixed(2)+'deg) rotateX('+((0.5-py)*4).toFixed(2)+'deg)';
+      }
+    },{passive:true});
+    document.addEventListener('pointerout',function(e){
+      var lk=e.target.closest?e.target.closest('.locker'):null;
+      if(lk){var fr=lk.querySelector('.tvframe');if(fr)fr.style.transform=''}
+    },{passive:true});
+  })();
+
+  /* ---------- spotlight nas regras ---------- */
+  if(FINE){
+    document.addEventListener('pointermove',function(e){
+      var c=e.target.closest?e.target.closest('.tk'):null;
+      if(!c)return;
+      var r=c.getBoundingClientRect();
+      c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');
+      c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');
+    },{passive:true});
+  }
+
+  /* ---------- confete no CTA final ---------- */
+  (function(){
+    if(RM)return;
+    var cta=document.getElementById('ctaFinal'),cv=document.getElementById('confetti');
+    if(!cta||!cv)return;
+    var ctx=cv.getContext('2d');
+    cta.addEventListener('click',function(){
+      cv.width=innerWidth;cv.height=innerHeight;cv.style.display='block';
+      var COLORS=['#00E5C8','#36E25A','#7BF5A8','#FFFFFF','#FFC53D'];
+      var r=cta.getBoundingClientRect();
+      var ox=r.left+r.width/2,oy=r.top+r.height/2;
+      var P=[];
+      for(var i=0;i<130;i++){
+        var a=(-Math.PI/2)+(Math.random()-0.5)*1.5;
+        var v=7+Math.random()*9;
+        P.push({x:ox,y:oy,vx:Math.cos(a)*v,vy:Math.sin(a)*v,
+          s:4+Math.random()*5,c:COLORS[(Math.random()*COLORS.length)|0],
+          rot:Math.random()*Math.PI,vr:(Math.random()-0.5)*0.3,life:1});
+      }
+      var t0=null;
+      function frame(t){
+        if(t0===null)t0=t;
+        var done=true;
+        ctx.clearRect(0,0,cv.width,cv.height);
+        P.forEach(function(p){
+          p.vy+=0.32;p.x+=p.vx;p.y+=p.vy;p.rot+=p.vr;p.life-=0.011;
+          if(p.life<=0)return;
+          done=false;
+          ctx.save();ctx.globalAlpha=Math.max(0,p.life);
+          ctx.translate(p.x,p.y);ctx.rotate(p.rot);
+          ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.62);
+          ctx.restore();
+        });
+        if(!done)requestAnimationFrame(frame);
+        else{cv.style.display='none'}
+      }
+      requestAnimationFrame(frame);
+    });
+  })();
+
+  /* ---------- reveals ---------- */
+  try{
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.13});
+    document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+  }catch(e){document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in')})}
+  /* safety net: saltos de âncora pulam a viewport sem frames — revela o que já passou */
+  (function(){
+    var pend=null;
+    function sweep(){
+      pend=null;
+      document.querySelectorAll('.rv:not(.in)').forEach(function(el){
+        var t=el.getBoundingClientRect().top;
+        if(t<innerHeight*1.05)el.classList.add('in');
+      });
+    }
+    addEventListener('scroll',function(){if(!pend)pend=requestAnimationFrame(sweep)},{passive:true});
+    addEventListener('load',function(){setTimeout(sweep,300)});
+  })();
+
+  /* ---------- lazy videos ---------- */
+  try{
+    var vio=new IntersectionObserver(function(es){es.forEach(function(e){
+      var v=e.target;
+      if(e.isIntersecting){if(!RM){var p=v.play();if(p&&p.catch)p.catch(function(){})}}
+      else{try{v.pause()}catch(err){}}
+    })},{threshold:.3});
+    document.querySelectorAll('.lazyvid').forEach(function(v){vio.observe(v)});
+  }catch(e){}
+
+  /* ---------- FAQ ---------- */
+  document.querySelectorAll('.fq').forEach(function(f){
+    var b=f.querySelector('button'),a=f.querySelector('.a');
+    b.addEventListener('click',function(){
+      var open=f.classList.contains('open');
+      document.querySelectorAll('.fq.open').forEach(function(o){o.classList.remove('open');o.querySelector('.a').style.maxHeight=null});
+      if(!open){f.classList.add('open');a.style.maxHeight=a.scrollHeight+'px'}
+    });
+  });
+})();
+</script>
+</body>
+</html>
