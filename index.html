@@ -528,6 +528,15 @@ button.btn{background:none;border:none;cursor:pointer}
 button.btn.line{border:1.5px solid rgba(237,243,239,.3);color:var(--tx)}
 button.btn.line:hover{border-color:var(--gold);color:var(--gold)}
 
+.fnd-why{max-width:1020px;margin:40px auto 0}
+.fw-open{text-align:center;font-size:17.5px;color:var(--tx-lo);max-width:660px;margin:0 auto 26px;line-height:1.7}
+.fw-open b{color:var(--gold)}
+.fw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fw-item{border:1px solid rgba(255,197,61,.18);background:rgba(255,197,61,.04);border-radius:14px;padding:18px 18px 16px}
+.fw-n{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;color:var(--gold)}
+.fw-item h4{font-family:var(--f-num);font-size:15.5px;margin:8px 0;letter-spacing:.02em}
+.fw-item p{font-size:13.5px;color:var(--tx-lo);line-height:1.6;margin:0}
+@media (max-width:860px){.fw-grid{grid-template-columns:1fr}}
 .fnd-grid{display:flex;gap:38px;justify-content:center;align-items:stretch;flex-wrap:wrap;margin-top:46px;perspective:1500px}
 .fkit{width:min(330px,90vw);display:flex;flex-direction:column;align-items:center;text-align:center}
 .fkit>h3{margin-top:22px;font-size:21px}
@@ -1082,6 +1091,15 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
     <span class="fs-cell">VITALÍCIO <b id="fsL">50</b><span>/50</span></span>
   </div>
 
+  <div class="fnd-why rv">
+    <p class="fw-open">Todo clube tem quem chegou depois da taça. <b>Fundador é quem estava no primeiro jogo</b> — e isso, por definição, não se repete.</p>
+    <div class="fw-grid">
+      <div class="fw-item"><span class="fw-n">01 · JANELA</span><h4>Fecha no apito inicial</h4><p>A oferta sai do ar quando o Web App do FC 27 abrir. Depois do lançamento, não existe "virar fundador" — quem entrou, entrou. Para sempre é só quem estava aqui antes.</p></div>
+      <div class="fw-item"><span class="fw-n">02 · ESTOQUE</span><h4>Edição numerada, contada pelo servidor</h4><p>200 passes Fundador + 50 Vitalícios — e acabou a tiragem. O placar acima é o estoque real, ao vivo. Quando zerar ou a janela fechar, não reabre e não tem "segunda turma".</p></div>
+      <div class="fw-item"><span class="fw-n">03 · PREÇO</span><h4>Essa troca sai da mesa</h4><p>No lançamento, o Premium vira assinatura: R$13,90/mês, R$199/ano, todo ano. O passe troca isso por um único pagamento — condição que existe hoje e não será oferecida de novo.</p></div>
+    </div>
+  </div>
+
   <div class="fnd-grid">
     <div class="fkit rv">
       <div class="fcardw"><div class="fcard t-fnd" data-fnd="founder" role="button" tabindex="0" aria-label="Garantir o Passe Fundador por 97 reais">
@@ -1104,7 +1122,7 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         <li><b>Premium completo hoje</b>, na hora da confirmação</li>
         <li><b>Todo o ciclo FC 27</b> incluído — nada a pagar no lançamento</li>
         <li>Lote, rotinas, packs, análise, evoluções: <b>tudo</b></li>
-        <li>Pix ou cartão, direto no caixa da Asaas</li>
+        <li>Sai do ar no apito inicial do FC 27 — <b>e não volta</b></li>
       </ul>
       <p class="ffine">1 de 200 · o contador acima é real, não marketing</p>
       <button class="btn gold fnd-cta" data-fnd="founder">Garantir minha vaga — R$97</button>
@@ -1154,6 +1172,7 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
     <div class="fq"><button>E quando a EA muda o Web App?</button><div class="a"><p>A gente acompanha e atualiza — as atualizações chegam sozinhas, sem reinstalar nada.</p></div></div>
     <div class="fq"><button>O que o Passe Fundador me dá, exatamente?</button><div class="a"><p>O Premium completo, ativo na hora em que o pagamento confirma — não é pré-venda, é o produto funcionando hoje. O bônus: quando o ciclo do FC 27 começar e os planos mensais entrarem em vigor, você não paga nada até o fim daquele ciclo (Vitalício: nunca mais). E vale o CDC: 7 dias de arrependimento com devolução integral.</p></div></div>
     <div class="fq"><button>Paguei o passe. Como ativo?</button><div class="a"><p>Não precisa ativar nada. O passe é vinculado ao e-mail da sua conta AFT no momento da compra — assim que o pagamento confirma (Pix: na hora; cartão: minutos), o Premium acende sozinho na extensão. Se algo não acender, fala com a gente: gustavolnx.dev@gmail.com.</p></div></div>
+    <div class="fq"><button>O passe Fundador volta depois? Vai ter "segunda turma"?</button><div class="a"><p>Não. Fundador é definido pelo momento: quem entrou antes do Web App do FC 27 abrir. Reabrir depois quebraria exatamente o que os 250 fundadores compraram — a exclusividade é parte do produto. Quando a janela fechar (ou as vagas zerarem, o que vier primeiro), o que passa a existir são os planos normais de tabela: R$13,90/mês ou R$199/ano.</p></div></div>
   </div>
 </section>
 
