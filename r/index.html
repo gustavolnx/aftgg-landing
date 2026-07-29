@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Convite — AFT — Auto Farm Tools</title>
+<meta name="description" content="Você recebeu um convite para o AFT — Auto Farm Tools." />
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0E1211" />
+<link rel="icon" type="image/png" href="/assets/favicon-48.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Chivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" media="print" onload="this.media='all'" />
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Chivo:wght@400;500;600;700&display=swap" /></noscript>
+<style>
+:root{
+  --room:#0E1211; --panel:#1A211E; --panel2:#202824;
+  --tx:#EDF3EF; --tx-lo:#A2B2A8; --tx-dim:#657268;
+  --teal:#00E5C8; --green:#36E25A; --gold:#FFC53D; --red:#FF5A48;
+  --grad:linear-gradient(100deg,#00E5C8,#36E25A);
+  --f-num:'Archivo Black',sans-serif; --f-body:'Chivo',sans-serif; --f-mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--room);color:var(--tx);font-family:var(--f-body);font-size:16px;line-height:1.65;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit}
+::selection{background:rgba(54,226,90,.35)}
+header{border-bottom:1px solid rgba(255,255,255,.07);padding:16px 22px;display:flex;justify-content:space-between;align-items:center}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.04em;text-decoration:none;font-size:14px}
+.brand img{width:26px;height:26px;border-radius:6px}
+.back{font-size:13px;color:var(--tx-lo);text-decoration:none;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:6px 13px}
+.back:hover{color:var(--tx);border-color:var(--teal)}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:34px 20px}
+.card{width:min(480px,94vw);background:var(--panel);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.k{font-family:var(--f-mono);font-size:11px;letter-spacing:.22em;color:var(--gold)}
+h1{font-family:var(--f-num);font-size:23px;line-height:1.2;margin:10px 0 8px}
+h1 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 .au{color:var(--gold)}
+.sub{color:var(--tx-lo);font-size:14.5px}
+.coupon{background:var(--panel2);border:1px dashed rgba(255,197,61,.45);border-radius:14px;text-align:center;padding:16px;margin:20px 0}
+.coupon .lbl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;color:var(--tx-dim)}
+.coupon .code{font-family:var(--f-num);font-size:32px;letter-spacing:.14em;color:var(--gold);margin-top:4px}
+.coupon button{margin-top:10px;background:none;border:1px solid rgba(255,255,255,.16);border-radius:999px;color:var(--tx-lo);font-family:var(--f-body);font-size:12.5px;padding:6px 16px;cursor:pointer}
+.coupon button:hover{border-color:var(--gold);color:var(--gold)}
+ol{padding-left:20px;color:var(--tx-lo);font-size:14.5px;line-height:1.9}
+ol b{color:var(--tx)}
+ol a{color:var(--teal);text-decoration:underline;text-underline-offset:2px}
+.cta{display:flex;justify-content:center;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;gap:9px;font-family:var(--f-num);letter-spacing:.05em;font-size:14px;padding:14px 22px;border-radius:12px;text-decoration:none;background:var(--grad);color:#04240F;border:none;cursor:pointer}
+.btn:hover{filter:brightness(1.06)}
+.fine{font-size:11.5px;color:var(--tx-dim);margin-top:16px;line-height:1.6;text-align:center}
+.err h1{font-size:20px}
+.hide{display:none !important}
+#loading{text-align:center;color:var(--tx-dim);font-family:var(--f-mono);font-size:12px;letter-spacing:.15em}
+footer{padding:18px;text-align:center;font-size:12px;color:var(--tx-dim)}
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="/"><img src="/assets/logo-128.png" alt="" />AFT — AUTO FARM TOOLS</a>
+  <a class="back" href="/">Conhecer o AFT →</a>
+</header>
+
+<main>
+  <div class="card">
+    <p id="loading">VERIFICANDO CONVITE…</p>
+
+    <div id="ok" class="hide">
+      <p class="k" id="okKicker">CONVITE</p>
+      <h1 id="okTitle"></h1>
+      <p class="sub" id="okSub"></p>
+      <div class="coupon">
+        <div class="lbl">SEU CUPOM</div>
+        <div class="code" id="couponCode"></div>
+        <button type="button" id="copyBtn">Copiar cupom</button>
+      </div>
+      <ol>
+        <li><a href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Entre no beta</a> e instale a extensão AFT (Chrome / Edge / Firefox).</li>
+        <li>Abra o AFT no FUT Web App e clique em <b>Criar conta</b>.</li>
+        <li>Cole o cupom <b id="couponInline"></b> no campo de cupom ao criar a conta.</li>
+        <li id="okStep4"></li>
+      </ol>
+      <div class="cta"><a class="btn" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Entrar no beta e instalar</a></div>
+    </div>
+
+    <div id="bad" class="hide err">
+      <p class="k">CONVITE</p>
+      <h1>Ops…</h1>
+      <p class="sub" id="badMsg"></p>
+      <div class="cta"><a class="btn" href="/">Conhecer o AFT</a></div>
+    </div>
+
+    <p class="fine">🔒 A conta AFT usa e-mail + senha próprios. NÃO é sua conta EA — nunca pedimos seu login da EA.</p>
+  </div>
+</main>
+
+<footer>AFT é uma ferramenta independente, não afiliada à EA. · <a href="/termos/" style="text-decoration:underline">Termos</a> · <a href="/privacidade/" style="text-decoration:underline">Privacidade</a></footer>
+
+<script>
+(function(){
+  'use strict';
+  var API='https://alaabdtwlmsxrbmwswim.supabase.co/functions/v1/referral/';
+  var REASONS={
+    invalid:'Este convite não existe. Confere se o link veio completo?',
+    inactive:'Este convite está temporariamente pausado.',
+    expired:'Este convite já encerrou.',
+    full:'As vagas deste convite acabaram — mas você ainda pode usar o AFT no plano grátis.'
+  };
+  var code=(location.pathname.split('/r/')[1]||'').replace(/\/+$/,'').trim();
+  var $=function(id){return document.getElementById(id)};
+  function show(el){$('loading').classList.add('hide');el.classList.remove('hide')}
+  function fail(reason){$('badMsg').textContent=REASONS[reason]||REASONS.invalid;show($('bad'))}
+  if(!code){fail('invalid');return}
+  code=decodeURIComponent(code).toUpperCase();
+
+  fetch(API+encodeURIComponent(code)).then(function(r){return r.json()}).then(function(d){
+    if(!d||!d.valid){fail(d&&d.reason);return}
+    var plan=d.trial_plan==='premium'?'Premium':'Pro';
+    if(d.access_until){
+      var dt=new Date(d.access_until).toLocaleDateString('pt-BR');
+      $('okKicker').textContent='🎟️ CONVITE DE BETA';
+      $('okTitle').innerHTML='<span class="g">'+plan+'</span> completo até <span class="au">'+dt+'</span>';
+      $('okSub').textContent='Acesso de beta: tudo destravado até '+dt+', não importa quando você resgatar. Sem cartão, sem pegadinha.';
+      $('okStep4').innerHTML='Pronto — seu <b>'+plan+'</b> acende na hora e vale até <b>'+dt+'</b>. 🚀';
+    }else{
+      $('okKicker').textContent='🎁 CORTESIA DE '+(d.creator_name||'PARCEIRO').toUpperCase();
+      $('okTitle').innerHTML=d.trial_days+' dias de <span class="g">'+plan+'</span> grátis';
+      $('okSub').textContent=(d.remaining!=null?('Restam '+d.remaining+' vagas. '):'')+'Ativado na hora do cadastro.';
+      $('okStep4').innerHTML='Pronto — seu <b>'+plan+'</b> de '+d.trial_days+' dias é ativado na hora. 🚀';
+    }
+    $('couponCode').textContent=code;
+    $('couponInline').textContent=code;
+    show($('ok'));
+  }).catch(function(){fail('invalid')});
+
+  document.addEventListener('click',function(e){
+    if(e.target&&e.target.id==='copyBtn'){
+      try{navigator.clipboard.writeText(code);e.target.textContent='Copiado ✓'}catch(_){}
+    }
+  });
+})();
+</script>
+<noscript><style>#loading{display:none}</style><p style="text-align:center;color:#A2B2A8">Ative o JavaScript para ver o convite — ou instale o AFT direto: discord.gg/RuAnQmK8Zh</p></noscript>
+
+</body>
+</html>
