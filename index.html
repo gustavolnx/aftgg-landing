@@ -528,28 +528,50 @@ button.btn{background:none;border:none;cursor:pointer}
 button.btn.line{border:1.5px solid rgba(237,243,239,.3);color:var(--tx)}
 button.btn.line:hover{border-color:var(--gold);color:var(--gold)}
 
-.fnd-why{max-width:1020px;margin:40px auto 0}
-.fw-open{text-align:center;font-size:17.5px;color:var(--tx-lo);max-width:660px;margin:0 auto 26px;line-height:1.7}
-.fw-open b{color:var(--gold)}
-.fw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.fw-item{border:1px solid rgba(255,197,61,.18);background:rgba(255,197,61,.04);border-radius:14px;padding:18px 18px 16px}
-.fw-n{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;color:var(--gold)}
-.fw-item h4{font-family:var(--f-num);font-size:15.5px;margin:8px 0;letter-spacing:.02em}
-.fw-item p{font-size:13.5px;color:var(--tx-lo);line-height:1.6;margin:0}
-@media (max-width:860px){.fw-grid{grid-template-columns:1fr}}
-.fnd-grid{display:flex;gap:38px;justify-content:center;align-items:stretch;flex-wrap:wrap;margin-top:46px;perspective:1500px}
-.fkit{width:min(330px,90vw);display:flex;flex-direction:column;align-items:center;text-align:center}
-.fkit>h3{margin-top:22px;font-size:21px}
-.fkit .ftag{color:var(--tx-lo);font-size:14.5px;margin-top:4px}
-.fkit ul{list-style:none;margin:14px 0 18px;padding:0;font-size:14.5px;color:var(--tx-lo);width:100%}
-.fkit ul li{padding:7px 0;border-bottom:1px dashed rgba(255,255,255,.08)}
-.fkit ul li b{color:var(--tx)}
-.fkit .btn{width:100%;justify-content:center}
-.fkit .ffine{font-size:12px;color:var(--tx-dim);margin-top:auto;padding:10px 0}
+/* —— a cena: full-bleed, deadline day —— */
+.fnd-scene{position:relative;margin-inline:calc(50% - 50vw);padding:0 0 clamp(80px,10vh,120px);
+  background:
+    radial-gradient(58% 40% at 50% 62%,rgba(255,197,61,.07),transparent 72%),
+    linear-gradient(180deg,var(--room) 0%,#0B0F0D 26%,#090C0A 100%)}
+.fnd-in{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,44px)}
+.fnd-ticker{border-top:1px solid rgba(255,197,61,.3);border-bottom:1px solid rgba(255,197,61,.3);
+  background:rgba(7,9,8,.92);overflow:hidden;white-space:nowrap;padding:11px 0;
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:#EFD9A0;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.fnd-ticker .trk{display:inline-flex;animation:fndtk 30s linear infinite;will-change:transform}
+.fnd-ticker .ftk{display:inline-flex;align-items:center;gap:36px;padding-right:36px}
+.fnd-ticker .ftk i{width:7px;height:7px;border-radius:50%;background:var(--tx-dim);flex:none}
+.fnd-ticker.live .ftk i{background:var(--red);box-shadow:0 0 9px var(--red);animation:fslive 1.4s ease-in-out infinite}
+.fnd-ticker .ftk b{color:var(--gold);font-size:14px}
+@keyframes fndtk{to{transform:translateX(-50%)}}
+.fnd-head{padding:clamp(60px,8vh,100px) 0 0;text-align:center;position:relative;z-index:2}
+.fnd-k{display:inline-flex;align-items:center;gap:14px;font-family:var(--f-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.fnd-k::before,.fnd-k::after{content:"";width:30px;height:1px;background:rgba(255,197,61,.5)}
+.fnd-h2{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(34px,4.8vw,64px);line-height:1.04;letter-spacing:.01em;transform:skewX(-4deg);margin:18px 0 0}
+.fnd-h2 .g{background:linear-gradient(100deg,#F7DF8B,#FFC53D 55%,#C9982F);-webkit-background-clip:text;background-clip:text;color:transparent}
+.fnd-lead{max-width:640px;margin:20px auto 0;font-size:16.5px;color:var(--tx-lo);line-height:1.75;text-align:center}
+.fnd-lead b{color:var(--tx)}
+/* —— o palco —— */
+.fnd-stage{position:relative;display:flex;gap:clamp(30px,5vw,76px);justify-content:center;align-items:stretch;flex-wrap:wrap;padding-top:clamp(34px,5vh,56px);perspective:1500px}
+.fpod{position:relative;width:min(324px,88vw);display:flex;flex-direction:column;align-items:center;text-align:center}
+.fpod::before{content:"";position:absolute;left:50%;top:-42px;transform:translateX(-50%);width:140%;height:min(430px,72vw);
+  background:linear-gradient(180deg,rgba(255,236,180,.13),rgba(255,236,180,.03) 55%,transparent 76%);
+  clip-path:polygon(40% 0,60% 0,100% 100%,0 100%);filter:blur(7px);pointer-events:none;z-index:0}
+.fpod.vit::before{background:linear-gradient(180deg,rgba(158,182,255,.11),rgba(158,182,255,.02) 55%,transparent 76%)}
+.fpod>h3{margin-top:8px;font-size:21px}
+.fpod .ftag{color:var(--tx-lo);font-size:14.5px;margin-top:4px}
+.fpod ul{list-style:none;margin:16px 0 4px;padding:0;font-size:14.5px;color:var(--tx-lo);width:100%}
+.fpod ul li{padding:5px 0}
+.fpod ul li::before{content:"◆";font-size:8px;color:var(--gold);margin-right:10px;vertical-align:2px}
+.fpod ul li b{color:var(--tx)}
+.fpod .btn{width:100%;justify-content:center}
+.fpod .ffine{font-size:12px;color:var(--tx-dim);margin-top:auto;padding:12px 0 10px}
 
-.fnd-grid{position:relative}
-.fnd-grid::before{content:"";position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:min(900px,96vw);height:520px;background:radial-gradient(50% 50% at 50% 50%,rgba(255,197,61,.10),transparent 70%);pointer-events:none}
-.fcardw{filter:drop-shadow(0 26px 54px rgba(0,0,0,.55)) drop-shadow(0 2px 10px rgba(0,0,0,.4));width:100%}
+.fcardw{filter:drop-shadow(0 26px 54px rgba(0,0,0,.55)) drop-shadow(0 2px 10px rgba(0,0,0,.4));width:100%;position:relative;z-index:1;margin-bottom:30px}
+.fcardw::after{content:"";position:absolute;left:6%;right:6%;bottom:-24px;height:30px;border-radius:50%;
+  background:radial-gradient(50% 100% at 50% 50%,rgba(255,197,61,.28),transparent 72%);filter:blur(9px);pointer-events:none}
+.fpod.vit .fcardw::after{background:radial-gradient(50% 100% at 50% 50%,rgba(150,170,255,.22),transparent 72%)}
 .fcard{position:relative;width:100%;aspect-ratio:1/1.42;
   clip-path:polygon(8% 0,92% 0,100% 6%,100% 89%,53% 99.5%,47% 99.5%,0 89%,0 6%);
   transform-style:preserve-3d;transition:transform .45s var(--ease);isolation:isolate;overflow:hidden;cursor:pointer}
@@ -616,15 +638,16 @@ button.btn.line:hover{border-color:var(--gold);color:var(--gold)}
 .fc-pricebar small{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.14em;opacity:.8}
 .fc-pricebar s{font-family:var(--f-body);font-size:11.5px;opacity:.6;font-weight:400}
 
-.fnd-score{display:flex;align-items:center;justify-content:center;gap:0;margin:30px auto 0;max-width:660px;border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;font-family:var(--f-mono);font-size:13px;background:rgba(10,14,12,.6)}
-.fnd-score .fs-live{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(255,90,72,.12);color:var(--tx-lo);white-space:nowrap}
-.fnd-score .fs-live i{width:8px;height:8px;border-radius:50%;background:var(--tx-dim);flex:none}
-.fnd-score.live .fs-live{color:#FFD9D4}
-.fnd-score.live .fs-live i{background:var(--red);box-shadow:0 0 10px var(--red);animation:fslive 1.4s ease-in-out infinite}
 @keyframes fslive{50%{opacity:.35}}
-.fnd-score .fs-cell{flex:1;display:flex;align-items:baseline;justify-content:center;gap:8px;padding:12px 10px;border-left:1px solid rgba(255,255,255,.08);color:var(--tx-lo);white-space:nowrap}
-.fnd-score .fs-cell b{font-size:19px;color:var(--gold);font-family:var(--f-num)}
-.fnd-legal{max-width:760px;margin:26px auto 0;font-size:12.5px;color:var(--tx-dim);text-align:center;line-height:1.7}
+/* —— as três leis: editorial, sem caixas —— */
+.fnd-laws{max-width:800px;margin:clamp(56px,8vh,84px) auto 0}
+.law{display:grid;grid-template-columns:104px 1fr;gap:22px;align-items:center;padding:22px 0;border-top:1px solid rgba(255,255,255,.08)}
+.law:last-child{border-bottom:1px solid rgba(255,255,255,.08)}
+.law .ln{font-family:var(--f-num);font-size:54px;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,197,61,.45);text-align:right;padding-top:.1em;margin-top:-.1em}
+.law p{font-size:15.5px;color:var(--tx-lo);line-height:1.7;margin:0;text-align:left}
+.law p b{color:var(--tx)}
+@media (max-width:640px){.law{grid-template-columns:60px 1fr;gap:14px}.law .ln{font-size:36px}}
+.fnd-legal{max-width:760px;margin:30px auto 0;font-size:12.5px;color:var(--tx-dim);text-align:center;line-height:1.7}
 .fnd-legal a{text-decoration:underline;text-underline-offset:3px}
 
 .fnd-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
@@ -658,13 +681,13 @@ button.btn.line:hover{border-color:var(--gold);color:var(--gold)}
 
 @media (prefers-reduced-motion: reduce){
   .fcard .foil{animation:none}
-  .fnd-score.live .fs-live i,.beta-ribbon .dot{animation:none}
+  .fnd-ticker .trk{animation:none}
+  .fnd-ticker.live .ftk i,.beta-ribbon .dot{animation:none}
   .fnd-toast{transition:none}
 }
 @media (max-width:720px){
-  .fnd-grid{gap:30px}
-  .fnd-score{flex-direction:column;align-items:stretch}
-  .fnd-score .fs-cell{border-left:none;border-top:1px solid rgba(255,255,255,.08)}
+  .fnd-stage{gap:34px}
+  .fnd-h2{font-size:clamp(30px,8.6vw,40px)}
 }
 
 #confetti{position:fixed;inset:0;z-index:150;pointer-events:none;display:none}
@@ -1079,29 +1102,22 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
 </section>
 
 <!-- FUNDADOR: o drop do beta -->
-<section class="sec" id="fundador">
-  <span class="secnum" aria-hidden="true">1</span>
-  <p class="sec-k rv">O drop do beta · edição numerada</p>
-  <h2 class="rv">Vista a braçadeira. <span class="g">Time Fundador.</span></h2>
-  <p class="lead rv">Em setembro o Web App do FC 27 abre — e quem assina no beta entra nele com <b>tudo destravado, por um pagamento único</b>. Você recebe o Premium completo <b>hoje, funcionando</b>; o ciclo FC 27 inteiro vai de bônus. Sem mensalidade, sem renovação.</p>
-
-  <div class="fnd-score rv" id="fndScore" aria-live="polite">
-    <span class="fs-live"><i aria-hidden="true"></i>VAGAS·AO·VIVO</span>
-    <span class="fs-cell">FUNDADOR <b id="fsF">200</b><span>/200</span></span>
-    <span class="fs-cell">VITALÍCIO <b id="fsL">50</b><span>/50</span></span>
-  </div>
-
-  <div class="fnd-why rv">
-    <p class="fw-open">Todo clube tem quem chegou depois da taça. <b>Fundador é quem estava no primeiro jogo</b> — e isso, por definição, não se repete.</p>
-    <div class="fw-grid">
-      <div class="fw-item"><span class="fw-n">01 · JANELA</span><h4>Fecha no apito inicial</h4><p>A oferta sai do ar quando o Web App do FC 27 abrir. Depois do lançamento, não existe "virar fundador" — quem entrou, entrou. Para sempre é só quem estava aqui antes.</p></div>
-      <div class="fw-item"><span class="fw-n">02 · ESTOQUE</span><h4>Edição numerada, contada pelo servidor</h4><p>200 passes Fundador + 50 Vitalícios — e acabou a tiragem. O placar acima é o estoque real, ao vivo. Quando zerar ou a janela fechar, não reabre e não tem "segunda turma".</p></div>
-      <div class="fw-item"><span class="fw-n">03 · PREÇO</span><h4>Essa troca sai da mesa</h4><p>No lançamento, o Premium vira assinatura: R$13,90/mês, R$199/ano, todo ano. O passe troca isso por um único pagamento — condição que existe hoje e não será oferecida de novo.</p></div>
+<section class="fnd-scene" id="fundador">
+  <div class="fnd-ticker" id="fndScore" aria-live="polite">
+    <div class="trk">
+      <span class="ftk"><i aria-hidden="true"></i><span>JANELA DO FUNDADOR — ABERTA</span><span>FECHA NO APITO INICIAL DO FC 27</span><span>FUNDADOR <b class="js-fsF">100</b>/200</span><span>VITALÍCIO <b class="js-fsL">25</b>/50</span><span>PAGAMENTO ÚNICO · PIX OU CARTÃO</span><span>TIRAGEM QUE NÃO REABRE</span></span>
+      <span class="ftk" aria-hidden="true"><i></i><span>JANELA DO FUNDADOR — ABERTA</span><span>FECHA NO APITO INICIAL DO FC 27</span><span>FUNDADOR <b class="js-fsF">100</b>/200</span><span>VITALÍCIO <b class="js-fsL">25</b>/50</span><span>PAGAMENTO ÚNICO · PIX OU CARTÃO</span><span>TIRAGEM QUE NÃO REABRE</span></span>
     </div>
   </div>
+  <div class="fnd-in">
+  <div class="fnd-head rv">
+    <p class="fnd-k">A janela do beta · edição numerada</p>
+    <h2 class="fnd-h2">A janela fecha.<br /><span class="g">E não reabre.</span></h2>
+    <p class="fnd-lead">Fundador é quem entra <b>antes do apito inicial do FC 27</b>. Você leva o Premium completo <b>hoje, funcionando</b> — e o ciclo FC 27 inteiro de bônus. Um pagamento. Nenhuma mensalidade.</p>
+  </div>
 
-  <div class="fnd-grid">
-    <div class="fkit rv">
+  <div class="fnd-stage">
+    <div class="fpod rv">
       <div class="fcardw"><div class="fcard t-fnd" data-fnd="founder" role="button" tabindex="0" aria-label="Garantir o Passe Fundador por 97 reais">
         <span class="fc-artglow" aria-hidden="true"></span>
         <span class="fc-art" aria-hidden="true"></span>
@@ -1119,16 +1135,15 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
       <h3>Passe Fundador</h3>
       <p class="ftag">Premium inteiro agora — e o ano do FC 27 já pago.</p>
       <ul>
-        <li><b>Premium completo hoje</b>, na hora da confirmação</li>
-        <li><b>Todo o ciclo FC 27</b> incluído — nada a pagar no lançamento</li>
-        <li>Lote, rotinas, packs, análise, evoluções: <b>tudo</b></li>
-        <li>Sai do ar no apito inicial do FC 27 — <b>e não volta</b></li>
+        <li><b>Premium completo hoje</b> — ativa na confirmação</li>
+        <li><b>Todo o ciclo FC 27</b> incluído, nada a pagar no lançamento</li>
+        <li>Sai do ar no apito inicial — <b>e não volta</b></li>
       </ul>
-      <p class="ffine">1 de 200 · o contador acima é real, não marketing</p>
+      <p class="ffine">1 de 200 · o letreiro acima é o estoque real</p>
       <button class="btn gold fnd-cta" data-fnd="founder">Garantir minha vaga — R$97</button>
       <noscript><p class="ffine">Para contratar sem JavaScript: gustavolnx.dev@gmail.com</p></noscript>
     </div>
-    <div class="fkit rv">
+    <div class="fpod vit rv">
       <div class="fcardw"><div class="fcard t-vit" data-fnd="lifetime" role="button" tabindex="0" aria-label="Garantir o Passe Vitalício por 297 reais">
         <span class="fc-artglow" aria-hidden="true"></span>
         <span class="fc-art" aria-hidden="true"></span>
@@ -1146,10 +1161,9 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
       <h3>Passe Vitalício</h3>
       <p class="ftag">Nunca mais pense em plano. FC 27, 28, 29…</p>
       <ul>
-        <li><b>Premium completo hoje</b>, na hora da confirmação</li>
+        <li><b>Premium completo hoje</b> — ativa na confirmação</li>
         <li><b>Para sempre</b> — todos os ciclos futuros do AFT</li>
-        <li>Todas as features novas, sem custo extra, <b>sempre</b></li>
-        <li>Só 50 passes existem. Acabou, acabou</li>
+        <li>Só 50 existem. <b>Acabou, acabou</b></li>
       </ul>
       <p class="ffine">1 de 50 · edição que não reabre</p>
       <button class="btn line fnd-cta" data-fnd="lifetime">Quero o vitalício — R$297</button>
@@ -1157,7 +1171,14 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
     </div>
   </div>
 
+  <div class="fnd-laws rv">
+    <div class="law"><span class="ln">01</span><p><b>Fecha no apito inicial.</b> Quando o Web App do FC 27 abrir, a oferta sai do ar. Depois disso não existe "virar fundador" — quem entrou, entrou. Todo clube tem quem chegou depois da taça; fundador é quem estava no primeiro jogo.</p></div>
+    <div class="law"><span class="ln">02</span><p><b>Tiragem única, contada pelo servidor.</b> 200 Fundadores + 50 Vitalícios. O letreiro lá em cima é o estoque real, ao vivo — quando zerar ou a janela fechar: sem reabertura, sem "segunda turma".</p></div>
+    <div class="law"><span class="ln">03</span><p><b>Essa troca sai da mesa.</b> No lançamento o Premium vira assinatura — R$13,90/mês, R$199/ano, todo ano. Um único pagamento no lugar disso é condição que não será oferecida de novo.</p></div>
+  </div>
+
   <p class="fnd-legal rv">Você recebe o Premium <b>funcionando hoje</b> — a extensão ao ciclo FC 27 é bônus sobre o produto já entregue, não uma pré-venda. 7 dias de arrependimento com devolução integral (art. 49 do CDC). O AFT depende do Web App da EA — leia os <a href="termos/">Termos de Uso</a> antes de comprar.</p>
+  </div>
 </section>
 
 <!-- FAQ -->
@@ -1506,16 +1527,15 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
       },{passive:true});
     }
 
-    /* vagas ao vivo — o placar só ganha o "AO VIVO" se o backend responder */
-    var fsF=document.getElementById('fsF'),fsL=document.getElementById('fsL'),
-        score=document.getElementById('fndScore');
+    /* vagas ao vivo — o letreiro só ganha o "AO VIVO" se o backend responder */
+    var score=document.getElementById('fndScore');
     if(score){
       try{
         fetch(API,{method:'GET'}).then(function(r){return r.ok?r.json():null})
           .then(function(d){
             if(!d||!d.founder)return;
-            fsF.textContent=d.founder.left;
-            fsL.textContent=d.lifetime.left;
+            document.querySelectorAll('.js-fsF').forEach(function(el){el.textContent=d.founder.left});
+            document.querySelectorAll('.js-fsL').forEach(function(el){el.textContent=d.lifetime.left});
             score.classList.add('live');
             var f=document.querySelector('.fcard.t-fnd .fc-ed');
             if(f&&d.founder.left<d.founder.total)f.textContent='RESTAM '+d.founder.left+' DE 200';
