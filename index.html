@@ -31,6 +31,10 @@
 .doors,.kick-hint,.matchclock,.clockbar{display:none !important}
 .kick{height:auto !important}.kick-stage{position:relative !important}
 .fnd-cta,.fnd-modal{display:none !important}
+.evosc,.autosc{height:auto !important}
+.evo-stage,.auto-stage{position:static !important;height:auto !important;padding:90px 0 !important}
+.evc,.auto-sheet{transform:none !important}
+.evo-hint,.auto-hint{display:none !important}
 .fcard{cursor:default}
 </style></noscript>
 <script type="application/ld+json">
@@ -61,7 +65,7 @@
   --spring:cubic-bezier(.2,1.6,.35,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:82px}
 body{background:var(--room);color:var(--tx);font-family:var(--f-body);font-size:16.5px;line-height:1.65;overflow-x:hidden}
 img,video{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
@@ -396,6 +400,207 @@ a{color:inherit;text-decoration:none}
 .tvframe video{width:100%}
 .tvframe .cap{padding:12px 16px;background:var(--panel);border-top:1px solid rgba(255,255,255,.08);font-size:14px;color:var(--tx-lo)}
 .tvframe .cap b{color:var(--tx)}
+
+/* ============ herói: as três frentes ============ */
+.hero-fronts{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+.hero-fronts a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-lo);
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 15px;
+  transition:.25s var(--ease)}
+.hero-fronts a:hover{color:var(--tx);border-color:var(--green);transform:translateY(-2px)}
+
+/* ============ CENA: CENTRO DE TREINAMENTO (evoluções) ============ */
+.evosc{position:relative;height:320vh;background:linear-gradient(180deg,var(--room) 0%,#080C0A 12%,#080C0A 88%,var(--room) 100%)}
+.evo-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;perspective:1400px}
+/* fundo do CT: refletores + grade de campo em fuga */
+.evo-lights{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 44% at 50% 8%,rgba(0,229,200,.13),transparent 68%),
+             radial-gradient(46% 40% at 50% 100%,rgba(54,226,90,.10),transparent 70%)}
+.evo-grid{position:absolute;left:-30%;right:-30%;bottom:-6%;height:52%;pointer-events:none;opacity:.32;
+  transform:rotateX(72deg);transform-origin:50% 100%;
+  background-image:linear-gradient(rgba(0,229,200,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,200,.35) 1px,transparent 1px);
+  background-size:100% 46px,54px 100%;
+  mask-image:linear-gradient(180deg,transparent,#000 55%)}
+.evo-hd{position:relative;z-index:3;text-align:center;padding:0 20px;margin-bottom:clamp(14px,3vh,34px)}
+.evo-hd .sec-k{justify-content:center}
+.evo-hd h2{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(24px,3.5vw,46px);line-height:1.06;margin-top:12px}
+.evo-hd h2 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* palco 3D: carta ao centro, trilho de passos à direita */
+.evo-floor{position:relative;z-index:3;display:flex;align-items:center;gap:clamp(20px,4vw,64px);
+  transform-style:preserve-3d;padding:0 20px}
+.evc{position:relative;width:clamp(190px,17vw,248px);aspect-ratio:5/7;border-radius:16px;flex:none;
+  background:linear-gradient(165deg,#2B332E 0%,#191F1B 46%,#101512 100%);
+  border:1px solid rgba(255,255,255,.16);box-shadow:0 40px 90px rgba(0,0,0,.6);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  transform:rotateY(var(--cy,-9deg)) rotateX(var(--cx,4deg)) scale(var(--cs,1));
+  transition:box-shadow .5s var(--ease),border-color .5s var(--ease),background .8s var(--ease);
+  will-change:transform}
+.evc.gold{border-color:rgba(255,197,61,.7);
+  background:linear-gradient(165deg,#4A3F1C 0%,#2A2413 46%,#171307 100%);
+  box-shadow:0 40px 110px rgba(255,197,61,.28),0 0 0 1px rgba(255,197,61,.25) inset}
+.evc .ovr{font-family:var(--f-num);font-size:clamp(58px,6.4vw,86px);line-height:.9;color:var(--tx);
+  text-shadow:0 6px 30px rgba(0,0,0,.7);transition:color .5s var(--ease)}
+.evc.gold .ovr{color:var(--gold)}
+.evc .pos{font-family:var(--f-mono);font-size:12px;letter-spacing:.3em;color:var(--teal)}
+.evc.gold .pos{color:var(--gold)}
+.evc .nm{font-family:var(--f-num);font-size:15px;letter-spacing:.1em;color:var(--tx);margin-top:14px}
+.evc .mtb{margin-top:8px;font-family:var(--f-mono);font-size:10px;letter-spacing:.16em;color:var(--green);
+  border:1px solid rgba(54,226,90,.45);border-radius:999px;padding:4px 11px;opacity:0;transform:translateY(6px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.evc.gold .mtb{opacity:1;transform:none;color:var(--gold);border-color:rgba(255,197,61,.5)}
+/* folha holográfica varrendo a carta */
+.evc .foil{position:absolute;inset:0;border-radius:16px;pointer-events:none;mix-blend-mode:overlay;opacity:.55;
+  background:linear-gradient(115deg,transparent 34%,rgba(255,255,255,.55) 46%,rgba(0,229,200,.4) 52%,transparent 64%);
+  background-size:280% 100%;background-position:var(--fp,120%) 0}
+/* estouro de level-up */
+.evc .burst{position:absolute;inset:-14%;border-radius:50%;pointer-events:none;opacity:0;
+  background:radial-gradient(circle,rgba(54,226,90,.55),transparent 62%)}
+.evc.pop .burst{animation:evburst .62s ease-out}
+@keyframes evburst{0%{opacity:.9;transform:scale(.55)}100%{opacity:0;transform:scale(1.25)}}
+.evc.pop .ovr{animation:evpop .42s var(--ease)}
+@keyframes evpop{0%{transform:scale(1)}42%{transform:scale(1.16)}100%{transform:scale(1)}}
+/* trilho dos passos */
+.evo-rail{position:relative;display:flex;flex-direction:column;gap:9px;width:min(430px,42vw);transform-style:preserve-3d}
+.evo-st{position:relative;display:flex;align-items:center;gap:13px;background:rgba(26,33,30,.72);
+  border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:11px 15px;backdrop-filter:blur(6px);
+  opacity:.28;transform:translateX(46px) translateZ(-70px) rotateY(-13deg);
+  transition:opacity .5s var(--ease),transform .5s var(--ease),border-color .5s var(--ease),background .5s var(--ease)}
+.evo-st.on{opacity:1;transform:none;border-color:rgba(54,226,90,.4);background:rgba(26,33,30,.95)}
+.evo-st .n{flex:none;width:25px;height:25px;border-radius:7px;display:grid;place-items:center;
+  font-family:var(--f-mono);font-size:10.5px;color:var(--tx-dim);border:1px solid rgba(255,255,255,.16)}
+.evo-st.on .n{color:#04240F;background:var(--grad);border-color:transparent}
+.evo-st .t{font-family:var(--f-body);font-weight:700;font-size:13.5px;color:var(--tx);flex:1;min-width:0}
+.evo-st .k{font-family:var(--f-mono);font-size:9px;letter-spacing:.16em;color:var(--tx-dim);opacity:0;transition:opacity .4s}
+.evo-st.on .k{opacity:1;color:var(--green)}
+/* HUD inferior */
+.evo-hud{position:relative;z-index:3;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;
+  margin-top:clamp(16px,3.4vh,36px);padding:0 20px}
+.evo-hud span{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-lo);
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:7px;padding:7px 13px}
+.evo-hud b{color:var(--green)}
+.evo-hud .goldv b{color:var(--gold)}
+.evo-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:3;
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.24em;color:var(--tx-dim);text-transform:uppercase;
+  transition:opacity .4s}
+.evo-stage.moving .evo-hint{opacity:0}
+
+/* cartões de apoio (abaixo das cenas) */
+.ct-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:34px;position:relative;z-index:2}
+.ct-f{background:var(--panel);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px 22px;
+  transition:.3s var(--ease);position:relative;overflow:hidden}
+.ct-f::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;pointer-events:none;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(0,229,200,.1),transparent 60%)}
+.ct-f:hover::before{opacity:1}
+.ct-f:hover{transform:translateY(-4px);border-color:rgba(0,229,200,.35)}
+.ct-f h3{font-family:var(--f-num);text-transform:uppercase;font-size:15px;letter-spacing:.03em;display:flex;align-items:center;gap:10px}
+.ct-f h3 .ic{font-size:17px}
+.ct-f p{color:var(--tx-lo);font-size:14px;margin-top:7px}
+.ct-f p b{color:var(--tx)}
+.ct-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;position:relative;z-index:2}
+
+/* ============ CENA: O AUTOMÁTICO (lote · rotinas · packs) ============ */
+.autosc{position:relative;height:330vh;background:linear-gradient(180deg,var(--room) 0%,#070A09 12%,#070A09 88%,var(--room) 100%)}
+.auto-stage{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;perspective:1500px}
+.auto-lights{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(58% 40% at 50% 6%,rgba(255,197,61,.10),transparent 66%),
+             radial-gradient(50% 42% at 50% 100%,rgba(0,229,200,.09),transparent 72%)}
+.auto-hd{position:relative;z-index:3;text-align:center;padding:0 20px;margin-bottom:clamp(12px,2.6vh,28px)}
+.auto-hd .sec-k{justify-content:center}
+.auto-hd h2{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(24px,3.5vw,46px);line-height:1.06;margin-top:12px}
+.auto-hd h2 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.auto-floor{position:relative;z-index:3;transform-style:preserve-3d;padding:0 20px;width:min(880px,94vw)}
+/* a súmula da rotina, inclinada em 3D */
+.auto-sheet{background:var(--panel);border:1px solid rgba(255,255,255,.12);border-radius:16px;overflow:hidden;
+  box-shadow:0 46px 110px rgba(0,0,0,.6);
+  transform:rotateX(var(--sx,7deg)) rotateY(var(--sy,-3deg));transition:transform .5s var(--ease);will-change:transform}
+.auto-sheet .hd{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 20px;
+  background:var(--panel2);border-bottom:1px solid rgba(255,255,255,.1);
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-dim)}
+.auto-sheet .hd b{color:var(--green)}
+.auto-sheet .hd .rec{color:var(--red);animation:mblink 1.4s infinite}
+.auto-bar{height:3px;background:rgba(255,255,255,.07);position:relative;overflow:hidden}
+.auto-bar i{position:absolute;inset:0 auto 0 0;width:var(--pw,0%);background:var(--grad);transition:width .25s linear}
+.arow{display:flex;gap:13px;padding:13px 20px;border-bottom:1px solid rgba(255,255,255,.07);align-items:flex-start;
+  opacity:.34;transition:opacity .45s var(--ease),background .45s var(--ease),transform .45s var(--ease)}
+.arow:last-child{border-bottom:0}
+.arow.on{opacity:1;background:rgba(54,226,90,.05)}
+.arow.done{opacity:1;background:transparent}
+.arow .ix{flex:none;width:26px;height:26px;border-radius:7px;display:grid;place-items:center;
+  font-family:var(--f-mono);font-size:10.5px;color:var(--tx-lo);border:1px solid rgba(255,255,255,.16);
+  background:rgba(255,255,255,.04);transition:.4s var(--ease)}
+.arow.done .ix,.arow.on .ix{color:#04240F;background:var(--grad);border-color:transparent}
+.arow.on .ix{animation:apulse 1.1s ease-in-out infinite}
+@keyframes apulse{0%,100%{box-shadow:0 0 0 0 rgba(54,226,90,.5)}50%{box-shadow:0 0 0 7px rgba(54,226,90,0)}}
+.arow .bd{flex:1;min-width:0}
+.arow .tt{font-family:var(--f-body);font-weight:700;font-size:14px;color:var(--tx)}
+.arow .ds{font-size:13px;color:var(--tx-lo);margin-top:2px}
+.arow .ds em{font-style:normal;color:var(--teal)}
+.arow .rt{flex:none;font-family:var(--f-mono);font-size:9px;letter-spacing:.14em;color:var(--tx-dim);padding-top:5px;
+  opacity:0;transition:opacity .4s}
+.arow.done .rt{opacity:1;color:var(--green)}
+.arow.pause .tt{color:var(--teal);font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase}
+/* cartas voando para os destinos */
+.auto-bins{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;transform-style:preserve-3d}
+.abin{background:rgba(26,33,30,.8);border:1px dashed rgba(255,255,255,.16);border-radius:12px;padding:13px 14px;
+  text-align:center;transition:.45s var(--ease)}
+.abin.hit{border-style:solid;border-color:rgba(54,226,90,.5);background:rgba(54,226,90,.08);transform:translateY(-4px)}
+.abin .bk{display:block;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--tx-dim)}
+.abin .bn{display:block;font-family:var(--f-num);font-size:28px;line-height:1.1;color:var(--tx);margin-top:4px;
+  transition:color .4s var(--ease)}
+.abin.hit .bn{color:var(--green)}
+.auto-hint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);z-index:3;
+  font-family:var(--f-mono);font-size:9.5px;letter-spacing:.24em;color:var(--tx-dim);text-transform:uppercase;transition:opacity .4s}
+.auto-stage.moving .auto-hint{opacity:0}
+
+.mt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px;position:relative;z-index:2}
+.mt-m{background:var(--panel);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px 22px;
+  transition:.3s var(--ease);position:relative;overflow:hidden}
+.mt-m::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;pointer-events:none;
+  background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(255,197,61,.1),transparent 60%)}
+.mt-m:hover::before{opacity:1}
+.mt-m:hover{transform:translateY(-4px);border-color:rgba(255,197,61,.35)}
+.mt-m h3{font-family:var(--f-num);text-transform:uppercase;font-size:15px;letter-spacing:.03em;display:flex;align-items:center;gap:10px}
+.mt-m h3 .ic{font-size:17px}
+.mt-m p{color:var(--tx-lo);font-size:13.5px;margin-top:6px}
+.mt-m p b{color:var(--tx)}
+.mt-guard{margin-top:20px;background:var(--panel);border:1px solid rgba(54,226,90,.28);border-radius:14px;
+  padding:18px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;position:relative;z-index:2}
+.mt-guard .gk{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--green)}
+.mt-guard .gi{font-size:13.5px;color:var(--tx-lo)}
+.mt-guard .gi b{color:var(--tx)}
+
+@media(max-width:1000px){
+  .evo-floor{flex-direction:column;gap:20px}
+  .evo-rail{width:min(520px,92vw)}
+  .evo-st{padding:9px 13px}
+  .evo-st .t{font-size:12.5px}
+  .ct-grid,.mt-grid{grid-template-columns:1fr}
+}
+/* telas baixas/curtas e mobile: a cena vira empilhada, sem sticky */
+@media(max-width:760px),(max-height:620px){
+  .evosc,.autosc{height:auto}
+  .evo-stage,.auto-stage{position:static;height:auto;padding:clamp(64px,10vh,110px) 0;perspective:none}
+  .evc{transform:none !important;width:min(220px,60vw)}
+  .evo-st{opacity:1;transform:none;border-color:rgba(54,226,90,.3)}
+  .evo-st .k{opacity:1;color:var(--green)}
+  .auto-sheet{transform:none !important}
+  .arow{opacity:1}
+  .evo-hint,.auto-hint{display:none}
+  .evo-grid{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .evosc,.autosc{height:auto}
+  .evo-stage,.auto-stage{position:static;height:auto;padding:clamp(64px,10vh,110px) 0}
+  .evc{transform:none !important}
+  .evo-st{opacity:1;transform:none}
+  .evo-st .k{opacity:1}
+  .auto-sheet{transform:none !important}
+  .arow{opacity:1}
+  .evc .foil,.evo-hint,.auto-hint{display:none}
+  .arow.on .ix{animation:none}
+}
 
 /* ============ preleção ============ */
 .talk{margin-top:50px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;position:relative;z-index:2}
@@ -790,7 +995,12 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
       <span class="l"><span style="--ld:1.27s">pelas cartas</span></span>
       <span class="l"><span style="--ld:1.38s"><span class="g">mais baratas.</span></span></span>
     </h1>
-    <p class="hero-sub">O AFT trabalha dentro do Web App que você já usa: <b>lê o seu clube, calcula o elenco mais barato</b> que cumpre os requisitos, preenche as 11 posições e envia. Preço real em cada carta, evoluções testadas no próprio jogo, automação com botão de pânico. <b>Você decide; ele executa.</b></p>
+    <p class="hero-sub">O AFT trabalha dentro do Web App que você já usa. Ele <b>resolve o DME</b> com o elenco mais barato do seu clube, <b>testa milhares de caminhos de evolução</b> antes de você gastar uma moeda, e <b>repete a rodada inteira sozinho</b> quando você mandar. <b>Você decide; ele executa.</b></p>
+    <div class="hero-fronts">
+      <a href="#sumula"><span aria-hidden="true">🧩</span> Resolve DMEs</a>
+      <a href="#evolucoes"><span aria-hidden="true">🧬</span> Evoluções</a>
+      <a href="#automatico"><span aria-hidden="true">🔁</span> DMEs no automático</a>
+    </div>
     <div class="hero-ctas">
       <a class="btn go" href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Começar grátis</a>
       <a class="btn line" href="#sumula">Ver tudo que ele faz</a>
@@ -997,6 +1207,154 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
       </div>
     </div>
   </div>
+</section>
+
+<!-- CENA: CENTRO DE TREINAMENTO (evoluções) -->
+<section class="evosc" id="evolucoes" aria-label="Centro de treinamento: uma carta evoluindo passo a passo">
+  <div class="evo-stage" id="evoStage">
+    <div class="evo-lights" aria-hidden="true"></div>
+    <div class="evo-grid" aria-hidden="true"></div>
+
+    <div class="evo-hd">
+      <p class="sec-k">Centro de treinamento</p>
+      <h2>Uma carta de 84 <span class="g">vira 95 — se o caminho for o certo.</span></h2>
+    </div>
+
+    <div class="evo-floor">
+      <div class="evc gold" id="evoCard">
+        <span class="foil" aria-hidden="true"></span>
+        <span class="burst" aria-hidden="true"></span>
+        <span class="ovr" id="evoOvr">95</span>
+        <span class="pos">CAM</span>
+        <span class="nm">SIMONS</span>
+        <span class="mtb">META 94.3</span>
+      </div>
+      <div class="evo-rail">
+        <div class="evo-st on"><span class="n">1</span><span class="t">PlayStyle Enhancer</span><span class="k">aplicado</span></div>
+        <div class="evo-st on"><span class="n">2</span><span class="t">Five-Star Flair</span><span class="k">aplicado</span></div>
+        <div class="evo-st on"><span class="n">3</span><span class="t">From Miss to Ice</span><span class="k">aplicado</span></div>
+        <div class="evo-st on"><span class="n">4</span><span class="t">Heart of the Squad</span><span class="k">aplicado</span></div>
+        <div class="evo-st on"><span class="n">5</span><span class="t">CAM Roles++</span><span class="k">aplicado</span></div>
+      </div>
+    </div>
+
+    <div class="evo-hud">
+      <span>exemplo real · caminho nº 1 de <b>milhares</b> testados</span>
+      <span>custo: <b id="evoCoins">40K</b> moedas + <b id="evoPts">250</b> pontos</span>
+      <span class="goldv" id="evoMeta" style="transition:opacity .5s">nota meta <b>94.3</b></span>
+    </div>
+    <p class="evo-hint">role para treinar a carta ↓</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <p class="lead rv" style="max-width:760px">Evolução errada é moeda queimada que não volta. O AFT testa <b>milhares de correntes</b> na carta que você escolher, ranqueia por nota meta e mostra a corrente inteira — com o custo fechado — <b>antes de você aplicar a primeira.</b></p>
+  <div class="ct-grid">
+    <div class="ct-f rv">
+      <h3><span class="ic" aria-hidden="true">🎯</span> Quem diz se cabe é o jogo</h3>
+      <p>Não usamos uma cópia dos requisitos. O AFT <b>simula a carta já evoluída</b> e pergunta ao próprio jogo se ela entra na evolução seguinte — a cada passo da corrente.</p>
+    </div>
+    <div class="ct-f rv">
+      <h3><span class="ic" aria-hidden="true">🪙</span> O preço inteiro, antes</h3>
+      <p>Cada caminho vem com o total em <b>moedas, pontos e fichas</b>. Caminhos que custam mais para entregar menos são descartados sozinhos — você só olha o que vale.</p>
+    </div>
+    <div class="ct-f rv">
+      <h3><span class="ic" aria-hidden="true">🔄</span> Evoluir esta ou zerar outra?</h3>
+      <p>O AFT também calcula o que sairia de uma <b>cópia zerada da mesma carta</b> e coloca as duas na mesma lista, ranqueadas pela nota final. Às vezes a resposta surpreende.</p>
+    </div>
+    <div class="ct-f rv">
+      <h3><span class="ic" aria-hidden="true">🎛️</span> Do jeito que serve ao seu time</h3>
+      <p>Filtre por <b>posição</b>, pelo <b>PlayStyle+</b> que você quer ganhar ou pelo <b>tipo de corrida</b> — e teste as químicas na carta final antes de decidir.</p>
+    </div>
+  </div>
+  <div class="ct-pills rv">
+    <span class="pl free">Explorador · Grátis</span>
+    <span class="pl prem">Melhores cartas do seu clube para cada evolução · Premium</span>
+  </div>
+</section>
+
+<!-- CENA: O AUTOMÁTICO (lote · rotinas · packs) -->
+<section class="autosc" id="automatico" aria-label="O automático: uma rotina de DMEs executando sozinha">
+  <div class="auto-stage" id="autoStage">
+    <div class="auto-lights" aria-hidden="true"></div>
+
+    <div class="auto-hd">
+      <p class="sec-k">O automático</p>
+      <h2>Você monta a rodada. <span class="g">O AFT joga ela inteira.</span></h2>
+    </div>
+
+    <div class="auto-floor">
+      <div class="auto-sheet" id="autoSheet">
+        <div class="hd">
+          <span>rotina · <b>"FARM DIÁRIO"</b></span>
+          <span><b id="autoCount">4/4</b> &nbsp;<span class="rec">● EM EXECUÇÃO</span></span>
+        </div>
+        <div class="auto-bar"><i id="autoBar" style="--pw:100%"></i></div>
+
+        <div class="arow done" data-step="1">
+          <span class="ix">1</span>
+          <div class="bd"><div class="tt">Desafio Diário — Ouro Raro <em>× 5</em></div>
+          <div class="ds">Resolve, preenche e envia 5 vezes — <em>recalculando o elenco a cada rodada</em> com o que sobrou no clube.</div></div>
+          <span class="rt">ENVIADO</span>
+        </div>
+        <div class="arow done pause">
+          <span class="ix" aria-hidden="true">⏱</span>
+          <div class="bd"><div class="tt">Pausa automática entre as rodadas</div>
+          <div class="ds">Intervalos variáveis, nunca cravados no relógio.</div></div>
+          <span class="rt">RITMO OK</span>
+        </div>
+        <div class="arow done" data-step="2">
+          <span class="ix">2</span>
+          <div class="bd"><div class="tt">Recompensas abertas</div>
+          <div class="ds">Os 5 pacotes do passo anterior, abertos em sequência.</div></div>
+          <span class="rt">ABERTO</span>
+        </div>
+        <div class="arow done" data-step="3">
+          <span class="ix">3</span>
+          <div class="bd"><div class="tt">Upgrade 83+ <em>× 3</em></div>
+          <div class="ds">Outro DME, na mesma corrida — a rotina segue a ordem que você salvou.</div></div>
+          <span class="rt">ENVIADO</span>
+        </div>
+        <div class="arow done" data-step="4">
+          <span class="ix">4</span>
+          <div class="bd"><div class="tt">Sobras organizadas</div>
+          <div class="ds">Cada carta para o destino que você definiu.</div></div>
+          <span class="rt">PRONTO</span>
+        </div>
+      </div>
+
+      <div class="auto-bins">
+        <div class="abin hit"><span class="bk">→ Clube</span><span class="bn" data-to="4">4</span></div>
+        <div class="abin hit"><span class="bk">→ Armazenamento</span><span class="bn" data-to="2">2</span></div>
+        <div class="abin hit"><span class="bk">→ Vendida</span><span class="bn" data-to="1">1</span></div>
+      </div>
+    </div>
+
+    <p class="auto-hint">role para rodar a rotina ↓</p>
+  </div>
+</section>
+
+<section class="sec" style="padding-top:0">
+  <p class="lead rv" style="max-width:760px">DME de repetição é trabalho braçal: mesmo desafio, dezenas de vezes, cada rodada com cartas diferentes. Salve a sequência uma vez e <b>ela roda sozinha</b>.</p>
+  <div class="mt-grid">
+    <div class="mt-m rv">
+      <h3><span class="ic" aria-hidden="true">🔁</span> Lote</h3>
+      <p>Um DME, quantas vezes você quiser. A cada rodada ele <b>resolve de novo</b> com o clube que sobrou — nunca repete uma carta já gasta.</p>
+    </div>
+    <div class="mt-m rv">
+      <h3><span class="ic" aria-hidden="true">📋</span> Rotinas</h3>
+      <p>Vários DMEs diferentes numa <b>sequência salva</b>, com abertura de recompensas e destino das sobras definidos passo a passo. Monte uma vez, use todo dia.</p>
+    </div>
+    <div class="mt-m rv">
+      <h3><span class="ic" aria-hidden="true">🎁</span> Packs no automático</h3>
+      <p>Abre pacotes em lote e manda cada carta para o destino certo. Você define <b>condições de parada</b> — achou a carta que você pediu, ele para e a deixa intacta.</p>
+    </div>
+  </div>
+  <div class="mt-guard rv">
+    <span class="gk">SEMPRE LIGADO</span>
+    <span class="gi">Ritmo variável entre as ações · <b>pausa sozinho se você sai da frente do PC</b> · congela tudo se aparecer verificação · <b>kill-switch</b> encerra na hora, num clique.</span>
+  </div>
+  <div class="ct-pills rv"><span class="pl prem">Automação completa · Premium</span></div>
 </section>
 
 <!-- PRELEÇÃO DO CAPITÃO -->
@@ -1251,7 +1609,7 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         <div class="fbrand"><img src="assets/logo-128.png" alt="AFT" /><b>AFT — AUTO FARM TOOLS</b></div>
         <p>Resolve. Preenche. Envia. Em segundos. Feito por quem faz 200+ DMEs por dia.</p>
       </div>
-      <div><h4>O clube</h4><a href="#sumula">A escalação</a><a href="#planos">Loja de camisas</a></div>
+      <div><h4>O clube</h4><a href="#sumula">A escalação</a><a href="#evolucoes">Centro de treinamento</a><a href="#automatico">O automático</a><a href="#planos">Loja de camisas</a></div>
       <div><h4>Vestiário</h4><a href="https://discord.gg/RuAnQmK8Zh" target="_blank" rel="noopener">Discord</a><a href="mailto:gustavolnx.dev@gmail.com">Contato</a></div>
       <div><h4>Legal</h4><a href="termos/">Termos de Uso</a><a href="privacidade/">Privacidade</a></div>
     </div>
@@ -1653,6 +2011,110 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         }
       }
     }
+  })();
+
+  /* ---------- cena: centro de treinamento (a carta evoluindo) ---------- */
+  (function(){
+    var sc=document.getElementById('evolucoes');
+    if(!sc||RM)return;
+    var stage=document.getElementById('evoStage'),card=document.getElementById('evoCard'),
+        ovr=document.getElementById('evoOvr'),coins=document.getElementById('evoCoins'),
+        pts=document.getElementById('evoPts'),meta=document.getElementById('evoMeta'),
+        sts=[].slice.call(sc.querySelectorAll('.evo-st'));
+    if(!stage||!card)return;
+    var FROM=84,TO=95,COINS=40000,PTS=250,N=sts.length;
+    function fmtk(v){return v>=1000?(v/1000).toFixed(v>=10000?0:1).replace('.0','')+'K':String(v)}
+    var last=-1,raf=null;
+    function render(){
+      raf=null;
+      var total=sc.offsetHeight-innerHeight;
+      if(total<=0){ /* layout empilhado (mobile/tela curta): estado final */
+        sts.forEach(function(s){s.classList.add('on')});
+        card.classList.add('gold');ovr.textContent=TO;
+        coins.textContent=fmtk(COINS);pts.textContent=PTS;
+        if(meta)meta.style.opacity='1';return;
+      }
+      var p=Math.min(1,Math.max(0,-sc.getBoundingClientRect().top/total));
+      stage.classList.toggle('moving',p>0.02);
+      /* os 5 passos caem entre 8% e 80% da cena */
+      var f=Math.min(1,Math.max(0,(p-0.08)/0.72));
+      var lvl=Math.min(N,Math.floor(f*N+1e-9));
+      sts.forEach(function(s,i){s.classList.toggle('on',i<lvl)});
+      ovr.textContent=Math.round(FROM+(TO-FROM)*f);
+      coins.textContent=fmtk(Math.round(COINS*f/1000)*1000);
+      pts.textContent=Math.round(PTS*f/10)*10;
+      /* a carta gira, cresce e o holograma varre conforme evolui */
+      card.style.setProperty('--cy',(-9+f*17).toFixed(1)+'deg');
+      card.style.setProperty('--cx',(4-f*5).toFixed(1)+'deg');
+      card.style.setProperty('--cs',(1+f*0.09).toFixed(3));
+      card.style.setProperty('--fp',(125-f*180).toFixed(0)+'%');
+      card.classList.toggle('gold',lvl>=N);
+      if(meta)meta.style.opacity=lvl>=N?'1':'0';
+      if(lvl!==last){
+        if(lvl>last&&lvl>0){card.classList.remove('pop');void card.offsetWidth;card.classList.add('pop')}
+        last=lvl;
+      }
+    }
+    function onScroll(){if(!raf)raf=requestAnimationFrame(render)}
+    addEventListener('scroll',onScroll,{passive:true});
+    addEventListener('resize',onScroll);
+    /* parallax de ponteiro por cima do scroll */
+    if(FINE){
+      stage.addEventListener('pointermove',function(e){
+        var r=stage.getBoundingClientRect();
+        card.style.setProperty('--cx',(4-((e.clientY-r.top)/r.height-0.5)*10).toFixed(1)+'deg');
+      },{passive:true});
+    }
+    render();
+  })();
+
+  /* ---------- cena: o automático (a rotina rodando) ---------- */
+  (function(){
+    var sc=document.getElementById('automatico');
+    if(!sc||RM)return;
+    var stage=document.getElementById('autoStage'),sheet=document.getElementById('autoSheet'),
+        bar=document.getElementById('autoBar'),cnt=document.getElementById('autoCount'),
+        rows=[].slice.call(sc.querySelectorAll('.arow')),
+        bins=[].slice.call(sc.querySelectorAll('.abin'));
+    if(!stage||!sheet)return;
+    var N=rows.length,raf=null;
+    function render(){
+      raf=null;
+      var total=sc.offsetHeight-innerHeight;
+      if(total<=0){
+        rows.forEach(function(r){r.classList.add('done')});
+        bins.forEach(function(b){b.classList.add('hit')});
+        if(bar)bar.style.setProperty('--pw','100%');
+        if(cnt)cnt.textContent='4/4';return;
+      }
+      var p=Math.min(1,Math.max(0,-sc.getBoundingClientRect().top/total));
+      stage.classList.toggle('moving',p>0.02);
+      var f=Math.min(1,Math.max(0,(p-0.06)/0.74));
+      var head=f*N; /* cursor contínuo percorrendo as linhas */
+      var done=0;
+      rows.forEach(function(r,i){
+        var isDone=head>=i+1,isOn=!isDone&&head>i;
+        r.classList.toggle('done',isDone);
+        r.classList.toggle('on',isOn);
+        if(isDone&&r.hasAttribute('data-step'))done++;
+      });
+      if(bar)bar.style.setProperty('--pw',(f*100).toFixed(1)+'%');
+      if(cnt)cnt.textContent=done+'/4';
+      /* a súmula se endireita conforme a rotina avança */
+      sheet.style.setProperty('--sx',(7-f*7).toFixed(1)+'deg');
+      sheet.style.setProperty('--sy',(-3+f*3).toFixed(1)+'deg');
+      /* os destinos só se enchem quando as sobras são roteadas */
+      bins.forEach(function(b,i){
+        var on=f>0.86+i*0.04;
+        b.classList.toggle('hit',on);
+        var n=b.querySelector('.bn');
+        if(n)n.textContent=on?n.getAttribute('data-to'):'0';
+      });
+    }
+    function onScroll(){if(!raf)raf=requestAnimationFrame(render)}
+    addEventListener('scroll',onScroll,{passive:true});
+    addEventListener('resize',onScroll);
+    render();
   })();
 
   /* ---------- reveals ---------- */
