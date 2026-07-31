@@ -607,6 +607,113 @@ a{color:inherit;text-decoration:none}
   .arow.on .ix{animation:none}
 }
 
+
+/* ============ FUNDADOR v2: o vestiário do time fundador ============ */
+.fnd2{position:relative;padding:clamp(90px,13vh,150px) 0 clamp(70px,10vh,120px);overflow:hidden;
+  background:linear-gradient(180deg,var(--room) 0%,#0B0E0D 10%,#0B0E0D 90%,var(--room) 100%)}
+/* parede de madeira do vestiário, em fuga */
+.f2-room{position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);pointer-events:none;opacity:.5;
+  background:
+    repeating-linear-gradient(90deg,rgba(46,38,32,.85) 0 78px,rgba(35,29,24,.85) 78px 156px),
+    linear-gradient(180deg,#151A17,#0B0E0D);
+  mask-image:radial-gradient(120% 80% at 50% 22%,#000 20%,transparent 78%)}
+.f2-beam{position:absolute;left:50%;top:-12%;width:120vw;height:62%;transform:translateX(-50%);pointer-events:none;
+  background:radial-gradient(52% 60% at 50% 0%,rgba(255,197,61,.14),transparent 70%);mix-blend-mode:screen}
+.f2-in{position:relative;z-index:2}
+.f2-head{text-align:center;max-width:820px;margin:0 auto}
+.f2-k{font-family:var(--f-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.fnd2 h2{font-family:var(--f-num);text-transform:uppercase;font-size:clamp(28px,4.4vw,58px);line-height:1.04;margin-top:14px}
+.fnd2 h2 .g{background:linear-gradient(100deg,#F7DF8B,#E3B54C 60%,#D9A93C);-webkit-background-clip:text;background-clip:text;color:transparent}
+.f2-lead{color:var(--tx-lo);margin-top:16px;font-size:16px}
+.f2-lead b{color:var(--tx)}
+
+/* a parede de ganchos */
+.f2-rack{margin-top:clamp(34px,5vh,58px);background:rgba(11,14,13,.55);border:1px solid rgba(255,255,255,.1);
+  border-radius:16px;padding:20px 22px 18px;backdrop-filter:blur(4px)}
+.f2-rackhd{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-dim)}
+.f2-rackhd .rn b{color:var(--gold);font-size:13px}
+.f2-rackhd .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--tx-dim);margin:0 7px 0 10px;vertical-align:middle}
+#fndScore.live .dot{background:var(--green);box-shadow:0 0 0 0 rgba(54,226,90,.6);animation:apulse 1.6s ease-in-out infinite}
+#fndScore.live .lv{color:var(--green)}
+.f2-bar{height:5px;margin:14px 0 0;border-radius:3px;
+  background:linear-gradient(180deg,#B9BEC4,#71767C 45%,#3D4247);box-shadow:0 3px 10px rgba(0,0,0,.6)}
+.f2-hooks{display:grid;grid-template-columns:repeat(50,1fr);gap:3px;margin-top:9px}
+.f2-hooks i{display:block;height:16px;border-radius:2px 2px 3px 3px;background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.09);position:relative;transition:.4s var(--ease)}
+.f2-hooks i::before{content:'';position:absolute;left:50%;top:-4px;width:1px;height:4px;background:rgba(255,255,255,.22);transform:translateX(-50%)}
+.f2-hooks i.taken{background:linear-gradient(180deg,rgba(255,197,61,.55),rgba(180,130,35,.32));border-color:rgba(255,197,61,.5)}
+.f2-legend{margin-top:12px;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--tx-dim)}
+.f2-legend b{color:var(--gold)}
+.f2-legend .sep{opacity:.4;margin:0 4px}
+.f2-legend .sw{display:inline-block;width:9px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:4px;
+  border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07)}
+.f2-legend .sw.taken{background:linear-gradient(180deg,rgba(255,197,61,.55),rgba(180,130,35,.32));border-color:rgba(255,197,61,.5)}
+
+/* as duas camisas penduradas */
+.f2-kits{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:clamp(30px,4.6vh,52px);perspective:1200px}
+.f2-kit{display:flex;gap:22px;align-items:flex-start;background:rgba(26,33,30,.72);border:1px solid rgba(255,255,255,.11);
+  border-radius:18px;padding:24px;cursor:pointer;transition:.35s var(--ease);position:relative;overflow:hidden}
+.f2-kit::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .35s;pointer-events:none;
+  background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),rgba(255,197,61,.12),transparent 62%)}
+.f2-kit:hover::before{opacity:1}
+.f2-kit:hover{transform:translateY(-6px);border-color:rgba(255,197,61,.45);box-shadow:0 34px 80px rgba(0,0,0,.5)}
+.f2-kit.vit:hover{border-color:rgba(0,229,200,.45)}
+.f2-kit.vit::before{background:radial-gradient(320px circle at var(--mx,50%) var(--my,50%),rgba(0,229,200,.12),transparent 62%)}
+.f2-hang{flex:none;width:clamp(112px,11vw,150px);display:flex;flex-direction:column;align-items:center}
+.f2-hang .hook{width:16px;height:16px;border:2px solid var(--hanger);border-bottom:0;border-radius:50% 50% 0 0;opacity:.75}
+.jersey{width:100%;aspect-ratio:1/1.16;position:relative;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:2px;margin-top:-2px;transform:rotate(var(--jr,-2deg));transition:transform .45s var(--ease);
+  clip-path:polygon(32% 0,42% 8%,58% 8%,68% 0,100% 16%,90% 39%,79% 32%,79% 100%,21% 100%,21% 32%,10% 39%,0 16%)}
+.f2-kit:hover .jersey{transform:rotate(0deg) scale(1.04)}
+.jersey.gold{background:linear-gradient(160deg,#F7DF8B 0%,#E3B54C 42%,#A87F22 100%)}
+.jersey.vit{background:linear-gradient(160deg,#7FF3E4 0%,#00E5C8 44%,#0B7F70 100%)}
+.jersey .jn{font-family:var(--f-num);font-size:clamp(34px,3.4vw,46px);line-height:1;color:rgba(20,14,0,.82)}
+.jersey.vit .jn{color:rgba(0,26,23,.8)}
+.jersey .jnm{font-family:var(--f-mono);font-size:8.5px;letter-spacing:.2em;color:rgba(20,14,0,.62)}
+.jersey.vit .jnm{color:rgba(0,26,23,.62)}
+.jersey .jsheen{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.5;
+  background:linear-gradient(118deg,transparent 38%,rgba(255,255,255,.75) 50%,transparent 62%)}
+.f2-body{flex:1;min-width:0}
+.f2-body h3{font-family:var(--f-num);text-transform:uppercase;font-size:19px;letter-spacing:.03em}
+.f2-price{font-family:var(--f-num);font-size:30px;line-height:1;margin-top:8px;color:var(--gold);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.f2-kit.vit .f2-price{color:var(--teal)}
+.f2-price small{font-size:15px}
+.f2-price span{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--tx-dim)}
+.f2-price s{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:var(--tx-dim);text-decoration-thickness:1px}
+.f2-tag{color:var(--tx-lo);font-size:14px;margin-top:8px}
+.f2-body ul{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.f2-body li{position:relative;padding-left:20px;font-size:14px;color:var(--tx-lo);line-height:1.5}
+.f2-body li::before{content:'';position:absolute;left:0;top:8px;width:8px;height:8px;border-radius:2px;background:var(--gold);opacity:.85}
+.f2-kit.vit li::before{background:var(--teal)}
+.f2-body li b{color:var(--tx)}
+.f2-cta{width:100%;margin-top:18px;pointer-events:none}
+.f2-fine{margin-top:9px;font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--tx-dim);text-align:center}
+
+/* as 3 leis */
+.f2-laws{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:clamp(30px,4.4vh,50px)}
+.f2-law{position:relative;padding:20px 22px 20px 62px;border:1px solid rgba(255,255,255,.09);border-radius:14px;
+  background:rgba(11,14,13,.5)}
+.f2-law .ln{position:absolute;left:18px;top:16px;font-family:var(--f-num);font-size:30px;line-height:1;
+  -webkit-text-stroke:1px rgba(255,197,61,.55);color:transparent}
+.f2-law p{font-size:13.5px;color:var(--tx-lo);line-height:1.6}
+.f2-law p b{color:var(--tx)}
+.f2-disc{margin-top:24px;font-size:12.5px;color:var(--tx-dim);text-align:center;max-width:860px;margin-inline:auto;line-height:1.65}
+.f2-disc b{color:var(--tx-lo)}
+.f2-disc a{color:var(--teal)}
+
+@media(max-width:940px){
+  .f2-kits,.f2-laws{grid-template-columns:1fr}
+  .f2-hooks{grid-template-columns:repeat(25,1fr)}
+}
+@media(max-width:560px){
+  .f2-kit{flex-direction:column;align-items:center;text-align:center}
+  .f2-hang{width:132px}
+  .f2-price{justify-content:center}
+  .f2-body li{text-align:left}
+  .f2-hooks{grid-template-columns:repeat(20,1fr)}
+}
+
 /* ============ preleção ============ */
 .talk{margin-top:50px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;position:relative;z-index:2}
 .tk{display:flex;gap:16px;background:var(--panel);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px 24px;
@@ -1377,13 +1484,112 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
   <p class="talk-note rv">Comece no perfil <b>Seguro</b> e acelere quando se sentir confortável.</p>
 </section>
 
+<!-- FUNDADOR: o vestiário do time fundador -->
+<section class="fnd2" id="fundador">
+  <div class="f2-room" aria-hidden="true"></div>
+  <div class="f2-beam" aria-hidden="true"></div>
+
+  <div class="f2-in">
+    <div class="f2-head rv">
+      <p class="f2-k">A janela do beta · edição numerada</p>
+      <h2>Duzentas camisas.<br /><span class="g">Depois o vestiário fecha.</span></h2>
+      <p class="f2-lead">Fundador é quem entra <b>antes do apito inicial do FC 27</b>. Você leva o Premium completo <b>hoje, funcionando</b> — e o ciclo do FC 27 inteiro de bônus. Um pagamento. Nenhuma mensalidade, nunca.</p>
+    </div>
+
+    <div class="f2-rack rv" id="fndScore">
+      <div class="f2-rackhd">
+        <span class="rk">PAREDE DO TIME FUNDADOR</span>
+        <span class="rn"><b class="js-fsF">100</b> de 200 livres <i class="dot" aria-hidden="true"></i><span class="lv">contagem ao vivo</span></span>
+      </div>
+      <div class="f2-bar" aria-hidden="true"></div>
+      <div class="f2-hooks" id="fndHooks" aria-hidden="true"></div>
+      <p class="f2-legend"><i class="sw free" aria-hidden="true"></i> livre <span class="sep">·</span> <i class="sw taken" aria-hidden="true"></i> ocupada <span class="sep">·</span> vitalício: <b class="js-fsL">25</b> de 50</p>
+    </div>
+
+    <div class="f2-kits">
+      <article class="f2-kit rv" data-fnd="founder" role="button" tabindex="0" aria-label="Garantir o Passe Fundador por 97 reais">
+        <div class="f2-hang">
+          <span class="hook" aria-hidden="true"></span>
+          <div class="jersey gold">
+            <span class="jn">97</span>
+            <span class="jnm">FUNDADOR</span>
+            <span class="jsheen" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="f2-body">
+          <h3>Passe Fundador</h3>
+          <p class="f2-price"><small>R$</small>97 <span>pagamento único</span> <s>R$199/ano</s></p>
+          <p class="f2-tag">O Premium inteiro agora — e o ano do FC 27 já pago.</p>
+          <ul>
+            <li><b>Premium completo hoje</b> — acende assim que o pagamento confirma</li>
+            <li><b>Todo o ciclo FC 27</b> incluído, nada a pagar no lançamento</li>
+            <li>Sai do ar no apito inicial — <b>e não volta</b></li>
+          </ul>
+          <span class="btn gold f2-cta">Vestir a 97 — R$97</span>
+          <p class="f2-fine">Pix ou cartão · 7 dias de arrependimento (CDC)</p>
+        </div>
+      </article>
+
+      <article class="f2-kit vit rv" data-fnd="lifetime" role="button" tabindex="0" aria-label="Garantir o Passe Vitalício por 297 reais">
+        <div class="f2-hang">
+          <span class="hook" aria-hidden="true"></span>
+          <div class="jersey vit">
+            <span class="jn">99</span>
+            <span class="jnm">VITALÍCIO</span>
+            <span class="jsheen" aria-hidden="true"></span>
+          </div>
+        </div>
+        <div class="f2-body">
+          <h3>Passe Vitalício</h3>
+          <p class="f2-price"><small>R$</small>297 <span>pagamento único</span> <s>vale 18 meses</s></p>
+          <p class="f2-tag">Nunca mais pense em plano. FC 27, 28, 29…</p>
+          <ul>
+            <li><b>Premium completo hoje</b> — acende assim que o pagamento confirma</li>
+            <li><b>Para sempre</b> — todos os ciclos futuros do AFT</li>
+            <li>Só <b>50 existem</b>. Acabou, acabou</li>
+          </ul>
+          <span class="btn line f2-cta">Vestir a 99 — R$297</span>
+          <p class="f2-fine">Pix ou cartão · 7 dias de arrependimento (CDC)</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="f2-laws rv">
+      <div class="f2-law"><span class="ln">01</span><p><b>Fecha no apito inicial.</b> Quando o Web App do FC 27 abrir, a oferta sai do ar. Depois disso não existe "virar fundador" — quem entrou, entrou.</p></div>
+      <div class="f2-law"><span class="ln">02</span><p><b>Tiragem única, contada pelo servidor.</b> 200 fundadores e 50 vitalícios. A parede acima é o estoque real, ao vivo — quando zerar, não reabre.</p></div>
+      <div class="f2-law"><span class="ln">03</span><p><b>Essa troca sai da mesa.</b> No lançamento o Premium vira assinatura mensal ou anual, todo ano. Um pagamento único no lugar disso é condição que não será oferecida de novo.</p></div>
+    </div>
+
+    <p class="f2-disc rv">Você recebe o Premium <b>funcionando hoje</b> — a extensão ao ciclo FC 27 é bônus sobre o produto já entregue, não uma pré-venda. 7 dias de arrependimento com devolução integral (art. 49 do CDC). O AFT depende do Web App da EA — leia os <a href="termos/">Termos de Uso</a> antes de comprar.</p>
+    <noscript><p class="f2-fine">Para contratar sem JavaScript: gustavolnx.dev@gmail.com</p></noscript>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" style="padding-top:0">
+  <p class="sec-k rv">Dúvidas</p>
+  <h2 class="rv">O que todo mundo pergunta <span class="g">antes de instalar.</span></h2>
+  <div class="faq rv">
+    <div class="fq"><button>É seguro? Minha conta vai pra algum servidor?</button><div class="a"><p>Não. O AFT roda 100% dentro do seu navegador, no seu PC. Sua conta EA, login e clube nunca saem da sua máquina — não existe servidor que toque na sua conta.</p></div></div>
+    <div class="fq"><button>Como vocês evitam o soft-block?</button><div class="a"><p>Ritmo humano (delays gaussianos, cooldowns, pausas), babysitter, detector de CAPTCHA e kill-switch que para tudo na hora. Você começa no modo Seguro e acelera quando quiser.</p></div></div>
+    <div class="fq"><button>Funciona no meu navegador?</button><div class="a"><p>Chrome, Edge e Firefox (Manifest V3). Se o FUT Web App abre, o AFT abre junto.</p></div></div>
+    <div class="fq"><button>O plano grátis serve mesmo?</button><div class="a"><p>Serve: solver até 30 DMEs/dia, preenchimento por template ilimitado e o explorador de evoluções completo. Sem cartão, não expira — você só assina quando os 30/dia ficarem pequenos.</p></div></div>
+    <div class="fq"><button>E quando a EA muda o Web App?</button><div class="a"><p>A gente acompanha e atualiza — as atualizações chegam sozinhas, sem reinstalar nada.</p></div></div>
+    <div class="fq"><button>O que o Passe Fundador me dá, exatamente?</button><div class="a"><p>O Premium completo, ativo na hora em que o pagamento confirma — não é pré-venda, é o produto funcionando hoje. O bônus: quando o ciclo do FC 27 começar e os planos mensais entrarem em vigor, você não paga nada até o fim daquele ciclo (Vitalício: nunca mais). E vale o CDC: 7 dias de arrependimento com devolução integral.</p></div></div>
+    <div class="fq"><button>Paguei o passe. Como ativo?</button><div class="a"><p>Não precisa ativar nada. O passe é vinculado ao e-mail da sua conta AFT no momento da compra — assim que o pagamento confirma (Pix: na hora; cartão: minutos), o Premium acende sozinho na extensão. Se algo não acender, fala com a gente: gustavolnx.dev@gmail.com.</p></div></div>
+    <div class="fq"><button>O passe Fundador volta depois? Vai ter "segunda turma"?</button><div class="a"><p>Não. Fundador é definido pelo momento: quem entrou antes do Web App do FC 27 abrir. Reabrir depois quebraria exatamente o que os 250 fundadores compraram — a exclusividade é parte do produto. Quando a janela fechar (ou as vagas zerarem, o que vier primeiro), o que passa a existir são os planos normais de tabela: R$13,90/mês ou R$199/ano.</p></div></div>
+  </div>
+</section>
+
+</div>
+
 <!-- LOJA DE CAMISAS (planos) -->
 <section class="sec" id="planos">
   <span class="secnum" aria-hidden="true">10</span>
   <p class="sec-k rv">Planos</p>
-  <h2 class="rv">Comece grátis. <span class="g">Assine só quando precisar de mais.</span></h2>
+  <h2 class="rv">Depois do beta, <span class="g">fica assim.</span></h2>
   <p class="lead rv">Sem cartão pra começar, sem fidelidade. E passe o mouse nas camisas — cada plano tem o seu nome nas costas.</p>
-  <div class="beta-ribbon rv"><span class="dot" aria-hidden="true"></span><span><b>Durante o beta, tudo isso está destravado e grátis para todo mundo.</b> Estes são os preços de tabela pós-lançamento — dá pra congelar por muito menos logo abaixo. ⤵</span></div>
+  <div class="beta-ribbon rv"><span class="dot" aria-hidden="true"></span><span><b>Estes preços entram em vigor quando o beta terminar — e o Passe Fundador logo acima existe justamente para você nunca pagá-los.</b></span></div>
   <div class="kits">
     <div class="kit rv">
       <div class="kitshirt t-free" data-n="12" data-t="Prata">
@@ -1459,109 +1665,11 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         <li>Análise do clube + Melhor XI</li>
         <li>Evoluções do clube + Comprar &amp; Evoluir</li>
       </ul>
-      <a class="btn line" href="#fundador">No beta: grátis · Congelar preço ↓</a>
+      <a class="btn line" href="#fundador">Congelar por R$97 ↑</a>
     </div>
   </div>
   <p class="kits-note rv">R$13,90/mês é menos do que você economiza em <b>um único dia</b> de DMEs · desinstalou, acabou — <b>nada fica no seu PC.</b></p>
 </section>
-
-<!-- FUNDADOR: o drop do beta -->
-<section class="fnd-scene" id="fundador">
-  <div class="fnd-ticker" id="fndScore" aria-live="polite">
-    <div class="trk">
-      <span class="ftk"><i aria-hidden="true"></i><span>JANELA DO FUNDADOR — ABERTA</span><span>FECHA NO APITO INICIAL DO FC 27</span><span>FUNDADOR <b class="js-fsF">100</b>/200</span><span>VITALÍCIO <b class="js-fsL">25</b>/50</span><span>PAGAMENTO ÚNICO · PIX OU CARTÃO</span><span>TIRAGEM QUE NÃO REABRE</span></span>
-      <span class="ftk" aria-hidden="true"><i></i><span>JANELA DO FUNDADOR — ABERTA</span><span>FECHA NO APITO INICIAL DO FC 27</span><span>FUNDADOR <b class="js-fsF">100</b>/200</span><span>VITALÍCIO <b class="js-fsL">25</b>/50</span><span>PAGAMENTO ÚNICO · PIX OU CARTÃO</span><span>TIRAGEM QUE NÃO REABRE</span></span>
-    </div>
-  </div>
-  <div class="fnd-in">
-  <div class="fnd-head rv">
-    <p class="fnd-k">A janela do beta · edição numerada</p>
-    <h2 class="fnd-h2">A janela fecha.<br /><span class="g">E não reabre.</span></h2>
-    <p class="fnd-lead">Fundador é quem entra <b>antes do apito inicial do FC 27</b>. Você leva o Premium completo <b>hoje, funcionando</b> — e o ciclo FC 27 inteiro de bônus. Um pagamento. Nenhuma mensalidade.</p>
-  </div>
-
-  <div class="fnd-stage">
-    <div class="fpod rv">
-      <div class="fcardw"><div class="fcard t-fnd" data-fnd="founder" role="button" tabindex="0" aria-label="Garantir o Passe Fundador por 97 reais">
-        <span class="fc-artglow" aria-hidden="true"></span>
-        <span class="fc-art" aria-hidden="true"></span>
-        <div class="fc-in">
-          <span class="fc-ovr"><span class="c">97</span><span class="p">CAP</span></span>
-          <span class="fc-ed">EDIÇÃO · 200 UNIDADES</span>
-          <span class="fc-name">FUNDADOR</span>
-          <span class="fc-sub">PASSE DO PRIMEIRO DIA · 1 DE 200</span>
-          <span class="fc-stats"><span>PREMIUM HOJE</span><span>+ CICLO FC 27</span><span>7D CDC</span></span>
-          <span class="fc-pricebar"><small>R$</small>97 <small>PAGAMENTO ÚNICO</small> <s>R$199/ano</s></span>
-        </div>
-        <span class="lyr foil" aria-hidden="true"></span>
-        <span class="lyr glare" aria-hidden="true"></span>
-      </div></div>
-      <h3>Passe Fundador</h3>
-      <p class="ftag">Premium inteiro agora — e o ano do FC 27 já pago.</p>
-      <ul>
-        <li><b>Premium completo hoje</b> — ativa na confirmação</li>
-        <li><b>Todo o ciclo FC 27</b> incluído, nada a pagar no lançamento</li>
-        <li>Sai do ar no apito inicial — <b>e não volta</b></li>
-      </ul>
-      <p class="ffine">1 de 200 · o letreiro acima é o estoque real</p>
-      <button class="btn gold fnd-cta" data-fnd="founder">Garantir minha vaga — R$97</button>
-      <noscript><p class="ffine">Para contratar sem JavaScript: gustavolnx.dev@gmail.com</p></noscript>
-    </div>
-    <div class="fpod vit rv">
-      <div class="fcardw"><div class="fcard t-vit" data-fnd="lifetime" role="button" tabindex="0" aria-label="Garantir o Passe Vitalício por 297 reais">
-        <span class="fc-artglow" aria-hidden="true"></span>
-        <span class="fc-art" aria-hidden="true"></span>
-        <div class="fc-in">
-          <span class="fc-ovr"><span class="c">99</span><span class="p">CAP</span></span>
-          <span class="fc-ed">EDIÇÃO · 50 UNIDADES</span>
-          <span class="fc-name">VITALÍCIO</span>
-          <span class="fc-sub">UMA VEZ NA VIDA · 1 DE 50</span>
-          <span class="fc-stats"><span>PREMIUM HOJE</span><span>PARA SEMPRE</span><span>7D CDC</span></span>
-          <span class="fc-pricebar"><small>R$</small>297 <small>PAGAMENTO ÚNICO</small> <s>vale 18 meses</s></span>
-        </div>
-        <span class="lyr foil" aria-hidden="true"></span>
-        <span class="lyr glare" aria-hidden="true"></span>
-      </div></div>
-      <h3>Passe Vitalício</h3>
-      <p class="ftag">Nunca mais pense em plano. FC 27, 28, 29…</p>
-      <ul>
-        <li><b>Premium completo hoje</b> — ativa na confirmação</li>
-        <li><b>Para sempre</b> — todos os ciclos futuros do AFT</li>
-        <li>Só 50 existem. <b>Acabou, acabou</b></li>
-      </ul>
-      <p class="ffine">1 de 50 · edição que não reabre</p>
-      <button class="btn line fnd-cta" data-fnd="lifetime">Quero o vitalício — R$297</button>
-      <noscript><p class="ffine">Para contratar sem JavaScript: gustavolnx.dev@gmail.com</p></noscript>
-    </div>
-  </div>
-
-  <div class="fnd-laws rv">
-    <div class="law"><span class="ln">01</span><p><b>Fecha no apito inicial.</b> Quando o Web App do FC 27 abrir, a oferta sai do ar. Depois disso não existe "virar fundador" — quem entrou, entrou. Todo clube tem quem chegou depois da taça; fundador é quem estava no primeiro jogo.</p></div>
-    <div class="law"><span class="ln">02</span><p><b>Tiragem única, contada pelo servidor.</b> 200 Fundadores + 50 Vitalícios. O letreiro lá em cima é o estoque real, ao vivo — quando zerar ou a janela fechar: sem reabertura, sem "segunda turma".</p></div>
-    <div class="law"><span class="ln">03</span><p><b>Essa troca sai da mesa.</b> No lançamento o Premium vira assinatura — R$13,90/mês, R$199/ano, todo ano. Um único pagamento no lugar disso é condição que não será oferecida de novo.</p></div>
-  </div>
-
-  <p class="fnd-legal rv">Você recebe o Premium <b>funcionando hoje</b> — a extensão ao ciclo FC 27 é bônus sobre o produto já entregue, não uma pré-venda. 7 dias de arrependimento com devolução integral (art. 49 do CDC). O AFT depende do Web App da EA — leia os <a href="termos/">Termos de Uso</a> antes de comprar.</p>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="sec" style="padding-top:0">
-  <p class="sec-k rv">Dúvidas</p>
-  <h2 class="rv">O que todo mundo pergunta <span class="g">antes de instalar.</span></h2>
-  <div class="faq rv">
-    <div class="fq"><button>É seguro? Minha conta vai pra algum servidor?</button><div class="a"><p>Não. O AFT roda 100% dentro do seu navegador, no seu PC. Sua conta EA, login e clube nunca saem da sua máquina — não existe servidor que toque na sua conta.</p></div></div>
-    <div class="fq"><button>Como vocês evitam o soft-block?</button><div class="a"><p>Ritmo humano (delays gaussianos, cooldowns, pausas), babysitter, detector de CAPTCHA e kill-switch que para tudo na hora. Você começa no modo Seguro e acelera quando quiser.</p></div></div>
-    <div class="fq"><button>Funciona no meu navegador?</button><div class="a"><p>Chrome, Edge e Firefox (Manifest V3). Se o FUT Web App abre, o AFT abre junto.</p></div></div>
-    <div class="fq"><button>O plano grátis serve mesmo?</button><div class="a"><p>Serve: solver até 30 DMEs/dia, preenchimento por template ilimitado e o explorador de evoluções completo. Sem cartão, não expira — você só assina quando os 30/dia ficarem pequenos.</p></div></div>
-    <div class="fq"><button>E quando a EA muda o Web App?</button><div class="a"><p>A gente acompanha e atualiza — as atualizações chegam sozinhas, sem reinstalar nada.</p></div></div>
-    <div class="fq"><button>O que o Passe Fundador me dá, exatamente?</button><div class="a"><p>O Premium completo, ativo na hora em que o pagamento confirma — não é pré-venda, é o produto funcionando hoje. O bônus: quando o ciclo do FC 27 começar e os planos mensais entrarem em vigor, você não paga nada até o fim daquele ciclo (Vitalício: nunca mais). E vale o CDC: 7 dias de arrependimento com devolução integral.</p></div></div>
-    <div class="fq"><button>Paguei o passe. Como ativo?</button><div class="a"><p>Não precisa ativar nada. O passe é vinculado ao e-mail da sua conta AFT no momento da compra — assim que o pagamento confirma (Pix: na hora; cartão: minutos), o Premium acende sozinho na extensão. Se algo não acender, fala com a gente: gustavolnx.dev@gmail.com.</p></div></div>
-    <div class="fq"><button>O passe Fundador volta depois? Vai ter "segunda turma"?</button><div class="a"><p>Não. Fundador é definido pelo momento: quem entrou antes do Web App do FC 27 abrir. Reabrir depois quebraria exatamente o que os 250 fundadores compraram — a exclusividade é parte do produto. Quando a janela fechar (ou as vagas zerarem, o que vier primeiro), o que passa a existir são os planos normais de tabela: R$13,90/mês ou R$199/ano.</p></div></div>
-  </div>
-</section>
-
-</div>
 
 <!-- O TÚNEL 3D (CTA final) -->
 <section class="tunnel" id="tunnel">
@@ -1875,23 +1983,36 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
     /* tilt 3D + foil/glare no ponteiro (ref. poke-holo) */
     if(FINE){
       document.addEventListener('pointermove',function(e){
-        var c=e.target.closest?e.target.closest('.fcard'):null;
+        var c=e.target.closest?e.target.closest('.f2-kit'):null;
         if(!c)return;
         var r=c.getBoundingClientRect();
         var px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
         c.style.setProperty('--mx',(px*100).toFixed(1)+'%');
         c.style.setProperty('--my',(py*100).toFixed(1)+'%');
-        c.style.setProperty('--px',(50+(px-0.5)*-46).toFixed(1)+'%');
-        c.style.setProperty('--py',(50+(py-0.5)*-46).toFixed(1)+'%');
-        if(!RM)c.style.transform='rotateY('+((px-0.5)*14).toFixed(2)+'deg) rotateX('+((0.5-py)*10).toFixed(2)+'deg)';
+        var j=c.querySelector('.jersey');
+        if(j&&!RM)j.style.setProperty('--jr',((px-0.5)*7).toFixed(2)+'deg');
       },{passive:true});
       document.addEventListener('pointerout',function(e){
-        var c=e.target.closest?e.target.closest('.fcard'):null;
-        if(c)c.style.transform='';
+        var c=e.target.closest?e.target.closest('.f2-kit'):null;
+        if(c){var j=c.querySelector('.jersey');if(j)j.style.removeProperty('--jr')}
       },{passive:true});
     }
 
-    /* vagas ao vivo — o letreiro só ganha o "AO VIVO" se o backend responder */
+    /* a parede de ganchos: 200 lugares, os ocupados acendem em dourado */
+    var hooks=document.getElementById('fndHooks'),hookEls=[];
+    if(hooks){
+      var frag=document.createDocumentFragment();
+      for(var i=0;i<200;i++){var el=document.createElement('i');frag.appendChild(el);hookEls.push(el)}
+      hooks.appendChild(frag);
+    }
+    function paintHooks(total,left){
+      if(!hookEls.length)return;
+      var taken=Math.max(0,Math.min(hookEls.length,(total||200)-(left||0)));
+      for(var i=0;i<hookEls.length;i++)hookEls[i].classList.toggle('taken',i<taken);
+    }
+    paintHooks(200,100);
+
+    /* vagas ao vivo — a parede só ganha o "AO VIVO" se o backend responder */
     var score=document.getElementById('fndScore');
     if(score){
       try{
@@ -1901,10 +2022,7 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
             document.querySelectorAll('.js-fsF').forEach(function(el){el.textContent=d.founder.left});
             document.querySelectorAll('.js-fsL').forEach(function(el){el.textContent=d.lifetime.left});
             score.classList.add('live');
-            var f=document.querySelector('.fcard.t-fnd .fc-ed');
-            if(f&&d.founder.left<d.founder.total)f.textContent='RESTAM '+d.founder.left+' DE 200';
-            var v=document.querySelector('.fcard.t-vit .fc-ed');
-            if(v&&d.lifetime.left<d.lifetime.total)v.textContent='RESTAM '+d.lifetime.left+' DE 50';
+            paintHooks(d.founder.total,d.founder.left);
           }).catch(function(){});
       }catch(e){}
     }
@@ -1940,7 +2058,7 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
     });
     document.addEventListener('keydown',function(e){
       if(e.key==='Escape'&&modal.classList.contains('open'))close();
-      if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('fcard')){
+      if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('f2-kit')){
         e.preventDefault();open(e.target.getAttribute('data-fnd'));
       }
     });
