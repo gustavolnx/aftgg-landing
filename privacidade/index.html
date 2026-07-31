@@ -88,11 +88,12 @@ footer a:hover{color:var(--tx)}
       <li><strong>Assinatura/pagamento:</strong> os planos pagos são processados pela <strong>Asaas</strong>, um provedor de pagamento externo. Os dados do cartão são inseridos na própria página de checkout da Asaas e tratados por ela — a extensão nunca os vê nem armazena. Guardamos apenas o status do seu plano e uma referência opaca da assinatura.</li>
       <li><strong>Consulta de preços (somente planos pagos):</strong> para usuários pagos, as consultas de preço de mercado passam pelo nosso proxy de backend. Não vinculamos essas consultas a um perfil pessoal.</li>
       <li><strong>Contadores de uso anônimos:</strong> a extensão pode enviar contadores diários agregados e <strong>não pessoais</strong> (ex.: "solver rodou N vezes hoje") e a versão da extensão, para entender a carga e detectar abuso. Não contêm dados pessoais.</li>
+      <li><strong>Cálculo de nota meta de uma carta (todos os planos):</strong> ao usar as ferramentas de evolução, a extensão envia os <strong>atributos da carta</strong> que você está analisando (overall, os seis stats, sub-atributos, pé ruim, embaixadinhas e PlayStyles) para a nossa API pública em <code>fc.gustavolnx.xyz</code>, que devolve a nota. São <strong>números da carta do jogo</strong> — sem o seu nome, e-mail, identificador de conta ou qualquer dado do seu clube. Não guardamos essas consultas vinculadas a você.</li>
     </ul>
     <p>Não coletamos histórico de navegação, digitação, conteúdo de outras páginas, localização ou contatos.</p>
 
     <h3>Dados públicos de referência</h3>
-    <p>Para rotular cartas e mostrar informações de evolução, a extensão lê dados públicos e somente-leitura de sites da comunidade (FUT.GG e EasySBC). São requisições de dados públicos do jogo. <strong>Nenhum dado da sua conta, do seu clube ou qualquer dado pessoal é enviado a eles</strong>, e não são usados para preços.</p>
+    <p>Para rotular cartas e mostrar informações de evolução, a extensão lê dados públicos e somente-leitura de sites da comunidade — <strong>FUT.GG</strong> (incluindo os CDNs <code>r2.fut.gg</code> e <code>game-assets.fut.gg</code>, de onde vêm as tabelas públicas de evolução, a arte das cartas e a tabela de notas) e <strong>EasySBC</strong>. São requisições de dados públicos do jogo. <strong>Nenhum dado da sua conta, do seu clube ou qualquer dado pessoal é enviado a eles</strong>, e não são usados para preços.</p>
 
     <h3>Compartilhamento</h3>
     <p>Não vendemos nem compartilhamos seus dados com terceiros, exceto os provedores de serviço estritamente necessários para operar o produto (Supabase para auth/backend, Asaas para pagamentos). Não usamos nem transferimos seus dados para fins de análise de crédito ou empréstimo.</p>
@@ -125,11 +126,12 @@ footer a:hover{color:var(--tx)}
       <li><strong>Subscription/payment:</strong> paid plans are processed by <strong>Asaas</strong>, an external payment provider. Card/payment details are entered on Asaas's own checkout page and are handled by Asaas — the extension never sees or stores them. We store only your plan status and an opaque subscription reference.</li>
       <li><strong>Price lookups (paid plans only):</strong> for paid users, market-price requests are routed through our backend proxy. We do not attach these requests to a personal profile.</li>
       <li><strong>Anonymous usage counters:</strong> the extension may send aggregate, <strong>non-personal</strong> daily counters (e.g. "solver run N times today") and the extension version, to understand load and detect abuse. These contain no personal data and are not linked to your identity beyond the account already described.</li>
+      <li><strong>Card meta-rating computation (all plans):</strong> when you use the evolution tools, the extension sends the <strong>attributes of the card you are analysing</strong> (overall, the six face stats, sub-attributes, weak foot, skill moves and PlayStyles) to our public API at <code>fc.gustavolnx.xyz</code>, which returns the rating. These are <strong>in-game card numbers</strong> — no name, e-mail, account identifier or any club data. We do not store these lookups linked to you.</li>
     </ul>
     <p>We do <strong>not</strong> collect browsing history, keystrokes, page content from other sites, location, or contacts.</p>
 
     <h3>Public reference data</h3>
-    <p>To label cards and show card-evolution information, the extension reads public, read-only reference data from third-party community sites (FUT.GG and EasySBC). These are plain requests for publicly available game data. <strong>No account information, club data, or any personal data is sent to them</strong>, and they are not used for prices.</p>
+    <p>To label cards and show card-evolution information, the extension reads public, read-only reference data from third-party community sites — <strong>FUT.GG</strong> (including the <code>r2.fut.gg</code> and <code>game-assets.fut.gg</code> CDNs, which serve the public evolution tables, card artwork and the ratings table) and <strong>EasySBC</strong>. These are plain requests for publicly available game data. <strong>No account information, club data, or any personal data is sent to them</strong>, and they are not used for prices.</p>
 
     <h3>Data sharing</h3>
     <p>We do not sell or share your data with third parties, except the service providers strictly required to run the product (Supabase for auth/backend, Asaas for payments). We do not use or transfer your data for creditworthiness or lending purposes.</p>
