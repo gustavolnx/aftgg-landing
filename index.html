@@ -497,6 +497,11 @@ a{color:inherit;text-decoration:none}
 .ct-f h3 .ic{font-size:17px}
 .ct-f p{color:var(--tx-lo);font-size:14px;margin-top:7px}
 .ct-f p b{color:var(--tx)}
+.gotoc{color:var(--teal);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;
+  border-bottom:1px solid rgba(0,229,200,.35);white-space:nowrap}
+.gotoc:hover{color:var(--green);border-color:var(--green)}
+.lockers.one{grid-template-columns:1fr}
+.sec .lockers{margin-top:0}
 .ct-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;position:relative;z-index:2}
 
 /* ============ CENA: O AUTOMÁTICO (lote · rotinas · packs) ============ */
@@ -1128,9 +1133,9 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         <div class="starter" data-n="8"><span class="cap-band" aria-hidden="true"></span><span class="snum">8</span><div class="info"><h3>O Solver <small>O motor · camisa 8</small></h3><p>O coração da ferramenta: otimização exata que encontra a combinação <b>comprovadamente mais barata</b> que cumpre o DME — em ~2 segundos, com química calculada quando o desafio exige e inegociáveis primeiro (custo 0).</p></div><span class="pl free">Grátis</span></div>
         <div class="starter" data-n="4"><span class="snum">4</span><div class="info"><h3>Preço em cada carta <small>A defesa · camisa 4</small></h3><p>O valor de mercado ao vivo desenhado em cima de cada carta — no clube, no campo e no mercado. <b>Você sempre sabe o que está gastando</b> antes de enviar.</p></div><span class="pl pro">Pro</span></div>
         <div class="starter" data-n="10"><span class="snum">10</span><div class="info"><h3>Análise do clube <small>A visão · camisa 10</small></h3><p>Varre o elenco inteiro e mostra <b>onde o seu time melhora</b>: upgrade por posição, o melhor XI possível com o que você já tem e a valorização do clube dia a dia.</p></div><span class="pl prem">Premium</span></div>
-        <div class="starter" data-n="9"><span class="snum">9</span><div class="info"><h3>Lote &amp; Rotinas <small>O automático · camisa 9</small></h3><p>Repete um DME N vezes ou executa uma sequência inteira: resolve, preenche, envia, abre as recompensas e organiza as sobras — <b>sem você tocar em nada.</b></p></div><span class="pl prem">Premium</span></div>
-        <div class="starter" data-n="11"><span class="snum">11</span><div class="info"><h3>Evoluções <small>O planejador · camisa 11</small></h3><p>Testa milhares de caminhos de evolução <b>na sua carta real</b> — perguntando ao próprio jogo — e mostra a corrente completa, com custo e nota meta, antes de você gastar.</p></div><span class="pl free">Grátis</span></div>
-        <div class="starter" data-n="7"><span class="snum">7</span><div class="info"><h3>Packs no automático <small>Camisa 7</small></h3><p>Abre pacotes em lote, registra tudo num histórico e envia cada carta pro destino certo: clube, armazenamento ou venda. <b>Menos micro-gestão, mais jogo.</b></p></div><span class="pl prem">Premium</span></div>
+        <div class="starter" data-n="9"><span class="snum">9</span><div class="info"><h3>Lote &amp; Rotinas <small>O automático · camisa 9</small></h3><p>Repete um DME N vezes ou executa uma sequência inteira — <b>sem você tocar em nada.</b> <a class="gotoc" href="#automatico">ver a cena →</a></p></div><span class="pl prem">Premium</span></div>
+        <div class="starter" data-n="11"><span class="snum">11</span><div class="info"><h3>Evoluções <small>O planejador · camisa 11</small></h3><p>Monta a corrente inteira de evolução da carta que você escolher, <b>com o custo fechado.</b> <a class="gotoc" href="#evolucoes">ver a cena →</a></p></div><span class="pl free">Grátis</span></div>
+        <div class="starter" data-n="7"><span class="snum">7</span><div class="info"><h3>Packs no automático <small>Camisa 7</small></h3><p>Abre pacotes em lote e envia cada carta pro destino certo. <b>Menos micro-gestão, mais jogo.</b> <a class="gotoc" href="#automatico">ver a cena →</a></p></div><span class="pl prem">Premium</span></div>
         <div class="starter" data-n="5"><span class="snum">5</span><div class="info"><h3>Filtros do solver <small>Suas regras · camisa 5</small></h3><p>Teto e piso de overall, só inegociáveis, excluir raridades, puxar do armazenamento. <b>A solução sempre respeita as suas regras</b> — e acha o mais barato dentro delas.</p></div><span class="pl free">Grátis</span></div>
         <div class="starter" data-n="6"><span class="snum">6</span><div class="info"><h3>Reciclar + limpeza <small>A faxina · camisa 6</small></h3><p>Transforma sobras em pack reciclando dentro de um DME e limpa o armazenamento em massa por regras de OVR e raridade.</p></div><span class="pl pro">Pro</span></div>
         <div class="starter" data-n="2"><span class="snum">2</span><div class="info"><h3>Ritmo automático <small>Proteção · camisa 2</small></h3><p>Delays variáveis, cooldowns e pausas automáticas em qualquer automação — pra operar sempre num <b>padrão de uso normal</b>, nunca em intervalos cravados.</p></div><span class="pl free">Grátis</span></div>
@@ -1162,18 +1167,8 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         <p class="cap"><b>Um clique:</b> o AFT lê o clube, resolve e preenche as 11 posições com as cartas mais baratas. Requisitos batidos, pronto pra enviar.</p>
       </div>
     </div>
-    <div class="locker rv">
-      <div class="tvframe">
-        <span class="glare" aria-hidden="true"></span>
-        <div class="lb"><span>CAMISA 11 · EVOLUÇÕES</span><span><b>13.937 TESTES</b></span></div>
-        <video muted loop playsinline preload="none" poster="assets/video/evo-explorer-poster.jpg" class="lazyvid"
-          aria-label="Explorador de evoluções ranqueando caminhos por meta">
-          <source src="assets/video/evo-explorer.mp4" type="video/mp4" />
-        </video>
-        <p class="cap">O Explorador monta a corrente completa de evolução, com custo e nota meta de cada passo — <b>antes de você aplicar a primeira.</b></p>
-      </div>
-    </div>
-    <div class="locker rv">
+    
+    <div class="locker wide rv">
       <div class="tvframe">
         <span class="glare" aria-hidden="true"></span>
         <div class="lb"><span>CAMISA 10 · ANÁLISE</span><span><b>UPGRADE +5.3</b></span></div>
@@ -1184,28 +1179,8 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
         <p class="cap">A análise varre o clube e aponta o upgrade de cada posição — <b>com o valor da troca na tela.</b></p>
       </div>
     </div>
-    <div class="locker rv">
-      <div class="tvframe">
-        <span class="glare" aria-hidden="true"></span>
-        <div class="lb"><span>CAMISA 9 · LOTE</span><span><b>2/2 CONCLUÍDO</b></span></div>
-        <video muted loop playsinline preload="none" poster="assets/video/lote-run-poster.jpg" class="lazyvid"
-          aria-label="Lote repetindo um DME com log ao vivo">
-          <source src="assets/video/lote-run.mp4" type="video/mp4" />
-        </video>
-        <p class="cap">O lote repete o ciclo resolver → preencher → enviar com pausas automáticas — <b>e loga cada carta gasta.</b></p>
-      </div>
-    </div>
-    <div class="locker rv">
-      <div class="tvframe">
-        <span class="glare" aria-hidden="true"></span>
-        <div class="lb"><span>BANCO · ROTINAS</span><span><b>PASSO 1/2 → 2/2</b></span></div>
-        <video muted loop playsinline preload="none" poster="assets/video/rotina-run-poster.jpg" class="lazyvid"
-          aria-label="Rotina executando dois DMEs em sequência">
-          <source src="assets/video/rotina-run.mp4" type="video/mp4" />
-        </video>
-        <p class="cap">Uma rotina executa vários DMEs em sequência, abre as recompensas e organiza as sobras — <b>sem intervenção.</b></p>
-      </div>
-    </div>
+    
+    
   </div>
 </section>
 
@@ -1248,7 +1223,19 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
 </section>
 
 <section class="sec" style="padding-top:0">
-  <p class="lead rv" style="max-width:760px">Evolução errada é moeda queimada que não volta. O AFT testa <b>milhares de correntes</b> na carta que você escolher, ranqueia por nota meta e mostra a corrente inteira — com o custo fechado — <b>antes de você aplicar a primeira.</b></p>
+  <div class="lockers one">
+<div class="locker rv">
+      <div class="tvframe">
+        <span class="glare" aria-hidden="true"></span>
+        <div class="lb"><span>CAMISA 11 · EVOLUÇÕES</span><span><b>13.937 TESTES</b></span></div>
+        <video muted loop playsinline preload="none" poster="assets/video/evo-explorer-poster.jpg" class="lazyvid"
+          aria-label="Explorador de evoluções ranqueando caminhos por meta">
+          <source src="assets/video/evo-explorer.mp4" type="video/mp4" />
+        </video>
+        <p class="cap"><b>Gravação real, sem edição:</b> 13.937 combinações testadas numa carta do clube até fechar a corrente.</p>
+      </div>
+    </div>
+  </div>
   <div class="ct-grid">
     <div class="ct-f rv">
       <h3><span class="ic" aria-hidden="true">🎯</span> Quem diz se cabe é o jogo</h3>
@@ -1335,7 +1322,30 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
 </section>
 
 <section class="sec" style="padding-top:0">
-  <p class="lead rv" style="max-width:760px">DME de repetição é trabalho braçal: mesmo desafio, dezenas de vezes, cada rodada com cartas diferentes. Salve a sequência uma vez e <b>ela roda sozinha</b>.</p>
+  <div class="lockers">
+<div class="locker rv">
+      <div class="tvframe">
+        <span class="glare" aria-hidden="true"></span>
+        <div class="lb"><span>CAMISA 9 · LOTE</span><span><b>2/2 CONCLUÍDO</b></span></div>
+        <video muted loop playsinline preload="none" poster="assets/video/lote-run-poster.jpg" class="lazyvid"
+          aria-label="Lote repetindo um DME com log ao vivo">
+          <source src="assets/video/lote-run.mp4" type="video/mp4" />
+        </video>
+        <p class="cap"><b>Gravação real:</b> duas rodadas do mesmo DME, com o log de cada carta gasta.</p>
+      </div>
+    </div>
+<div class="locker rv">
+      <div class="tvframe">
+        <span class="glare" aria-hidden="true"></span>
+        <div class="lb"><span>BANCO · ROTINAS</span><span><b>PASSO 1/2 → 2/2</b></span></div>
+        <video muted loop playsinline preload="none" poster="assets/video/rotina-run-poster.jpg" class="lazyvid"
+          aria-label="Rotina executando dois DMEs em sequência">
+          <source src="assets/video/rotina-run.mp4" type="video/mp4" />
+        </video>
+        <p class="cap"><b>Gravação real:</b> uma rotina de dois passos, do primeiro DME até as sobras organizadas.</p>
+      </div>
+    </div>
+  </div>
   <div class="mt-grid">
     <div class="mt-m rv">
       <h3><span class="ic" aria-hidden="true">🔁</span> Lote</h3>
@@ -1349,10 +1359,6 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
       <h3><span class="ic" aria-hidden="true">🎁</span> Packs no automático</h3>
       <p>Abre pacotes em lote e manda cada carta para o destino certo. Você define <b>condições de parada</b> — achou a carta que você pediu, ele para e a deixa intacta.</p>
     </div>
-  </div>
-  <div class="mt-guard rv">
-    <span class="gk">SEMPRE LIGADO</span>
-    <span class="gi">Ritmo variável entre as ações · <b>pausa sozinho se você sai da frente do PC</b> · congela tudo se aparecer verificação · <b>kill-switch</b> encerra na hora, num clique.</span>
   </div>
   <div class="ct-pills rv"><span class="pl prem">Automação completa · Premium</span></div>
 </section>
