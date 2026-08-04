@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>AFT — Auto Farm Tools | Resolva qualquer DME do FC 26 em segundos</title>
+<title>AFT — Resolva qualquer DME do FC 26 em segundos</title>
 <meta name="description" content="O AFT lê o seu clube, calcula o elenco mais barato que cumpre qualquer DME do EA FC 26 e preenche as 11 posições em ~2 segundos. Preço real em cada carta, evoluções testadas no jogo e automação com kill-switch. Grátis para começar, sem cartão." />
 <link rel="canonical" href="https://aftgg.com/" />
 <meta property="og:site_name" content="AFT — Auto Farm Tools" />
@@ -1499,11 +1499,11 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
     <div class="f2-rack rv" id="fndScore">
       <div class="f2-rackhd">
         <span class="rk">PAREDE DO TIME FUNDADOR</span>
-        <span class="rn"><b class="js-fsF">100</b> de 200 livres <i class="dot" aria-hidden="true"></i><span class="lv">contagem ao vivo</span></span>
+        <span class="rn"><b class="js-fsF">102</b> de 200 livres <i class="dot" aria-hidden="true"></i><span class="lv">contagem ao vivo</span></span>
       </div>
       <div class="f2-bar" aria-hidden="true"></div>
       <div class="f2-hooks" id="fndHooks" aria-hidden="true"></div>
-      <p class="f2-legend"><i class="sw free" aria-hidden="true"></i> livre <span class="sep">·</span> <i class="sw taken" aria-hidden="true"></i> ocupada <span class="sep">·</span> vitalício: <b class="js-fsL">25</b> de 50</p>
+      <p class="f2-legend"><i class="sw free" aria-hidden="true"></i> livre <span class="sep">·</span> <i class="sw taken" aria-hidden="true"></i> indisponível <span class="sep">·</span> vitalício: <b class="js-fsL">25</b> de 50</p>
     </div>
 
     <div class="f2-kits">
@@ -1556,12 +1556,12 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
 
     <div class="f2-laws rv">
       <div class="f2-law"><span class="ln">01</span><p><b>Fecha no apito inicial.</b> Quando o Web App do FC 27 abrir, a oferta sai do ar. Depois disso não existe "virar fundador" — quem entrou, entrou.</p></div>
-      <div class="f2-law"><span class="ln">02</span><p><b>Tiragem única, contada pelo servidor.</b> 200 fundadores e 50 vitalícios. A parede acima é o estoque real, ao vivo — quando zerar, não reabre.</p></div>
+      <div class="f2-law"><span class="ln">02</span><p><b>102 passes de fundador e 25 vitalícios disponíveis nesta janela. A parede acima é o estoque ao vivo — quando zerar, não reabre.</p></div>
       <div class="f2-law"><span class="ln">03</span><p><b>Essa troca sai da mesa.</b> No lançamento o Premium vira assinatura mensal ou anual, todo ano. Um pagamento único no lugar disso é condição que não será oferecida de novo.</p></div>
     </div>
 
     <p class="f2-disc rv">Você recebe o Premium <b>funcionando hoje</b> — a extensão ao ciclo FC 27 é bônus sobre o produto já entregue, não uma pré-venda. 7 dias de arrependimento com devolução integral (art. 49 do CDC). O AFT depende do Web App da EA — leia os <a href="termos/">Termos de Uso</a> antes de comprar.</p>
-    <noscript><p class="f2-fine">Para contratar sem JavaScript: gustavolnx.dev@gmail.com</p></noscript>
+    
   </div>
 </section>
 
@@ -2010,7 +2010,7 @@ footer{background:#0A0D0C;border-top:1px solid rgba(255,255,255,.08);padding:52p
       var taken=Math.max(0,Math.min(hookEls.length,(total||200)-(left||0)));
       for(var i=0;i<hookEls.length;i++)hookEls[i].classList.toggle('taken',i<taken);
     }
-    paintHooks(200,100);
+    paintHooks(200,102);
 
     /* vagas ao vivo — a parede só ganha o "AO VIVO" se o backend responder */
     var score=document.getElementById('fndScore');
